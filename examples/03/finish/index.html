@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Example 03</title>
+    <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
+</head>
+<body>
+
+<a-scene main>
+
+    <a-assets>
+        <a-asset-item id="cactus" src="assets/gltf/cactus/cactus-tpose.gltf"></a-asset-item>
+        <a-asset-item id="cactus-jump" src="assets/gltf/cactus/cactus-jump.gltf"></a-asset-item>
+    </a-assets>
+
+
+    <a-entity gltf-model="#cactus" position="0 0 -4" scale="0.1 0.1 0.1"></a-entity>
+    <a-entity gltf-model="#cactus-jump" position="4 0 -4" scale="0.1 0.1 0.1"></a-entity>
+
+    <!-- if using mixamo, exported dae collada model must only have a single animation -->
+    <!-- convert resulting file to glb using this tool: https://cesiumjs.org/convertmodel.html and don't select binary or quantized OR import DAE into Blender and use this plugin to export: https://github.com/Kupoman/blendergltf   -->
+    <!-- note: plugin requires python 3.5 and the latest Blender (2.78) to be installed -->
+
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+    <a-sky color="#ECECEC"></a-sky>
+</a-scene>
+
+</body>
+</html>
