@@ -1,0 +1,27 @@
+{
+  "name": "aframe-workshop",
+  "version": "1.0.0",
+  "description": "Example files for an A-Frame workshop",
+  "main": "assets/main.js",
+  "directories": {
+    "example": "examples"
+  },
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "serve ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HAZARDU5/aframe-workshop.git"
+  },
+  "author": "Michael Andrew (michael@uxvirtual.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HAZARDU5/aframe-workshop/issues"
+  },
+  "homepage": "https://github.com/HAZARDU5/aframe-workshop#readme",
+  "devDependencies": {
+    "serve": "^3.4.1"
+  }
+}
