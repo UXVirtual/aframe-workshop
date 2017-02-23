@@ -1,6 +1,6 @@
 # A-Frame Workshop
 
-Example files for an A-Frame workshop http://hazardu5.github.io/aframe-workshop
+Example files for an A-Frame workshop [http://hazardu5.github.io/aframe-workshop](http://hazardu5.github.io/aframe-workshop)
 
 ## Getting Started
 
