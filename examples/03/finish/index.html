@@ -5,6 +5,12 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+    <script src="assets/js/lib/three/examples/loaders/collada/Animation.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/AnimationHandler.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/KeyFrameAnimation.js"></script>
+
+    <script src="assets/js/components/collada-animation-mixer.js"></script>
+
     <script src="assets/js/main.js"></script>
 
 </head>
@@ -12,18 +18,15 @@
 
 <a-scene main>
 
-    <a-assets>
-        <a-asset-item id="cactus" src="assets/gltf/cactus/cactus-tpose.gltf"></a-asset-item>
-        <a-asset-item id="cactus-jump" src="assets/gltf/cactus/cactus-jump.gltf"></a-asset-item>
-    </a-assets>
-
-
-    <a-entity gltf-model="#cactus" position="0 0 -4" scale="0.1 0.1 0.1"></a-entity>
-    <a-entity gltf-model="#cactus-jump" position="4 0 -4" scale="0.1 0.1 0.1"></a-entity>
-
     <!-- if using mixamo, exported dae collada model must only have a single animation -->
-    <!-- convert resulting file to glb using this tool: https://cesiumjs.org/convertmodel.html and don't select binary or quantized OR import DAE into Blender and use this plugin to export: https://github.com/Kupoman/blendergltf   -->
-    <!-- note: plugin requires python 3.5 and the latest Blender (2.78) to be installed -->
+    <!-- import DAE in blender 2.77a (blender 2.78b won't load the texture correctly), adjust the UV texture to relative path then save as blender file. -->
+    <!-- export DAE as Collada from blender with the following options checked: Include UV Textures, Include Material Textures, Copy, Deform Bones Only -->
+    <!-- set X rotation to 90 so model faces correct direction -->
+    <a-entity id="cactus" position="0 0 -4" scale="0.1 0.1 0.1" rotation="90 0 0"
+              collada-animation-mixer
+              collada-model="src: url(assets/dae/cactus/cactus-jump.dae)">
+    </a-entity>
+
 
     <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
     <a-sky color="#ECECEC"></a-sky>
