@@ -1,0 +1,96 @@
+<html>
+<head>
+    <title>Example 05</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/aframe-animation-component@^3.2.0/dist/aframe-animation-component.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v1.2.1/dist/aframe-physics-system.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.2.7/dist/aframe-extras.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="assets/js/lib/gamepad.min.js"></script>
+
+    <script src="assets/js/lib/threex/THREEx.KeyboardState.js"></script>
+
+    <script src="assets/js/lib/three/examples/loaders/collada/Animation.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/AnimationHandler.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/KeyFrameAnimation.js"></script>
+
+    <script src="assets/js/components/collada-animation-mixer.js"></script>
+    <script src="assets/js/components/entity-movement-controls-gamepad.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
+
+
+</head>
+<body>
+
+<a-scene main physics="debug: true; gravity: -9.8; friction: 0.1; restitution: 0.5;">
+
+
+        <a-box dynamic-body width="1" height="0.5" depth="1" position="0 1 -4" entity-movement-controls-gamepad="animatableEntityID: cactus;" id="cactus" scale="0.1 0.1 0.1" rotation="90 0 0"
+                  collada-animation-mixer="autoplay: false; loop: false;"
+                  collada-model="src: url(assets/dae/cactus/cactus-walk.dae)"
+                  >
+        </a-box>
+
+    <!-- physics example: https://schteppe.github.io/cannon.js/examples/threejs_fps.html -->
+
+    <!-- Immovable box -->
+    <!--<a-box static-body position="0 0.5 -5" width="3" height="1" depth="1"></a-box>-->
+
+    <!-- Dynamic box -->
+    <a-box dynamic-body position="0 1 0" width="1" height="1" depth="1"></a-box>
+
+    <a-plane static-body position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#7BC8A4"></a-plane>
+    <a-sky color="#ECECEC"></a-sky>
+</a-scene>
+
+<div id="instructions-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">How To Play</h4>
+            </div>
+            <div class="modal-body">
+                <strong>Keyboard</strong>
+                <ul class="list-group">
+                    <li class="list-group-item">Move character forward <span class="badge">I</span></li>
+                    <li class="list-group-item">Move character backward <span class="badge">K</span></li>
+                    <li class="list-group-item">Character rotation <span class="badge">J</span> <span class="badge">L</span></li>
+                </ul>
+                <strong>Gamepad</strong>
+                <ul class="list-group">
+                    <li class="list-group-item">Character Movement <span class="badge">L / R Stick</span></li>
+                    <li class="list-group-item">Reset Position
+                        <span class="badge">START</span>
+                        <span class="badge">A</span>
+                        <span class="badge">B</span>
+                        <span class="badge">X</span>
+                        <span class="badge">Y</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</body>
+</html>
