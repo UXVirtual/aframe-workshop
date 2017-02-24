@@ -103,38 +103,15 @@ AFRAME.registerComponent('entity-movement-controls-gamepad', {
         if ( this.object3DChild && this.walking ) // exists / is loaded
         {
 
-
-
-            //console.log();
-
             animation.timeScale = delta * 100;
 
             if(!animation.isPlaying){
                 animation.play();
             }
 
-
-
-            console.log(animation.timeScale);
-
-            // Alternate morph targets
-            /*var time = new Date().getTime() % this.duration;
-            var keyframe = Math.floor( time / this.interpolation ) + this.animOffset;
-            if ( keyframe != this.currentKeyframe )
-            {
-                this.object3D.morphTargetInfluences[ this.lastKeyframe ] = 0;
-                this.object3D.morphTargetInfluences[ this.currentKeyframe ] = 1;
-                this.object3D.morphTargetInfluences[ keyframe ] = 0;
-                this.lastKeyframe = this.currentKeyframe;
-                this.currentKeyframe = keyframe;
-            }
-            this.object3D.morphTargetInfluences[ keyframe ] =
-                ( time % this.interpolation ) / this.interpolation;
-            this.object3D.morphTargetInfluences[ this.lastKeyframe ] =
-                1 - this.object3D.morphTargetInfluences[ keyframe ];*/
         }else if(this.object3DChild && !this.walking) {
-            //this.object3DChild.el.components['collada-animation-mixer'].stopAnim();
-            //animation.stopAnim();
+
+            this.animationMixer.stopAnim();
         }
     },
 

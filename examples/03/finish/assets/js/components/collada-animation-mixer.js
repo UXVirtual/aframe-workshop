@@ -43,7 +43,7 @@ AFRAME.registerComponent('collada-animation-mixer', {
     },
 
     stopAnim: function () {
-
+        if(typeof(this.animation) !== 'undefined')
         this.animation.stop();
     },
 
