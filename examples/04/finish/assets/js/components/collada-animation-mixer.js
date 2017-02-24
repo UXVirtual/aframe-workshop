@@ -5,47 +5,46 @@ AFRAME.registerComponent('collada-animation-mixer', {
 
         var self = this;
 
+        var animation;
+
         self.el.addEventListener('model-loaded', function(e) {
 
             self.model = e.detail.model;
+
+            self.model.traverse( function ( child ) {
+                if ( child instanceof THREE.SkinnedMesh ) {
+                    self.animation = new THREE.Animation( child, child.geometry.animation );
+
+                    self.animation.reset();
+
+                    if(self.data.loop) {
+                        self.animation.loop = true;
+                        self.animation.clampWhenFinished = false;
+                    }else{
+                        self.animation.loop = false;
+                        self.animation.clampWhenFinished = true;
+                    }
+                }
+            });
+
+
 
             if(data.autoplay){
                 self.playAnim();
             }
 
+
+
         });
     },
 
     playAnim: function () {
-
-        var self = this;
-
-        this.model.traverse( function ( child ) {
-            if ( child instanceof THREE.SkinnedMesh ) {
-                var animation = new THREE.Animation( child, child.geometry.animation );
-
-                animation.reset();
-
-                if(self.data.loop) {
-                    animation.loop = true;
-                    animation.clampWhenFinished = false;
-                }else{
-                    animation.loop = false;
-                    animation.clampWhenFinished = true;
-                }
-                animation.play();
-            }
-        });
+        this.animation.play();
     },
 
     stopAnim: function () {
 
-        this.model.traverse( function ( child ) {
-            if ( child instanceof THREE.SkinnedMesh ) {
-                var animation = new THREE.Animation( child, child.geometry.animation );
-                animation.stop();
-            }
-        });
+        this.animation.stop();
     },
 
     tick: function (t, dt) {

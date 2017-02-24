@@ -19,12 +19,16 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <script src="assets/js/lib/gamepad.min.js"></script>
+
+    <script src="assets/js/lib/threex/THREEx.KeyboardState.js"></script>
+
     <script src="assets/js/lib/three/examples/loaders/collada/Animation.js"></script>
     <script src="assets/js/lib/three/examples/loaders/collada/AnimationHandler.js"></script>
     <script src="assets/js/lib/three/examples/loaders/collada/KeyFrameAnimation.js"></script>
 
     <script src="assets/js/components/collada-animation-mixer.js"></script>
-    <script src="assets/js/components/entity-movement-controls.js"></script>
+    <script src="assets/js/components/entity-movement-controls-gamepad.js"></script>
 
     <script src="assets/js/main.js"></script>
 
@@ -38,15 +42,18 @@
     <!-- convert model to t-pose if not already then export as OBJ -->
     <!-- zip up all assets for OBJ into single zip file and upload to mixamo -->
     <!-- auto-rig model and select an animation to apply to model -->
+    <!-- make sure 'walk in place' and 'mirroring' are selected for the animation then save the animation -->
     <!-- export dae collada model from mixamo (must only have a single animation) -->
-    <!-- import DAE in blender 2.77a (blender 2.78b won't load the texture correctly), adjust the UV texture to relative path then save as blender file. -->
     <!-- export DAE as Collada from blender with the following options checked: Include UV Textures, Include Material Textures, Copy, Deform Bones Only -->
     <!-- set X rotation to 90 so model faces correct direction -->
-    <a-entity id="cactus" position="0 0 -4" scale="0.1 0.1 0.1" rotation="90 0 0"
-              collada-animation-mixer="autoplay: false; loop: false;"
-              collada-model="src: url(assets/dae/cactus/cactus-jump.dae)"
-            entity-movement-controls="moveDuration: 1000; jumpDuration: 250; jumpDelay: 500">
+    <a-entity id="character-container" position="0 0 -4" entity-movement-controls-gamepad="animatableEntityID: cactus; moveDuration: 1100; jumpDuration: 250; jumpDelay: 500">
+        <a-entity id="cactus" scale="0.1 0.1 0.1" rotation="90 0 0"
+                  collada-animation-mixer="autoplay: false; loop: false;"
+                  collada-model="src: url(assets/dae/cactus/cactus-walk.dae)"
+                  >
+        </a-entity>
     </a-entity>
+
 
 
     <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
