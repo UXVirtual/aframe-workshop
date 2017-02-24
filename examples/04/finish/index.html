@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>Example 04</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.3.5/Tween.min.js"></script>
+
+    <!-- see for api examples: https://ihatetomatoes.net/wp-content/uploads/2016/07/GreenSock-Cheatsheet-4.pdf -->
+    <script src="https://unpkg.com/aframe-animation-component@^3.2.0/dist/aframe-animation-component.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="assets/js/lib/three/examples/loaders/collada/Animation.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/AnimationHandler.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/KeyFrameAnimation.js"></script>
+
+    <script src="assets/js/components/collada-animation-mixer.js"></script>
+    <script src="assets/js/components/entity-movement-controls.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
+
+
+</head>
+<body>
+
+<a-scene main>
+
+    <!-- convert model to t-pose if not already then export as OBJ -->
+    <!-- zip up all assets for OBJ into single zip file and upload to mixamo -->
+    <!-- auto-rig model and select an animation to apply to model -->
+    <!-- export dae collada model from mixamo (must only have a single animation) -->
+    <!-- import DAE in blender 2.77a (blender 2.78b won't load the texture correctly), adjust the UV texture to relative path then save as blender file. -->
+    <!-- export DAE as Collada from blender with the following options checked: Include UV Textures, Include Material Textures, Copy, Deform Bones Only -->
+    <!-- set X rotation to 90 so model faces correct direction -->
+    <a-entity id="cactus" position="0 0 -4" scale="0.1 0.1 0.1" rotation="90 0 0"
+              collada-animation-mixer="autoplay: false; loop: false;"
+              collada-model="src: url(assets/dae/cactus/cactus-jump.dae)"
+            entity-movement-controls="moveDuration: 1000; jumpDuration: 250; jumpDelay: 500">
+    </a-entity>
+
+
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+    <a-sky color="#ECECEC"></a-sky>
+</a-scene>
+
+<div id="instructions-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">How To Play</h4>
+            </div>
+            <div class="modal-body">
+                <p>Use the following keys to play:</p>
+                <ul class="list-group">
+                    <li class="list-group-item">Move character back <span class="badge">I</span></li>
+                    <li class="list-group-item">Move character right <span class="badge">L</span></li>
+                    <li class="list-group-item">Move character forward <span class="badge">K</span></li>
+                    <li class="list-group-item">Move character left <span class="badge">J</span></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</body>
+</html>
