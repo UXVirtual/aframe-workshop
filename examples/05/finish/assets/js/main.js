@@ -9,9 +9,9 @@ AFRAME.registerSystem('main', {
 
         //$('#instructions-modal').modal();
     },
-    tick: function () {
 
-        //do stuff here every tick
+    tick: function (t, dt) {
+
 
     }
     // Other handlers and methods.
