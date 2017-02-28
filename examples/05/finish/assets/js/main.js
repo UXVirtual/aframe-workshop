@@ -12,14 +12,14 @@ AFRAME.registerSystem('main', {
         box.setAttribute('depth',1);
 
         box.setAttribute('rotation','0 0 0');
-        box.setAttribute('position','0 0.6 -1');
-        box.setAttribute('custom-kinematic-body', 'height: 1');
+        box.setAttribute('position','0 0.6 -4');
+        box.setAttribute('custom-kinematic-body', 'height: 1; mass: 5;');
 
         box.setAttribute('entity-movement-controls-gamepad2','');
 
         var cactus = document.createElement('a-entity');
         cactus.setAttribute('rotation','90 0 0');
-        cactus.setAttribute('position','0 -1 0');
+        cactus.setAttribute('position','0 -0.6 0');
         cactus.setAttribute('scale','0.1 0.1 0.1');
         cactus.setAttribute('collada-animation-mixer','autoplay: false; loop: false;');
         cactus.setAttribute('collada-model','src: url(assets/dae/cactus/cactus-walk.dae)');

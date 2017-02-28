@@ -175,6 +175,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         //delta *= 0.1;
 
+        //reset input velocity - important as this overrides any other physics applying to
         this.inputVelocity.set(0,0,0);
 
         //console.log('FWD: '+this.moveForward+' REV: '+this.moveBackward+' LEFT: '+this.moveLeft+' RIGHT: '+this.moveRight);
@@ -209,11 +210,15 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         //example showing how to move object: https://github.com/schteppe/cannon.js/blob/master/demos/bodyTypes.html
 
         // Convert velocity to world coordinates
+
         this.euler.x = this.pitchObject.rotation.x;
         this.euler.y = this.yawObject.rotation.y;
         this.euler.order = "XYZ";
         this.quat.setFromEuler(this.euler);
         this.inputVelocity.applyQuaternion(this.quat);
+
+        //this.inputVelocity.add(this.thisEntityBody.world.gravity.scale(delta));
+
         //quat.multiplyVector3(inputVelocity);
 
         // Add to the object
@@ -227,7 +232,9 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         //this.thisEntityBody.velocity.set(new THREE.Vector3(this.inputVelocity.x,this.inputVelocity.y,this.inputVelocity.z));
         this.thisEntityBody.velocity.copy(this.inputVelocity);
 
-        console.log('Velocity: ',this.thisEntityBody.velocity, 'quat', this.quat);
+        //this.el.setAttribute('position',this.yawObject.position.x+' '+this.yawObject.position.y+' '+this.yawObject.position.z);
+
+        //console.log('Velocity: ',this.thisEntityBody.velocity, 'quat', this.quat);
 
         //console.log(this.yawObject.position);
 
