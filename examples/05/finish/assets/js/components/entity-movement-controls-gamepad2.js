@@ -7,7 +7,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         var self = this;
         var data = this.data;
 
-        this.velocityFactor = 20;
+        this.velocityFactor = 0.2;
         this.rotationFactor = 0.002;
         this.jumpVelocity = 20;
 
@@ -180,11 +180,11 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         //console.log('FWD: '+this.moveForward+' REV: '+this.moveBackward+' LEFT: '+this.moveLeft+' RIGHT: '+this.moveRight);
 
         if ( this.moveForward ){
-            this.inputVelocity.z = -this.velocityFactor * delta;
+            this.inputVelocity.z = this.velocityFactor * delta;
             //this.thisEntityBody.velocity.set(0,0,5);
         }
         if ( this.moveBackward ){
-            this.inputVelocity.z = this.velocityFactor * delta;
+            this.inputVelocity.z = -this.velocityFactor * delta;
             //this.thisEntityBody.velocity.set(0,0,5);
         }
 
@@ -217,15 +217,15 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         //quat.multiplyVector3(inputVelocity);
 
         // Add to the object
-        this.thisEntityBody.velocity.x += this.inputVelocity.x;
-        this.thisEntityBody.velocity.z += this.inputVelocity.z;
+        //this.thisEntityBody.velocity.x += this.inputVelocity.x;
+        //this.thisEntityBody.velocity.z += this.inputVelocity.z;
 
 
 
-        //this.yawObject.position.copy(this.thisEntityBody.position);
+        this.yawObject.position.copy(this.thisEntityBody.position);
 
         //this.thisEntityBody.velocity.set(new THREE.Vector3(this.inputVelocity.x,this.inputVelocity.y,this.inputVelocity.z));
-        //this.thisEntityBody.velocity.copy(this.inputVelocity);
+        this.thisEntityBody.velocity.copy(this.inputVelocity);
 
         console.log('Velocity: ',this.thisEntityBody.velocity, 'quat', this.quat);
 
@@ -240,7 +240,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
     {
         //console.log('Walking: ',this.walking);
 
-        this.animationMixer = this.thisEntity.components['collada-animation-mixer'];
+        this.animationMixer = this.thisEntity.children[0].components['collada-animation-mixer'];
 
         if(typeof this.animationMixer !== 'undefined'){
             var animation = this.animationMixer.animation;
