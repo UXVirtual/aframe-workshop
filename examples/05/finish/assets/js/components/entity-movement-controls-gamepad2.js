@@ -7,7 +7,8 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         var self = this;
         var data = this.data;
 
-        this.velocityFactor = 0.2;
+        this.velocityFactor = 20;
+        this.rotationFactor = 0.002;
         this.jumpVelocity = 20;
 
         var thisObject3D = this.el.object3D;
@@ -32,6 +33,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         this.moveLeft = false;
         this.moveRight = false;
         this.walking = false;
+        this.rotating = true;
 
         var canJump = false;
 
@@ -43,8 +45,6 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         this.thisEntity.addEventListener("collide",function(e){
             var contact = e.detail.contact;
-
-            console.log(contact);
 
             // contact.bi and contact.bj are the colliding bodies, and contact.ni is the collision normal.
             // We do not yet know which one is which! Let's check.
@@ -58,7 +58,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                 canJump = true;
         });
 
-        this.velocity = this.thisEntityBody.velocity;
+        //this.velocity = this.thisEntityBody.velocity;
 
         var PI_2 = Math.PI / 2;
 
@@ -87,8 +87,10 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                     break;
 
                 case 74: // j - left
-                    self.moveLeft = true;
-                    self.walking = true;
+                    //self.moveLeft = true;
+                    //self.walking = true;
+                    self.rotateLeft = true;
+                    self.rotating = true;
                     break;
 
                 case 75: // s - down
@@ -97,8 +99,10 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                     break;
 
                 case 76: // l - right
-                    self.moveRight = true;
-                    self.walking = true;
+                    //self.moveRight = true;
+                    //self.walking = true;
+                    self.rotateRight = true;
+                    self.rotating = true;
                     break;
 
                 case 32: // space
@@ -122,8 +126,10 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                     break;
 
                 case 74: // j - left
-                    self.moveLeft = false;
-                    self.walking = false;
+                    //self.moveLeft = false;
+                    //self.walking = false;
+                    self.rotateLeft = false;
+                    self.rotating = false;
                     break;
 
                 case 75: // s - down
@@ -132,8 +138,10 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                     break;
 
                 case 76: // l - right
-                    self.moveRight = false;
-                    self.walking = false;
+                    //self.moveRight = false;
+                    //self.walking = false;
+                    self.rotateRight = false;
+                    self.rotating = false;
                     break;
 
             }
@@ -165,7 +173,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         if ( this.thisEntity.isPlaying === false ) return;
 
-        delta *= 0.1;
+        //delta *= 0.1;
 
         this.inputVelocity.set(0,0,0);
 
@@ -173,17 +181,32 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         if ( this.moveForward ){
             this.inputVelocity.z = -this.velocityFactor * delta;
+            //this.thisEntityBody.velocity.set(0,0,5);
         }
         if ( this.moveBackward ){
             this.inputVelocity.z = this.velocityFactor * delta;
+            //this.thisEntityBody.velocity.set(0,0,5);
         }
 
-        if ( this.moveLeft ){
+        /*if ( this.moveLeft ){
             this.inputVelocity.x = -this.velocityFactor * delta;
+            //this.thisEntityBody.velocity.set(0,0,5);
         }
         if ( this.moveRight ){
             this.inputVelocity.x = this.velocityFactor * delta;
+            //this.thisEntityBody.velocity.set(0,0,5);
+        }*/
+
+        if ( this.rotateLeft ){
+            this.yawObject.rotation.y += this.rotationFactor * delta;
+            //self.pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, self.pitchObject.rotation.x ) );
         }
+        if ( this.rotateRight ){
+            this.yawObject.rotation.y -= this.rotationFactor * delta;
+            //self.pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, self.pitchObject.rotation.x ) );
+        }
+
+        //example showing how to move object: https://github.com/schteppe/cannon.js/blob/master/demos/bodyTypes.html
 
         // Convert velocity to world coordinates
         this.euler.x = this.pitchObject.rotation.x;
@@ -194,10 +217,19 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         //quat.multiplyVector3(inputVelocity);
 
         // Add to the object
-        this.velocity.x += this.inputVelocity.x;
-        this.velocity.z += this.inputVelocity.z;
+        this.thisEntityBody.velocity.x += this.inputVelocity.x;
+        this.thisEntityBody.velocity.z += this.inputVelocity.z;
 
-        this.yawObject.position.copy(this.thisEntityBody.position);
+
+
+        //this.yawObject.position.copy(this.thisEntityBody.position);
+
+        //this.thisEntityBody.velocity.set(new THREE.Vector3(this.inputVelocity.x,this.inputVelocity.y,this.inputVelocity.z));
+        //this.thisEntityBody.velocity.copy(this.inputVelocity);
+
+        console.log('Velocity: ',this.thisEntityBody.velocity, 'quat', this.quat);
+
+        //console.log(this.yawObject.position);
 
         this.render(delta);
 
@@ -210,19 +242,18 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         this.animationMixer = this.thisEntity.components['collada-animation-mixer'];
 
-        var animation = this.animationMixer.animation;
+        if(typeof this.animationMixer !== 'undefined'){
+            var animation = this.animationMixer.animation;
 
-        if ( this.walking ) // exists / is loaded
-        {
-
-            animation.timeScale = delta;
-
-            if(!animation.isPlaying){
-                this.animationMixer.playAnim();
+            if(typeof animation !== 'undefined' ){
+                if (this.walking || this.rotating) // exists / is loaded
+                {
+                    //animation.timeScale = delta;
+                    this.animationMixer.playAnim();
+                }else{
+                    this.animationMixer.stopAnim();
+                }
             }
-
-        }else{
-            this.animationMixer.stopAnim();
         }
     },
 

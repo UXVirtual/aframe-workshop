@@ -7,9 +7,9 @@ AFRAME.registerSystem('main', {
 
         var box = document.createElement('a-box')
         document.querySelector('a-scene').appendChild(box);
-        box.setAttribute('width',20);
-        box.setAttribute('height',20);
-        box.setAttribute('depth',0.5);
+        box.setAttribute('width',10);
+        box.setAttribute('height',10);
+        box.setAttribute('depth',10);
         box.setAttribute('scale','0.1 0.1 0.1');
         box.setAttribute('rotation','90 0 0');
         box.setAttribute('position','0 0.5 -4');
