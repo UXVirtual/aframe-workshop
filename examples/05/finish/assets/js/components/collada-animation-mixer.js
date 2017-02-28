@@ -5,7 +5,8 @@ AFRAME.registerComponent('collada-animation-mixer', {
 
         var self = this;
 
-        var animation;
+        this.animation = null;
+        this.modelLoaded = false;
 
         self.el.addEventListener('model-loaded', function(e) {
 
@@ -17,6 +18,7 @@ AFRAME.registerComponent('collada-animation-mixer', {
 
                     self.animation.reset();
 
+
                     if(self.data.loop) {
                         self.animation.loop = true;
                         self.animation.clampWhenFinished = false;
@@ -24,27 +26,34 @@ AFRAME.registerComponent('collada-animation-mixer', {
                         self.animation.loop = false;
                         self.animation.clampWhenFinished = true;
                     }
+
                 }
             });
 
-
+            self.modelLoaded = true;
 
             if(data.autoplay){
                 self.playAnim();
             }
-
-
-
         });
     },
 
     playAnim: function () {
-        this.animation.play();
+        if(this.modelLoaded && !this.animation.isPlaying){
+            this.animation.play();
+        }
+
     },
 
     stopAnim: function () {
-        if(typeof(this.animation) !== 'undefined')
-        this.animation.stop();
+
+        if(this.modelLoaded && this.animation.isPlaying) {
+
+            console.log('Stopping anim');
+
+            this.animation.stop();
+            THREE.AnimationHandler.stop( this.animation );
+        }
     },
 
     tick: function (t, dt) {

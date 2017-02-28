@@ -2,6 +2,8 @@
 AFRAME.registerComponent('entity-movement-controls-gamepad2', {
     init: function () {
 
+        console.log('Initializing movement controls...')
+
         var self = this;
         var data = this.data;
 
@@ -10,12 +12,18 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         var thisObject3D = this.el.object3D;
 
-        this.pitchObject = new THREE.Object3D();
-        this.pitchObject.add( thisObject3D );
+        //this.pitchObject = new THREE.Object3D();
 
-        this.yawObject = new THREE.Object3D();
-        this.yawObject.position.y = 2;
-        this.yawObject.add( this.pitchObject );
+        //adding stuff to Object3D seems to remove collada model
+
+        //this.pitchObject.add( thisObject3D );
+
+        //this.yawObject = new THREE.Object3D();
+        //this.yawObject.position.y = 2;
+        //this.yawObject.add( this.pitchObject );
+
+        this.pitchObject = thisObject3D;
+        this.yawObject = thisObject3D;
 
         this.quat = new THREE.Quaternion();
 
@@ -23,6 +31,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         this.moveBackward = false;
         this.moveLeft = false;
         this.moveRight = false;
+        this.walking = false;
 
         var canJump = false;
 
@@ -49,7 +58,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                 canJump = true;
         });
 
-        this.velocity = self.thisEntityBody.velocity;
+        this.velocity = this.thisEntityBody.velocity;
 
         var PI_2 = Math.PI / 2;
 
@@ -68,27 +77,35 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         var onKeyDown = function ( event ) {
 
+            console.log(event.keyCode);
+
             switch ( event.keyCode ) {
 
                 case 73: // i - up
                     self.moveForward = true;
+                    self.walking = true;
                     break;
 
                 case 74: // j - left
-                    self.moveLeft = true; break;
+                    self.moveLeft = true;
+                    self.walking = true;
+                    break;
 
                 case 75: // s - down
                     self.moveBackward = true;
+                    self.walking = true;
                     break;
 
                 case 76: // l - right
                     self.moveRight = true;
+                    self.walking = true;
                     break;
 
                 case 32: // space
                     if ( self.canJump === true ){
                         velocity.y = self.jumpVelocity;
                     }
+                    self.walking = false;
                     self.canJump = false;
                     break;
             }
@@ -101,18 +118,22 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
                 case 73: // i - up
                     self.moveForward = false;
+                    self.walking = false;
                     break;
 
                 case 74: // j - left
                     self.moveLeft = false;
+                    self.walking = false;
                     break;
 
                 case 75: // s - down
                     self.moveBackward = false;
+                    self.walking = false;
                     break;
 
                 case 76: // l - right
                     self.moveRight = false;
+                    self.walking = false;
                     break;
 
             }
@@ -148,7 +169,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         this.inputVelocity.set(0,0,0);
 
-        console.log('FWD: '+this.moveForward+' REV: '+this.moveBackward+' LEFT: '+this.moveLeft+' RIGHT: '+this.moveRight);
+        //console.log('FWD: '+this.moveForward+' REV: '+this.moveBackward+' LEFT: '+this.moveLeft+' RIGHT: '+this.moveRight);
 
         if ( this.moveForward ){
             this.inputVelocity.z = -this.velocityFactor * delta;
@@ -177,11 +198,37 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         this.velocity.z += this.inputVelocity.z;
 
         this.yawObject.position.copy(this.thisEntityBody.position);
+
+        this.render(delta);
+
+        //console.log('Movement controls initialized');
+    },
+
+    render: function(delta)
+    {
+        //console.log('Walking: ',this.walking);
+
+        this.animationMixer = this.thisEntity.components['collada-animation-mixer'];
+
+        var animation = this.animationMixer.animation;
+
+        if ( this.walking ) // exists / is loaded
+        {
+
+            animation.timeScale = delta;
+
+            if(!animation.isPlaying){
+                this.animationMixer.playAnim();
+            }
+
+        }else{
+            this.animationMixer.stopAnim();
+        }
     },
 
     schema: {
-        animatableEntityID: {type: 'string'} //ID of animatable entity to animate (don't include the hash before the ID)
+
     },
 
-    multiple: true
+    multiple: false
 });
