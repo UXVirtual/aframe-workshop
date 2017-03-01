@@ -77,10 +77,10 @@ AFRAME.registerComponent('entity-movement-controls-gamepad', {
         // rotate left/right
         if ( this.keyboard.pressed("j") )
             //console.log('left');
-        this.object3D.rotation.y += delta;
+        this.object3D.rotation.y -= delta;
         if ( this.keyboard.pressed("l") )
             //console.log('right');
-        this.object3D.rotation.y -= delta;
+        this.object3D.rotation.y += delta;
 
 
         var walkingKeys = ["i", "k", "j", "l"];

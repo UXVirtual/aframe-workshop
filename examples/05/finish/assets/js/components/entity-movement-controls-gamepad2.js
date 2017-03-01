@@ -140,10 +140,10 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         }
 
         if ( this.rotateLeft ){
-            this.yawObject.rotation.y += this.rotationFactor * delta;
+            this.yawObject.rotation.y -= this.rotationFactor * delta;
         }
         if ( this.rotateRight ){
-            this.yawObject.rotation.y -= this.rotationFactor * delta;
+            this.yawObject.rotation.y += this.rotationFactor * delta;
         }
 
         //example showing how to move object: https://github.com/schteppe/cannon.js/blob/master/demos/bodyTypes.html
