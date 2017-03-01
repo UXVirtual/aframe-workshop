@@ -32,23 +32,20 @@
 
     <script src="assets/js/main.js"></script>
 
-
-
 </head>
 <body>
 
 <a-scene main physics="debug: false; gravity: -9.8; friction: 0.1; restitution: 0.5;">
 
 
-        <!--<a-box  width="20" height="20" depth="0.1" position="0 0.1 -4" id="cactus" scale="0.1 0.1 0.1" rotation="90 0 0"
-                  collada-animation-mixer="autoplay: true; loop: false;"
-                  collada-model="src: url(assets/dae/cactus/cactus-walk.dae)"
-                dynamic-body
+        <a-entity position="0 0.6 -4" id="cactus"
+
+                custom-kinematic-body="height:0.5; radius: 0.5; enableSlopes: false;"
                 entity-movement-controls-gamepad2
                   >
-        </a-box>-->
-
-    <!-- physics example: https://schteppe.github.io/cannon.js/examples/threejs_fps.html -->
+            <a-entity collada-animation-mixer="autoplay: true; loop: false;"
+                      collada-model="src: url(assets/dae/cactus/cactus-walk.dae)" rotation="90 0 0" position="0 -0.6 0" scale="0.1 0.1 0.1"></a-entity>
+        </a-entity>
 
     <!-- Immovable box -->
     <a-box static-body position="0 0.5 -5" width="5" height="1" depth="1" color="#FFC65D"></a-box>
@@ -60,7 +57,7 @@
     <a-sky color="#ECECEC"></a-sky>
 </a-scene>
 
-<!--<div id="instructions-modal" class="modal fade" tabindex="-1" role="dialog">
+<div id="instructions-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -91,7 +88,7 @@
             </div>
         </div>
     </div>
-</div>-->
+</div>
 
 </body>
 </html>
