@@ -13,7 +13,7 @@ AFRAME.registerSystem('main', {
 
         box.setAttribute('rotation','0 0 0');
         box.setAttribute('position','0 0.6 -4');
-        box.setAttribute('custom-kinematic-body', 'height: 1; mass: 5;');
+        box.setAttribute('custom-kinematic-body', 'height:0.5; radius: 0.5; enableSlopes: false;');
 
         box.setAttribute('entity-movement-controls-gamepad2','');
 

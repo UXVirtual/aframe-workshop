@@ -90,7 +90,7 @@ AFRAME.registerComponent('custom-kinematic-body', {
         return function (t, dt) {
             if (!dt) return;
 
-            var body = this.body,
+            /*var body = this.body,
                 data = this.data,
                 didCollide = false,
                 height, groundHeight = -Infinity,
@@ -165,7 +165,7 @@ AFRAME.registerComponent('custom-kinematic-body', {
             }
 
             body.velocity.copy(velocity);
-            this.el.setAttribute('velocity', velocity);
+            this.el.setAttribute('velocity', velocity);*/
         };
     }()),
 

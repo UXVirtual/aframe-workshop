@@ -176,7 +176,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         //delta *= 0.1;
 
         //reset input velocity - important as this overrides any other physics applying to
-        this.inputVelocity.set(0,0,0);
+        this.inputVelocity.set(0,this.thisEntityBody.velocity.y,0); //need to preserve this.thisEntityBody.velocity.y here so gravity continues to work as expected
 
         //console.log('FWD: '+this.moveForward+' REV: '+this.moveBackward+' LEFT: '+this.moveLeft+' RIGHT: '+this.moveRight);
 
@@ -247,21 +247,25 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
     {
         //console.log('Walking: ',this.walking);
 
-        this.animationMixer = this.thisEntity.children[0].components['collada-animation-mixer'];
+        if(typeof this.thisEntity.children[0] !== 'undefined'){
+            this.animationMixer = this.thisEntity.children[0].components['collada-animation-mixer'];
 
-        if(typeof this.animationMixer !== 'undefined'){
-            var animation = this.animationMixer.animation;
+            if(typeof this.animationMixer !== 'undefined'){
+                var animation = this.animationMixer.animation;
 
-            if(typeof animation !== 'undefined' ){
-                if (this.walking || this.rotating) // exists / is loaded
-                {
-                    //animation.timeScale = delta;
-                    this.animationMixer.playAnim();
-                }else{
-                    this.animationMixer.stopAnim();
+                if(typeof animation !== 'undefined' ){
+                    if (this.walking || this.rotating) // exists / is loaded
+                    {
+                        //animation.timeScale = delta;
+                        this.animationMixer.playAnim();
+                    }else{
+                        this.animationMixer.stopAnim();
+                    }
                 }
             }
         }
+
+
     },
 
     schema: {
