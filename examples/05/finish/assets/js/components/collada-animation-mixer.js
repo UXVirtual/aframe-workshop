@@ -46,9 +46,6 @@ AFRAME.registerComponent('collada-animation-mixer', {
     stopAnim: function () {
 
         if(this.modelLoaded && this.animation.isPlaying) {
-
-            console.log('Stopping anim');
-
             this.animation.stop();
             THREE.AnimationHandler.stop( this.animation );
         }

@@ -5,23 +5,12 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         console.log('Initializing movement controls...')
 
         var self = this;
-        var data = this.data;
 
         this.velocityFactor = 0.2;
         this.rotationFactor = 0.002;
         this.jumpVelocity = 20;
 
         var thisObject3D = this.el.object3D;
-
-        //this.pitchObject = new THREE.Object3D();
-
-        //adding stuff to Object3D seems to remove collada model
-
-        //this.pitchObject.add( thisObject3D );
-
-        //this.yawObject = new THREE.Object3D();
-        //this.yawObject.position.y = 2;
-        //this.yawObject.add( this.pitchObject );
 
         this.pitchObject = thisObject3D;
         this.yawObject = thisObject3D;
@@ -58,26 +47,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                 canJump = true;
         });
 
-        //this.velocity = this.thisEntityBody.velocity;
-
-        var PI_2 = Math.PI / 2;
-
-        /*var onMouseMove = function ( event ) {
-
-            if ( self.thisEntity.isPlaying === false ) return;
-
-            var movementX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
-            var movementY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
-
-            self.yawObject.rotation.y -= movementX * 0.002;
-            self.pitchObject.rotation.x -= movementY * 0.002;
-
-            self.pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, self.pitchObject.rotation.x ) );
-        };*/
-
         var onKeyDown = function ( event ) {
-
-            console.log(event.keyCode);
 
             switch ( event.keyCode ) {
 
@@ -87,8 +57,6 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                     break;
 
                 case 74: // j - left
-                    //self.moveLeft = true;
-                    //self.walking = true;
                     self.rotateLeft = true;
                     self.rotating = true;
                     break;
@@ -99,8 +67,6 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                     break;
 
                 case 76: // l - right
-                    //self.moveRight = true;
-                    //self.walking = true;
                     self.rotateRight = true;
                     self.rotating = true;
                     break;
@@ -126,8 +92,6 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                     break;
 
                 case 74: // j - left
-                    //self.moveLeft = false;
-                    //self.walking = false;
                     self.rotateLeft = false;
                     self.rotating = false;
                     break;
@@ -138,8 +102,6 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                     break;
 
                 case 76: // l - right
-                    //self.moveRight = false;
-                    //self.walking = false;
                     self.rotateRight = false;
                     self.rotating = false;
                     break;
@@ -148,16 +110,10 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         };
 
-        //document.addEventListener( 'mousemove', onMouseMove, false );
         document.addEventListener( 'keydown', onKeyDown, false );
         document.addEventListener( 'keyup', onKeyUp, false );
 
         this.thisEntity.isPlaying = false;
-
-        /*this.getDirection = function(targetVec){
-            targetVec.set(0,0,-1);
-            this.quat.multiplyVector3(targetVec);
-        };*/
 
         // Moves the camera to the Cannon.js object position and adds velocity to the object if the run key is down
         this.inputVelocity = new THREE.Vector3();
@@ -173,38 +129,21 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
 
         if ( this.thisEntity.isPlaying === false ) return;
 
-        //delta *= 0.1;
-
         //reset input velocity - important as this overrides any other physics applying to
         this.inputVelocity.set(0,this.thisEntityBody.velocity.y,0); //need to preserve this.thisEntityBody.velocity.y here so gravity continues to work as expected
 
-        //console.log('FWD: '+this.moveForward+' REV: '+this.moveBackward+' LEFT: '+this.moveLeft+' RIGHT: '+this.moveRight);
-
         if ( this.moveForward ){
             this.inputVelocity.z = this.velocityFactor * delta;
-            //this.thisEntityBody.velocity.set(0,0,5);
         }
         if ( this.moveBackward ){
             this.inputVelocity.z = -this.velocityFactor * delta;
-            //this.thisEntityBody.velocity.set(0,0,5);
         }
-
-        /*if ( this.moveLeft ){
-            this.inputVelocity.x = -this.velocityFactor * delta;
-            //this.thisEntityBody.velocity.set(0,0,5);
-        }
-        if ( this.moveRight ){
-            this.inputVelocity.x = this.velocityFactor * delta;
-            //this.thisEntityBody.velocity.set(0,0,5);
-        }*/
 
         if ( this.rotateLeft ){
             this.yawObject.rotation.y += this.rotationFactor * delta;
-            //self.pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, self.pitchObject.rotation.x ) );
         }
         if ( this.rotateRight ){
             this.yawObject.rotation.y -= this.rotationFactor * delta;
-            //self.pitchObject.rotation.x = Math.max( - PI_2, Math.min( PI_2, self.pitchObject.rotation.x ) );
         }
 
         //example showing how to move object: https://github.com/schteppe/cannon.js/blob/master/demos/bodyTypes.html
@@ -216,37 +155,14 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         this.euler.order = "XYZ";
         this.quat.setFromEuler(this.euler);
         this.inputVelocity.applyQuaternion(this.quat);
-
-        //this.inputVelocity.add(this.thisEntityBody.world.gravity.scale(delta));
-
-        //quat.multiplyVector3(inputVelocity);
-
-        // Add to the object
-        //this.thisEntityBody.velocity.x += this.inputVelocity.x;
-        //this.thisEntityBody.velocity.z += this.inputVelocity.z;
-
-
-
         this.yawObject.position.copy(this.thisEntityBody.position);
-
-        //this.thisEntityBody.velocity.set(new THREE.Vector3(this.inputVelocity.x,this.inputVelocity.y,this.inputVelocity.z));
         this.thisEntityBody.velocity.copy(this.inputVelocity);
 
-        //this.el.setAttribute('position',this.yawObject.position.x+' '+this.yawObject.position.y+' '+this.yawObject.position.z);
-
-        //console.log('Velocity: ',this.thisEntityBody.velocity, 'quat', this.quat);
-
-        //console.log(this.yawObject.position);
-
         this.render(delta);
-
-        //console.log('Movement controls initialized');
     },
 
     render: function(delta)
     {
-        //console.log('Walking: ',this.walking);
-
         if(typeof this.thisEntity.children[0] !== 'undefined'){
             this.animationMixer = this.thisEntity.children[0].components['collada-animation-mixer'];
 
@@ -256,7 +172,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
                 if(typeof animation !== 'undefined' ){
                     if (this.walking || this.rotating) // exists / is loaded
                     {
-                        //animation.timeScale = delta;
+                        animation.timeScale = delta * 0.1;
                         this.animationMixer.playAnim();
                     }else{
                         this.animationMixer.stopAnim();
