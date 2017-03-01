@@ -1,8 +1,6 @@
 AFRAME.registerComponent('collada-animation-mixer', {
     init: function () {
 
-        var data = this.data;
-
         var self = this;
 
         this.animation = null;
@@ -32,7 +30,7 @@ AFRAME.registerComponent('collada-animation-mixer', {
 
             self.modelLoaded = true;
 
-            if(data.autoplay){
+            if(self.data.autoplay){
                 self.playAnim();
             }
         });

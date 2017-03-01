@@ -33,7 +33,7 @@ AFRAME.registerComponent('entity-movement-controls-gamepad2', {
         this.moveLeft = false;
         this.moveRight = false;
         this.walking = false;
-        this.rotating = true;
+        this.rotating = false;
 
         var canJump = false;
 

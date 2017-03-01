@@ -21,7 +21,7 @@ AFRAME.registerSystem('main', {
         cactus.setAttribute('rotation','90 0 0');
         cactus.setAttribute('position','0 -0.6 0');
         cactus.setAttribute('scale','0.1 0.1 0.1');
-        cactus.setAttribute('collada-animation-mixer','autoplay: false; loop: false;');
+        cactus.setAttribute('collada-animation-mixer','autoplay: true; loop: false;');
         cactus.setAttribute('collada-model','src: url(assets/dae/cactus/cactus-walk.dae)');
         box.appendChild(cactus);
 
