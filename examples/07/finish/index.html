@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>Example 07</title>
+    <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
+    <script src="assets/js/components/smooth-shaded.js"></script>
+</head>
+<body>
+<a-scene>
+
+    <a-assets>
+        <a-asset-item id="scan-obj" src="assets/obj/scan/scan3.obj"></a-asset-item>
+        <a-asset-item id="scan-mtl" src="assets/obj/scan/scan3.mtl"></a-asset-item>
+    </a-assets>
+
+    <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 25deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
+    <!-- switch to edit mode and go to Mesh -> Faces -> Shade Smooth ->
+
+    <!-- save models as OBJ with the following settings:
+        Forward: -Z Forward,
+        Up: Y Up,
+        Selection Only: 0,
+        Animation: 0,
+        Apply Modifiers: 1,
+        Include Edges: 1,
+        Smooth Groups: 1,
+        Bitflag Smooth Groups: 0,
+        Write Normals: 1,
+        Include UVs: 1,
+        Write Materials: 1,
+        Triangulate Faces: 1,
+        Write Nurbs: 0,
+        Polygroups: 0,
+        Objects as OBJ objects: 1,
+        Objects as OBJ groups: 0,
+        Material Groups: 0,
+        Keep Vertex Order: 0
+    -->
+
+    <a-entity smooth-shaded obj-model="obj: #scan-obj; mtl: #scan-mtl" position="0 0 -4" scale="7 7 7" rotation="0 0 0"></a-entity>
+
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+    <a-sky color="#ECECEC"></a-sky>
+</a-scene>
+</body>
+</html>
