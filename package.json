@@ -10,7 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "serve ./",
-    "collada2gltf": "node assets/js/converters/collada2gltf.js"
+    "collada2gltf": "node assets/js/converters/collada2gltf.js",
+    "obj2gltf": "node assets/js/converters/collada2gltf.js"
   },
   "repository": {
     "type": "git",
