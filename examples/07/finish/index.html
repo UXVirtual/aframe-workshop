@@ -2,17 +2,24 @@
 <head>
     <title>Example 07</title>
     <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
+    <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/master/dist/aframe-orbit-controls-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
+    <!--<script src="assets/js/vendor/THREE.js/loaders/draco_decoder.js"></script>-->
+    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/example/DRACOLoader.js"></script>
+    <!--<script src="assets/js/vendor/THREE.js/loaders/DRACOLoader.js"></script>-->
+    <script src="assets/js/loaders/drc-model.js"></script>
     <script src="assets/js/components/smooth-shaded.js"></script>
 </head>
 <body>
 <a-scene>
 
     <a-assets>
-        <a-asset-item id="scan-obj" src="assets/obj/scan/scan3.obj"></a-asset-item>
-        <a-asset-item id="scan-mtl" src="assets/obj/scan/scan3.mtl"></a-asset-item>
+        <!--<a-asset-item id="scan-obj" src="assets/obj/scan/scan3.obj"></a-asset-item>
+        <a-asset-item id="scan-mtl" src="assets/obj/scan/scan3.mtl"></a-asset-item>-->
+        <a-asset-item id="drc-model" src="assets/drc/bunny.drc"></a-asset-item>
     </a-assets>
 
-    <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 25deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
+    <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
     <!-- switch to edit mode and go to Mesh -> Faces -> Shade Smooth ->
 
     <!-- save models as OBJ with the following settings:
@@ -36,7 +43,32 @@
         Keep Vertex Order: 0
     -->
 
-    <a-entity smooth-shaded obj-model="obj: #scan-obj; mtl: #scan-mtl" position="0 0 -4" scale="7 7 7" rotation="0 0 0"></a-entity>
+    <!--<a-entity
+            id="camera"
+            camera
+            position="0 1.5 3"
+            orbit-controls="
+                autoRotate: false;
+                target: #head;
+                enableDamping: true;
+                dampingFactor: 0.125;
+                rotateSpeed:0.25;
+                minDistance:3;
+                maxDistance:100;"
+            mouse-cursor="">
+    </a-entity>-->
+
+    <a-entity drc-model="src: #drc-model" position="0 0 -4"></a-entity>
+
+    <!--<a-entity id="head" class="head" position="0 0 0">
+        <a-animation attribute="rotation"
+                     dur="25000"
+                     fill="forwards"
+                     to="0 360 0"
+                     repeat="indefinite"
+                     easing="linear"></a-animation>
+        <a-entity smooth-shaded obj-model="obj: #scan-obj; mtl: #scan-mtl" position="0 0 0" scale="5 5 5" rotation="0 0 0"></a-entity>
+    </a-entity>-->
 
     <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
     <a-sky color="#ECECEC"></a-sky>
