@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "serve ./",
     "collada2gltf": "node assets/js/converters/collada2gltf.js",
-    "obj2gltf": "node assets/js/converters/collada2gltf.js"
+    "obj2gltf": "node assets/js/converters/collada2gltf.js",
+    "obj2drc": "bin/draco/Debug/draco_encoder -qp 14 -cl 8"
   },
   "repository": {
     "type": "git",
