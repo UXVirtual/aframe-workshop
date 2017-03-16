@@ -14,9 +14,11 @@
 <a-scene>
 
     <a-assets>
-        <!--<a-asset-item id="scan-obj" src="assets/obj/scan/scan3.obj"></a-asset-item>
-        <a-asset-item id="scan-mtl" src="assets/obj/scan/scan3.mtl"></a-asset-item>-->
-        <a-asset-item id="drc-model" src="assets/drc/bunny.drc"></a-asset-item>
+        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
+        <a-asset-item id="scan-obj" src="assets/obj/scan/scan3.obj"></a-asset-item>
+        <a-asset-item id="scan-mtl" src="assets/obj/scan/scan3.mtl"></a-asset-item>
+        <a-asset-item id="drc-model" src="assets/obj/scan/scan3.drc"></a-asset-item>
     </a-assets>
 
     <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
@@ -43,22 +45,22 @@
         Keep Vertex Order: 0
     -->
 
-    <!--<a-entity
+    <a-entity
             id="camera"
             camera
             position="0 1.5 3"
             orbit-controls="
                 autoRotate: false;
-                target: #head;
+                target: #model;
                 enableDamping: true;
                 dampingFactor: 0.125;
                 rotateSpeed:0.25;
                 minDistance:3;
                 maxDistance:100;"
             mouse-cursor="">
-    </a-entity>-->
+    </a-entity>
 
-    <a-entity drc-model="src: #drc-model" position="0 0 -4"></a-entity>
+    <a-entity id="model" drc-model="src: #drc-model" position="0 1 0" scale="3 3 3"></a-entity>
 
     <!--<a-entity id="head" class="head" position="0 0 0">
         <a-animation attribute="rotation"
@@ -70,8 +72,9 @@
         <a-entity smooth-shaded obj-model="obj: #scan-obj; mtl: #scan-mtl" position="0 0 0" scale="5 5 5" rotation="0 0 0"></a-entity>
     </a-entity>-->
 
-    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-    <a-sky color="#ECECEC"></a-sky>
+    <a-cylinder id="ground" src="#groundTexture" radius="30" height="0.1"></a-cylinder>
+
+    <a-sky id="background" src="#skyTexture" theta-length="90" radius="30"></a-sky>
 </a-scene>
 </body>
 </html>

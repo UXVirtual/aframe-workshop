@@ -29,28 +29,15 @@ AFRAME.registerComponent('drc-model', {
 
         this.remove();
         loader = new THREE.DRACOLoader();
-        //loader.setVerbosity(1);
+        loader.setVerbosity(1);
         if (data.crossorigin) loader.setCrossOrigin(data.crossorigin);
-        console.log('Loading...');
 
-        console.log(data.src);
+        var url = this.convertToAbsoluteURL(document.baseURI,data.src);
 
-        loader.load(data.src, function(object) {
-
-            console.log('Loaded.');
-            console.log(object);
-
-
-            // Enable skinning, if applicable.
-            /*object.traverse(function(o) {
-                if (o instanceof THREE.SkinnedMesh && o.material) {
-                    o.material.skinning = !!((o.geometry && o.geometry.bones) || []).length;
-                }
-            });*/
-
+        loader.load(url, function(object) {
             this.load(object);
         }.bind(this),function(progress){
-            console.log('Progress ',progress);
+            //console.log('Progress ',progress);
         },function(error){
             console.log('There was an error loading Draco model: ',error);
         });
@@ -84,17 +71,29 @@ AFRAME.registerComponent('drc-model', {
         geometry.position.z = -midZ * scale;
         geometry.castShadow = true;
         geometry.receiveShadow = true;
-        const selectedObject = scene.getObjectByName("my_mesh");
-        scene.remove(selectedObject);
-        geometry.name = "my_mesh";
-        scene.add(geometry);
 
-        this.model = model;
-        this.el.setObject3D('mesh', model);
-        this.el.emit('model-loaded', {format: 'draco', model: model});
+        this.model = geometry;
+        this.el.setObject3D('mesh', geometry);
+        this.el.emit('model-loaded', {format: 'draco', model: geometry});
     },
 
     remove: function () {
         if (this.model) this.el.removeObject3D('mesh');
+    },
+
+    convertToAbsoluteURL: function(base, relative) {
+        var stack = base.split("/"),
+            parts = relative.split("/");
+        stack.pop(); // remove current file name (or empty string)
+                     // (omit if "base" is the current folder without trailing slash)
+        for (var i=0; i<parts.length; i++) {
+            if (parts[i] == ".")
+                continue;
+            if (parts[i] == "..")
+                stack.pop();
+            else
+                stack.push(parts[i]);
+        }
+        return stack.join("/");
     }
 });
