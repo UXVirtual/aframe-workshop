@@ -3,40 +3,25 @@
     <title>Example 06</title>
 
     <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
-
-    <!-- jsartookit -->
-    <script src="https://cdn.rawgit.com/artoolkit/jsartoolkit5/77733182a4c519b8e683cbf246a22920d94f3deb/build/artoolkit.min.js"></script>
-    <script src="https://cdn.rawgit.com/artoolkit/jsartoolkit5/77733182a4c519b8e683cbf246a22920d94f3deb/js/artoolkit.api.js"></script>
-
-    <!-- include threex.artoolkit -->
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/565994c0835cd26a4dd972abe507a8a03252d025/three.js/threex-artoolkitcontext.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/565994c0835cd26a4dd972abe507a8a03252d025/three.js/threex-artoolkitsource.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/565994c0835cd26a4dd972abe507a8a03252d025/three.js/threex-armarkercontrols.js"></script>
-
-    <!-- aframe-artoolkit -->
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/565994c0835cd26a4dd972abe507a8a03252d025/aframe/aframe-ar.js"></script>
-
-    <!--<script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.2.7/dist/aframe-extras.min.js"></script>-->
-
-
-    <script src="assets/js/main.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/b326549cf8224780b04473e7d94992790bf736fa/aframe/build/aframe-ar.js"></script>
+    <script>THREEx.ArToolkitContext.baseURL = 'https://cdn.rawgit.com/jeromeetienne/AR.js/b326549cf8224780b04473e7d94992790bf736fa/three.js/'</script>
 
 </head>
-<body>
+<body style="margin: 0; overflow: hidden;">
 
-    <a-scene embedded artoolkit='sourceType: webcam'>
+    <a-scene embedded artoolkit="sourceType: webcam;">
 
         <a-assets>
             <a-asset-item id="cactus-obj" src="assets/obj/cactus/cactus.obj"></a-asset-item>
             <a-asset-item id="cactus-mtl" src="assets/obj/cactus/cactus.mtl"></a-asset-item>
         </a-assets>
 
-        <!-- print this pattern for tracking: https://github.com/jeromeetienne/AR.js/raw/master/data/data/Hiro%20pattern%20with%20border.pdf -->
-        <a-marker type='pattern' url='assets/ar/patt.hiro'>
-            <a-entity obj-model="obj: #cactus-obj; mtl: #cactus-mtl" scale="0.1 0.1 0.1"></a-entity>
+        <!-- print this pattern for tracking: https://github.com/jeromeetienne/AR.js/raw/b326549cf8224780b04473e7d94992790bf736fa/data/data/Hiro%20pattern%20with%20border.pdf -->
+        <a-marker preset="hiro">
+            <a-entity obj-model="obj: #cactus-obj; mtl: #cactus-mtl" scale="0.04 0.04 0.04" rotation="90 0 0"></a-entity>
         </a-marker>
 
-    <a-entity camera></a-entity>
+    <a-camera wasd-controls-enabled="false" look-controls-enabled="false" position="0 0 0"></a-camera>
 </a-scene>
 
 
