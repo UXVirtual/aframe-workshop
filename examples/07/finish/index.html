@@ -2,6 +2,7 @@
 <head>
     <title>Example 07</title>
     <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
     <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/master/dist/aframe-orbit-controls-component.min.js"></script>
     <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
     <!--<script src="assets/js/vendor/THREE.js/loaders/draco_decoder.js"></script>-->
@@ -18,8 +19,11 @@
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
         <a-asset-item id="scan-obj" src="assets/obj/scan/scan3.obj"></a-asset-item>
         <a-asset-item id="scan-mtl" src="assets/obj/scan/scan3.mtl"></a-asset-item>
-        <a-asset-item id="drc-model" src="assets/obj/scan/scan3.drc"></a-asset-item>
-        <a-asset-item id="drc-texture" src="assets/obj/scan/michael-andrew-hr-xtionpro.png"></a-asset-item>
+        <a-asset-item id="drc-high-model" src="assets/drc/scan3-high.drc"></a-asset-item>
+        <a-asset-item id="drc-hr-model" src="assets/drc/scan3-hr.drc"></a-asset-item>
+        <a-asset-item id="drc-model" src="assets/drc/scan3.drc"></a-asset-item>
+        <a-asset-item id="drc-texture" src="assets/drc/michael-andrew-hr-xtionpro.jpg"></a-asset-item>
+        <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
     </a-assets>
 
     <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
@@ -56,22 +60,44 @@
                 enableDamping: true;
                 dampingFactor: 0.125;
                 rotateSpeed:0.25;
-                minDistance:3;
+                minDistance:6;
                 maxDistance:100;"
             mouse-cursor="">
     </a-entity>
 
-    <a-entity id="model" drc-model="src: #drc-model; texture: #drc-texture" position="0 1 0" scale="3 3 3"></a-entity>
+    <a-entity id="model" position="0 0 3">
+        <a-entity text-geometry="value: DRC-hp; font: #optimerBoldFont" position="0 3 0"></a-entity>
+        <a-entity text-geometry="value: 1.5mb; font: #optimerBoldFont" position="0 2 0"></a-entity>
 
-    <!--<a-entity id="head" class="head" position="0 0 0">
-        <a-animation attribute="rotation"
-                     dur="25000"
-                     fill="forwards"
-                     to="0 360 0"
-                     repeat="indefinite"
-                     easing="linear"></a-animation>
-        <a-entity smooth-shaded obj-model="obj: #scan-obj; mtl: #scan-mtl" position="0 0 0" scale="5 5 5" rotation="0 0 0"></a-entity>
-    </a-entity>-->
+        <a-entity drc-model="src: #drc-hr-model; texture: #drc-texture" position="0 1 0" rotation="270 145 0" scale="3 3 3">
+        </a-entity>
+    </a-entity>
+
+    <a-entity position="0 0 0">
+        <a-entity text-geometry="value: DRC-lp; font: #optimerBoldFont" position="0 3 0"></a-entity>
+        <a-entity text-geometry="value: 2.5mb; font: #optimerBoldFont" position="0 2 0"></a-entity>
+
+        <a-entity drc-model="src: #drc-high-model; texture: #drc-texture" position="0 1 0" scale="3 3 3">
+        </a-entity>
+    </a-entity>
+
+    <a-entity position="-3 0 0">
+        <a-entity text-geometry="value: DRC-lp; font: #optimerBoldFont" position="0 3 0"></a-entity>
+        <a-entity text-geometry="value: 369kb; font: #optimerBoldFont" position="0 2 0"></a-entity>
+
+        <a-entity drc-model="src: #drc-model; texture: #drc-texture" position="0 1 0" scale="3 3 3">
+        </a-entity>
+    </a-entity>
+
+
+    <a-entity position="3 0 0">
+        <a-entity text-geometry="value: OBJ-lp; font: #optimerBoldFont" position="0 3 0"></a-entity>
+        <a-entity text-geometry="value: 6.3mb; font: #optimerBoldFont" position="0 2 0"></a-entity>
+
+        <a-entity smooth-shaded obj-model="obj: #scan-obj; mtl: #scan-mtl" position="0 0 0" scale="4 4 4" rotation="0 0 0">
+        </a-entity>
+
+    </a-entity>
 
     <a-cylinder id="ground" src="#groundTexture" radius="30" height="0.1"></a-cylinder>
 

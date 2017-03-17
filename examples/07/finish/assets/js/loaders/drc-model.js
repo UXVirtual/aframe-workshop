@@ -56,6 +56,7 @@ AFRAME.registerComponent('drc-model', {
             // Point cloud does not have face indices.
             if (bufferGeometry.index == null) {
                 material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors});
+                material.shading = THREE.SmoothShading;
                 geometry = new THREE.Points(bufferGeometry, material);
             } else {
                 bufferGeometry.computeVertexNormals();
