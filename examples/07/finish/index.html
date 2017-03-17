@@ -6,7 +6,7 @@
     <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
     <!--<script src="assets/js/vendor/THREE.js/loaders/draco_decoder.js"></script>-->
     <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/example/DRACOLoader.js"></script>
-    <!--<script src="assets/js/vendor/THREE.js/loaders/DRACOLoader.js"></script>-->
+    <!--<script src="../../../bin/draco/javascript/example/DRACOLoader.js"></script>-->
     <script src="assets/js/loaders/drc-model.js"></script>
     <script src="assets/js/components/smooth-shaded.js"></script>
 </head>
@@ -19,6 +19,7 @@
         <a-asset-item id="scan-obj" src="assets/obj/scan/scan3.obj"></a-asset-item>
         <a-asset-item id="scan-mtl" src="assets/obj/scan/scan3.mtl"></a-asset-item>
         <a-asset-item id="drc-model" src="assets/obj/scan/scan3.drc"></a-asset-item>
+        <a-asset-item id="drc-texture" src="assets/obj/scan/michael-andrew-hr-xtionpro.png"></a-asset-item>
     </a-assets>
 
     <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
@@ -60,7 +61,7 @@
             mouse-cursor="">
     </a-entity>
 
-    <a-entity id="model" drc-model="src: #drc-model" position="0 1 0" scale="3 3 3"></a-entity>
+    <a-entity id="model" drc-model="src: #drc-model; texture: #drc-texture" position="0 1 0" scale="3 3 3"></a-entity>
 
     <!--<a-entity id="head" class="head" position="0 0 0">
         <a-animation attribute="rotation"
