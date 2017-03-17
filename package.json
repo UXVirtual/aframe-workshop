@@ -12,7 +12,8 @@
     "start": "serve ./",
     "collada2gltf": "node assets/js/converters/collada2gltf.js",
     "obj2gltf": "node assets/js/converters/collada2gltf.js",
-    "obj2drc": "bin/draco/Debug/draco_encoder -qp 14 -cl 8"
+    "obj2drc": "bin/draco/Debug/draco_encoder -qp 14 -qt 14 -qn 14 -cl 5",
+    "obj2drc-high": "bin/draco/Debug/draco_encoder -qp 0 -qt 0 -qn 0 -cl 0"
   },
   "repository": {
     "type": "git",
