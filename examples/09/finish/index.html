@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>Example 09</title>
+
+    <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script src="https://cdn.rawgit.com/priologic/easyrtc/v1.1.0/api/easyrtc.js"></script>
+    <script src="https://cdn.rawgit.com/haydenjameslee/networked-aframe/v0.1.0/dist/networked-aframe.js"></script>
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+
+    <script src="assets/js/main.js"></script>
+
+</head>
+<body>
+
+<a-scene main network-scene="
+      app: aframe-workshop;
+      room: default;
+      audio: false;
+      debug: true;
+      onConnect: window.onConnect;
+      connectOnLoad: true;
+      signallingUrl: //localhost:8080/;
+    ">
+    <!-- add support for networking https://github.com/haydenjameslee/networked-aframe -->
+    <a-assets>
+        <!-- Templates -->
+
+        <!-- Avatar -->
+        <script id="avatar-template" type="text/html">
+            <a-entity class="avatar">
+                <a-sphere class="head"
+                          color="#5985ff"
+                          scale="0.45 0.5 0.4"
+                          random-color
+                        ></a-sphere>
+                <a-entity class="face"
+                          position="0 0.05 0"
+                        >
+                    <a-sphere class="eye"
+                              color="#efefef"
+                              position="0.16 0.1 -0.35"
+                              scale="0.12 0.12 0.12"
+                            >
+                        <a-sphere class="pupil"
+                                  color="#000"
+                                  position="0 0 -1"
+                                  scale="0.2 0.2 0.2"
+                                ></a-sphere>
+                    </a-sphere>
+                    <a-sphere class="eye"
+                              color="#efefef"
+                              position="-0.16 0.1 -0.35"
+                              scale="0.12 0.12 0.12"
+                            >
+                        <a-sphere class="pupil"
+                                  color="#000"
+                                  position="0 0 -1"
+                                  scale="0.2 0.2 0.2"
+                                ></a-sphere>
+                    </a-sphere>
+                </a-entity>
+            </a-entity>
+        </script>
+
+        <!-- /Templates -->
+        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg" crossorigin="anonymous">
+        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg" crossorigin="anonymous">
+        <a-mixin id="voxel"
+                 geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                 material="shader: standard"
+                 random-color
+                 snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"
+                ></a-mixin>
+    </a-assets>
+
+    <a-camera></a-camera>
+
+
+    <a-cylinder id="ground" src="#groundTexture" radius="30" height="0.1"></a-cylinder>
+
+    <a-sky id="background" src="#skyTexture" theta-length="90" radius="30"></a-sky>
+
+</a-scene>
+
+</body>
+</html>

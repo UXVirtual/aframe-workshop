@@ -16,10 +16,40 @@ Example files for an A-Frame workshop [http://hazardu5.github.io/aframe-workshop
 
 ## Development
 
-1.  Open a terminal and run the following from the project folder: `npm start`
+1.  Open a terminal and run the following from the project folder:
+
+    ```
+    npm start
+    ```
+
+    or
+
+    ```
+    npm run serve
+    ```
 
 2.  Access [http://localhost:3000](http://localhost:3000) or [http://YOUR_IP:3000](http://YOUR_IP:3000) where `YOUR_IP`
     is the IP address of your computer on your network.
+
+### Running HTTPS server
+
+Optionally, you can run a local HTTPS server to test WebRTC functionality.
+
+1.  Run the following command to generate a self-signed SSL cert.
+
+    ```
+    npm run generate-cert
+    ```
+
+2.  Run the following to launch the https server:
+
+    ```
+    npm run serve-https
+    ```
+
+3.  A browser window will automatically launch with the default index page. Optionally, you can access the server via
+    [https://localhost:3000](https://localhost:3000) or [https://YOUR_IP:3000](https://YOUR_IP:3000) where `YOUR_IP` is
+    the IP address of your computer on your network.
 
 ### Converting OBJ to Draco
 
