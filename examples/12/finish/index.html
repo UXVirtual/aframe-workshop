@@ -1,0 +1,75 @@
+<html>
+<head>
+    <title>Example 12</title>
+    <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
+    <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/master/dist/aframe-orbit-controls-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
+    <!--<script src="assets/js/vendor/THREE.js/loaders/draco_decoder.js"></script>-->
+    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/example/DRACOLoader.js"></script>
+    <!--<script src="../../../bin/draco/javascript/example/DRACOLoader.js"></script>-->
+    <script src="assets/js/loaders/drc-model.js"></script>
+    <script src="assets/js/components/smooth-shaded.js"></script>
+</head>
+<body>
+<a-scene>
+
+    <a-assets>
+        <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
+        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
+        <a-asset-item id="drc-hr-model" src="assets/drc/michael-andrew-full-hr.drc"></a-asset-item>
+        <a-asset-item id="drc-texture" src="assets/drc/michael-andrew-full-hr.png"></a-asset-item>
+        <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+    </a-assets>
+
+    <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
+    <!-- switch to edit mode and go to Mesh -> Faces -> Shade Smooth ->
+
+    <!-- save models as OBJ with the following settings:
+        Forward: -Z Forward,
+        Up: Y Up,
+        Selection Only: 0,
+        Animation: 0,
+        Apply Modifiers: 1,
+        Include Edges: 1,
+        Smooth Groups: 1,
+        Bitflag Smooth Groups: 0,
+        Write Normals: 1,
+        Include UVs: 1,
+        Write Materials: 1,
+        Triangulate Faces: 1,
+        Write Nurbs: 0,
+        Polygroups: 0,
+        Objects as OBJ objects: 1,
+        Objects as OBJ groups: 0,
+        Material Groups: 0,
+        Keep Vertex Order: 0
+    -->
+
+    <a-entity
+            id="camera"
+            camera
+            position="0 1.5 1"
+            orbit-controls="
+                autoRotate: false;
+                target: #model;
+                enableDamping: true;
+                dampingFactor: 0.125;
+                rotateSpeed:0.25;
+                minDistance:4;
+                maxDistance:20;"
+            mouse-cursor="">
+    </a-entity>
+
+    <a-entity id="model" position="0 0 0">
+        <a-entity drc-model="src: #drc-hr-model; texture: #drc-texture" position="0 1 0" rotation="270 145 0" scale="3 3 3">
+        </a-entity>
+    </a-entity>
+
+
+
+    <a-cylinder id="ground" src="#groundTexture" radius="30" height="0.1"></a-cylinder>
+
+    <a-sky id="background" src="#skyTexture" theta-length="90" radius="30"></a-sky>
+</a-scene>
+</body>
+</html>
