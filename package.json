@@ -9,14 +9,15 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "serve ./",
-    "serve": "serve ./",
+    "start": "npm run serve",
+    "serve": "node node_modules/.bin/http-server ./ -p 3000 -o --gzip",
     "generate-cert": "openssl req -nodes -x509 -newkey rsa:4096 -keyout localhost.key -out localhost.crt -days 365",
     "serve-https": "node node_modules/.bin/http-server ./ -p 3000 -o -S -C localhost.crt -K localhost.key",
     "collada2gltf": "node assets/js/converters/collada2gltf.js",
     "obj2gltf": "node assets/js/converters/collada2gltf.js",
     "obj2drc": "bin/draco/Debug/draco_encoder -qp 14 -qt 14 -qn 14 -cl 5",
-    "obj2drc-high": "bin/draco/Debug/draco_encoder -qp 0 -qt 0 -qn 0 -cl 0"
+    "obj2drc-high": "bin/draco/Debug/draco_encoder -qp 0 -qt 0 -qn 0 -cl 0",
+    "imagemin": "node assets/js/converters/imagemin.js $1 $2"
   },
   "repository": {
     "type": "git",
@@ -31,8 +32,10 @@
   "devDependencies": {
     "collada2gltf": "0.0.0",
     "http-server": "^0.9.0",
-    "obj2gltf": "^0.1.7",
-    "serve": "^3.4.1"
+    "imagemin": "^5.2.2",
+    "imagemin-mozjpeg": "^6.0.0",
+    "imagemin-pngquant": "^5.0.0",
+    "obj2gltf": "^0.1.7"
   },
   "dependencies": {
     "aframe": "0.5.0",

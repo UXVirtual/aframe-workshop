@@ -87,3 +87,27 @@ Optionally, you can run a local HTTPS server to test WebRTC functionality.
 
     Where `PATH_TO_OBJ` is the path to your obj file to convert, and `OUTPUT_PATH` is the path where the converted drc
     file will be written.
+
+### Optimising Images
+
+*   Run the following command:
+
+    ```
+    npm run imagemin PATH_TO_IMAGES OUTPUT_PATH
+    ```
+
+    where `PATH_TO_IMAGES` is the path to the image or images you wish to convert e.g. `images/*.{jpg,png}` and
+    `OUTPUT_PATH` is the output folder you wish to save the converted images to (images will be saved with the same
+    source filenames)
+
+### Optimising Models
+
+*   Models should be compressed using gzip. Your web server and client should automatically pass and accept the correct
+    headers to decode the gzipped model. Use the following command
+
+    ```
+    gzip PATH_TO_MODEL
+    ```
+
+    This will remove the source model and place a `.gz` file in its place. Reference this compressed `.gz` file in your
+    code instead of the original model.
