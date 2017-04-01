@@ -2,11 +2,14 @@
 <head>
     <title>Example 12</title>
     <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
-    <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/master/dist/aframe-orbit-controls-component.min.js"></script>
-    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
-    <!--<script src="assets/js/vendor/THREE.js/loaders/draco_decoder.js"></script>-->
-    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/example/DRACOLoader.js"></script>
-    <!--<script src="../../../bin/draco/javascript/example/DRACOLoader.js"></script>-->
+    <script src="https://unpkg.com/aframe-animation-component@^3.2.0/dist/aframe-animation-component.min.js"></script>
+
+    <script src="assets/js/lib/three/examples/loaders/collada/Animation.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/AnimationHandler.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/KeyFrameAnimation.js"></script>
+
+    <script src="assets/js/components/collada-animation-mixer.js"></script>
+
     <script src="assets/js/loaders/drc-model.js"></script>
     <script src="assets/js/components/smooth-shaded.js"></script>
 </head>
@@ -16,16 +19,17 @@
     <a-assets>
         <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
         <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
-        <a-asset-item id="drc-hr-model" src="assets/drc/michael-andrew-full-hr.drc"></a-asset-item>
-        <a-asset-item id="drc-texture" src="assets/drc/michael-andrew-full-hr.png"></a-asset-item>
-        <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
+        <a-asset-item id="model" src="assets/dae/lizzy/walking.dae.gz"></a-asset-item>
     </a-assets>
 
-    <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
+    <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20-90deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures. Apply modifier. -->
+    <!-- rotate and flip object so it is facing X- forward and Y up with the feet at 0,0,0 and the model centred along the person's spine -->
+    <!--  In blender go Edit Mode -> Mesh -> Cleanup -> Delete loose to remove any un-needed geometry -->
     <!-- switch to edit mode and go to Mesh -> Faces -> Shade Smooth ->
 
+
     <!-- save models as OBJ with the following settings:
-        Forward: -Z Forward,
+        Forward: -X Forward,
         Up: Y Up,
         Selection Only: 0,
         Animation: 0,
@@ -45,24 +49,30 @@
         Keep Vertex Order: 0
     -->
 
-    <a-entity
-            id="camera"
-            camera
-            position="0 1.5 1"
-            orbit-controls="
-                autoRotate: false;
-                target: #model;
-                enableDamping: true;
-                dampingFactor: 0.125;
-                rotateSpeed:0.25;
-                minDistance:4;
-                maxDistance:20;"
-            mouse-cursor="">
-    </a-entity>
+    <!--
 
-    <a-entity id="model" position="0 0 0">
-        <a-entity drc-model="src: #drc-hr-model; texture: #drc-texture" position="0 1 0" rotation="270 145 0" scale="3 3 3">
+    MIXAMO TIPS:
+
+
+    Character should be upright, facing forward, centered in the scene with the pivot point between their feet at 0,0,0.
+We only accept meshes and bones.  No NURBS, Splines, cameras, etc.
+Is the geometry clean?  Floating verts, ngons, etc might mess it up.
+There can be no gaps between meshes, so floating hands/heads will break it.
+The auto-rigger works best with 1-5 meshes.  If you have a character made of 50+ objects it might not work.  Combine your meshes.
+The auto-rigger doesn't always accept multi/sub-object materials.  If possible bake your textures down and use one material per mesh.
+A jacket on top of a shirt on top of a body might have issues, you should remove occluded polygons.
+Polycount should be 200,000 tris~ on average. It goes higher or lower depending on the number of meshes in the scene but 200k is a good average.
+Are the textures in .jpg/.png/.tga/.gif form? We don't accept .dds, .psd or other formats.
+
+    -->
+
+    <a-entity position="0 0 -2">
+        <a-entity id="lizzy" scale="90 90 90" rotation="0 0 0" position="0 0.05 0"
+                  collada-animation-mixer="autoplay: true; loop: true;"
+                  collada-model="#model"
+                >
         </a-entity>
+
     </a-entity>
 
 
