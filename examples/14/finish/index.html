@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>Example 14</title>
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
+    <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
+    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
+    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/snap.js"></script>
+    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/intersection-spawn.js"></script>
+    <script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
+    <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
+    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
+    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/example/DRACOLoader.js"></script>
+    <script src="assets/js/loaders/drc-model.js"></script>
+</head>
+
+<!-- see https://css-tricks.com/minecraft-webvr-html-using-frame/ original by ngokevin -->
+
+<body>
+<a-scene>
+    <a-assets>
+        <a-mixin id="voxel"
+                 geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                 material="shader: standard"
+                 random-color
+                 snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"
+                ></a-mixin>
+        <a-asset-item id="environment-model" src="assets/drc/environment/environment.drc"></a-asset-item>
+        <a-asset-item id="environment-texture" src="assets/obj/environment/environment.png"></a-asset-item>
+    </a-assets>
+
+
+    <a-entity id="sky" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 191 207 158; bottomColor: 227 225 210" scale="-1 1 1" position="" rotation="" visible=""></a-entity>
+
+    <!-- environment -->
+
+    <a-entity id="environment" drc-model="src: #environment-model; texture: #environment-texture" scale="100 100 100"></a-entity>
+
+    <a-entity id="ocean" position="-1.64 -1.35 2.10" ocean="density: 0.5; width: 30; depth: 30; speed: 0.05; amplitude:0" material="color: #fff6b6; opacity: 0.75; metalness: 0; roughness: 1" rotation="-90 0 0"></a-entity>
+    <!-- test blocks -->
+
+    <a-entity mixin="voxel" random-color snap="offset"></a-entity>
+
+    <!-- Hands. -->
+    <a-entity id="teleHand" hand-controls="left" teleport-controls="type: parabolic; collisionEntities: [mixin='voxel'], #ground"></a-entity>
+    <a-entity id="blockHand" hand-controls="right" controller-cursor intersection-spawn="event: click; mixin: voxel"></a-entity>
+
+    <!-- Camera. -->
+    <a-camera>
+        <a-cursor intersection-spawn="event: click; mixin: voxel"></a-cursor>
+    </a-camera>
+</a-scene>
+</body>
+</html>
