@@ -50,41 +50,67 @@ AFRAME.registerComponent('drc-model', {
 
         var self = this;
 
-        loader.load(texture, function ( texture ) {
-            const bufferGeometry = model;
-            var geometry, material;
-            // Point cloud does not have face indices.
-            if (bufferGeometry.index == null) {
-                material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors});
-                material.shading = THREE.SmoothShading;
-                geometry = new THREE.Points(bufferGeometry, material);
-            } else {
-                bufferGeometry.computeVertexNormals();
-                material = new THREE.MeshLambertMaterial({map: texture, vertexColors: THREE.VertexColors});
-                geometry = new THREE.Mesh(bufferGeometry, material);
+
+
+        if(texture){
+            loader.load(texture, function(){
+                self.onLoadTexture(model,texture)
+            });
+        }else{
+            self.onLoadTexture(model,texture);
+        }
+
+
+
+
+    },
+
+    onLoadTexture: function( model, texture ){
+
+        const bufferGeometry = model;
+        var geometry, material;
+        // Point cloud does not have face indices.
+        if (bufferGeometry.index == null) {
+            material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors});
+            material.shading = THREE.SmoothShading;
+            geometry = new THREE.Points(bufferGeometry, material);
+        } else {
+            bufferGeometry.computeVertexNormals();
+
+            var options;
+
+            if(texture){
+                options = { map: texture, vertexColors: THREE.VertexColors };
+            }else{
+                options = { vertexColors: THREE.VertexColors };
             }
-            // Compute range of the geometry coordinates for proper rendering.
-            bufferGeometry.computeBoundingBox();
-            const sizeX = bufferGeometry.boundingBox.max.x - bufferGeometry.boundingBox.min.x;
-            const sizeY = bufferGeometry.boundingBox.max.y - bufferGeometry.boundingBox.min.y;
-            const sizeZ = bufferGeometry.boundingBox.max.z - bufferGeometry.boundingBox.min.z;
-            const diagonalSize = Math.sqrt(sizeX * sizeX + sizeY * sizeY + sizeZ * sizeZ);
-            const scale = 1.0 / diagonalSize;
-            const midX = (bufferGeometry.boundingBox.min.x + bufferGeometry.boundingBox.max.x) / 2;
-            const midY = (bufferGeometry.boundingBox.min.y + bufferGeometry.boundingBox.max.y) / 2;
-            const midZ = (bufferGeometry.boundingBox.min.z + bufferGeometry.boundingBox.max.z) / 2;
-            geometry.scale.multiplyScalar(scale);
-            geometry.position.x = -midX * scale;
-            geometry.position.y = -midY * scale;
-            geometry.position.z = -midZ * scale;
-            geometry.castShadow = true;
-            geometry.receiveShadow = true;
 
-            self.model = geometry;
-            self.el.setObject3D('mesh', geometry);
-            self.el.emit('model-loaded', {format: 'draco', model: geometry});
-        });
+            material = new THREE.MeshLambertMaterial(options);
+            geometry = new THREE.Mesh(bufferGeometry, material);
+        }
 
+        // Compute range of the geometry coordinates for proper rendering.
+        bufferGeometry.computeBoundingBox();
+        const sizeX = bufferGeometry.boundingBox.max.x - bufferGeometry.boundingBox.min.x;
+        const sizeY = bufferGeometry.boundingBox.max.y - bufferGeometry.boundingBox.min.y;
+        const sizeZ = bufferGeometry.boundingBox.max.z - bufferGeometry.boundingBox.min.z;
+        const diagonalSize = Math.sqrt(sizeX * sizeX + sizeY * sizeY + sizeZ * sizeZ);
+        const scale = 1.0 / diagonalSize;
+        const midX = (bufferGeometry.boundingBox.min.x + bufferGeometry.boundingBox.max.x) / 2;
+        const midY = (bufferGeometry.boundingBox.min.y + bufferGeometry.boundingBox.max.y) / 2;
+        const midZ = (bufferGeometry.boundingBox.min.z + bufferGeometry.boundingBox.max.z) / 2;
+        geometry.scale.multiplyScalar(scale);
+        geometry.position.x = -midX * scale;
+        geometry.position.y = -midY * scale;
+        geometry.position.z = -midZ * scale;
+        geometry.castShadow = true;
+        geometry.receiveShadow = true;
+
+        console.log('Loaded model: ',geometry);
+
+        this.model = geometry;
+        this.el.setObject3D('mesh', geometry);
+        this.el.emit('model-loaded', {format: 'draco', model: geometry});
 
     },
 
