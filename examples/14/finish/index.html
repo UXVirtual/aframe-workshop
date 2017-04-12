@@ -4,14 +4,15 @@
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
     <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/snap.js"></script>
-    <script src="https://rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/intersection-spawn.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/snap.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/intersection-spawn.js"></script>
     <script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
     <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
     <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/example/DRACOLoader.js"></script>
-    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.misc.min.js"></script>
     <script src="assets/js/loaders/drc-model.js"></script>
 </head>
 
@@ -25,10 +26,11 @@
                  geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
                  material="shader: standard"
                  random-color
+                 grab
                  snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"
                 ></a-mixin>
         <a-asset-item id="environment-model" src="assets/drc/environment/environment.drc"></a-asset-item>
-        <a-asset-item id="environment-texture" src="assets/obj/environment/environment.png"></a-asset-item>
+        <a-asset-item id="environment-texture" src="assets/drc/environment/environment.png"></a-asset-item>
         <!--<a-asset-item id="environment-model-ply" src="assets/ply/environment/environment.bake.ply"></a-asset-item>-->
     </a-assets>
 
