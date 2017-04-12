@@ -50,44 +50,40 @@ AFRAME.registerComponent('drc-model', {
 
         var self = this;
 
-
+        var bufferGeometry = model;
+        var geometry, material;
 
         if(texture){
-            loader.load(texture, function(){
-                self.onLoadTexture(model,texture)
+            loader.load(texture, function ( texture ) {
+                // Point cloud does not have face indices.
+                if (bufferGeometry.index == null) {
+                    material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors});
+                    material.shading = THREE.SmoothShading;
+                    geometry = new THREE.Points(bufferGeometry, material);
+                } else {
+                    bufferGeometry.computeVertexNormals();
+                    material = new THREE.MeshLambertMaterial({map: texture, vertexColors: THREE.VertexColors});
+                    geometry = new THREE.Mesh(bufferGeometry, material);
+                }
+                self.computeGeometry(bufferGeometry,geometry);
             });
         }else{
-            self.onLoadTexture(model,texture);
+            // Point cloud does not have face indices.
+            if (bufferGeometry.index == null) {
+                material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors});
+                material.shading = THREE.SmoothShading;
+                geometry = new THREE.Points(bufferGeometry, material);
+            } else {
+                bufferGeometry.computeVertexNormals();
+                material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors});
+                geometry = new THREE.Mesh(bufferGeometry, material);
+            }
+            self.computeGeometry(bufferGeometry,geometry);
         }
-
-
-
-
     },
 
-    onLoadTexture: function( model, texture ){
-
-        const bufferGeometry = model;
-        var geometry, material;
-        // Point cloud does not have face indices.
-        if (bufferGeometry.index == null) {
-            material = new THREE.MeshLambertMaterial({vertexColors: THREE.VertexColors});
-            material.shading = THREE.SmoothShading;
-            geometry = new THREE.Points(bufferGeometry, material);
-        } else {
-            bufferGeometry.computeVertexNormals();
-
-            var options;
-
-            if(texture){
-                options = { map: texture, vertexColors: THREE.VertexColors };
-            }else{
-                options = { vertexColors: THREE.VertexColors };
-            }
-
-            material = new THREE.MeshLambertMaterial(options);
-            geometry = new THREE.Mesh(bufferGeometry, material);
-        }
+    computeGeometry: function(bufferGeometry,geometry) {
+        var self = this;
 
         // Compute range of the geometry coordinates for proper rendering.
         bufferGeometry.computeBoundingBox();
@@ -106,12 +102,9 @@ AFRAME.registerComponent('drc-model', {
         geometry.castShadow = true;
         geometry.receiveShadow = true;
 
-        console.log('Loaded model: ',geometry);
-
-        this.model = geometry;
-        this.el.setObject3D('mesh', geometry);
-        this.el.emit('model-loaded', {format: 'draco', model: geometry});
-
+        self.model = geometry;
+        self.el.setObject3D('mesh', geometry);
+        self.el.emit('model-loaded', {format: 'draco', model: geometry});
     },
 
     remove: function () {
