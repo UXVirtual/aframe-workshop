@@ -40,10 +40,10 @@
     <!-- environment -->
 
     <!-- must scale drc model by 91x to make it the same size as the original ply -->
-    <a-entity id="environment" drc-model="src: #environment-model; texture: #environment-texture" scale="91 91 91" position="0 0.25 0" rotation="0 0 0"></a-entity>
+    <a-entity id="environment" drc-model="src: #environment-model; texture: #environment-texture" scale="91 91 91" position="0 0.75 0" rotation="0 0 0"></a-entity>
     <!--<a-entity id="environment" ply-model="src: #environment-model-ply;" rotation="-90 0 0" position="0 -9 0" scale="0.5 0.5 0.5"></a-entity>-->
 
-    <a-entity id="ocean" position="-1.03 -1.35 1.42" ocean="density: 0.5; width: 18; depth: 15; speed: 0.05; amplitude:0" material="color: #fff6b6; opacity: 0.75; metalness: 0; roughness: 1" rotation="-90 0 0"></a-entity>
+    <a-entity id="ocean" position="-1.03 -1.60 1.42" ocean="density: 0.5; width: 18; depth: 15; speed: 0.05; amplitude:0" material="color: #fff6b6; opacity: 0.75; metalness: 0; roughness: 1" rotation="-90 0 0"></a-entity>
     <!-- test blocks -->
 
     <a-entity mixin="voxel" random-color snap="offset"></a-entity>
