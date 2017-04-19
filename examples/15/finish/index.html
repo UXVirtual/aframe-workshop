@@ -39,13 +39,16 @@
             mouse-cursor
             position="0 1.5 3"
             orbit-controls="
-                autoRotate: false;
+                autoRotate: true;
+                autoRotateSpeed:0.05;
                 target: #model;
                 enableDamping: true;
                 dampingFactor: 0.125;
                 rotateSpeed:0.05;
                 minDistance:2;
-                maxDistance:100;">
+                maxDistance:100;
+                enableKeys: false;
+                enablePan:false;">
         <!-- Red directional light shining from the top left. -->
         <a-light type="directional" color="#fff" intensity="0.8" position="-1 1 0"></a-light>
         <!-- Blue point light, 5 meters in the air. -->
