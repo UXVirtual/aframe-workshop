@@ -7,7 +7,7 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script><!-- a-frame v0.6.0 with shadow support -->
+    <script src="https://cdn.rawgit.com/aframevr/aframe/99b95772d9631d09a4e51d18587e7d0e1069ed56/dist/aframe-master.min.js"></script><!-- a-frame v0.6.0 with shadow support -->
     <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/master/dist/aframe-orbit-controls-component.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
     <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
@@ -18,17 +18,18 @@
     <script src="https://cdn.rawgit.com/ngokevin/kframe/0f3e106ee6b9aa71c9e377a1172d4324356782d2/components/look-at/dist/aframe-look-at-component.js"></script><!-- v0.2.0 of this component is the only one that currently works -->
     <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/33d4b822699b528651a0512cd7566b2742e19754/dist/aframe-mouse-cursor-component.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/components/advanced-texture.js"></script>
     <script src="assets/js/components/auto-scale.js"></script>
     <script src="assets/js/loaders/drc-model.js"></script>
+    <script src="assets/js/main.js"></script>
 </head>
 
 <body>
 <a-scene main vr-mode-ui="enabled: false">
 
     <a-assets>
-        <!--<a-asset-item id="skull-drc" src="assets/drc/skull/Scull.drc"></a-asset-item>
-        <a-asset-item id="skull-drc-texture" src="assets/obj/skull/Scull_1.png"></a-asset-item>-->
+        <!--<a-asset-item id="skull-drc" src="assets/drc/skull/Scull.drc"></a-asset-item>-->
+        <a-asset-item id="skull-drc-texture" src="assets/obj/skull/Scull_1.png"></a-asset-item>
         <a-asset-item id="skull-obj" src="assets/obj/skull/Scull.obj"></a-asset-item>
         <a-asset-item id="skull-mtl" src="assets/obj/skull/Scull.mtl"></a-asset-item>
     </a-assets>
@@ -52,9 +53,9 @@
                 enableKeys: false;
                 enablePan:false;">
         <!-- Red directional light shining from the top left. -->
-        <a-light light="type: directional; castShadow: true; color: #fff; intensity: 0.8; shadowCameraVisible: false;" position="-1 1 0"></a-light>
+        <a-light light="type: directional; castShadow: true; color: #fff; intensity: 0.8; shadowCameraVisible: false; shadowMapHeight: 2048; shadowMapWidth: 2048;" position="-1 1 0"></a-light>
         <!-- Blue point light, 5 meters in the air. -->
-        <a-light light="type: point; castShadow: true; color: #fff; intensity: 0.3; shadowCameraVisible: false;" position="0 5 0"></a-light>
+        <a-light light="type: point; castShadow: true; color: #fff; intensity: 0.3; shadowCameraVisible: false; shadowMapHeight: 512; shadowMapWidth: 512;" position="0 5 0"></a-light>
     </a-entity>
 
 
@@ -65,7 +66,7 @@
     <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-1.60 -0.21 -0.233" material="shader: flat;"></a-circle>
 
     <!-- DRC models are currently incompatible with a-frame 0.6.0 -->
-    <a-entity id="model" shadow="receive: true" obj-model="obj: #skull-obj; mtl: #skull-mtl" material="opacity: 0.5; transparent: true;" scale="0.01 0.01 0.01" position="0 0 0" rotation="-25 0 0"></a-entity>
+    <a-entity id="model" advanced-texture="src: assets/obj/skull/Scull_1.png; shininess: 0" shadow="receive: true" obj-model="obj: #skull-obj;" material="receiveLight: false" scale="0.01 0.01 0.01" position="0 0 0" rotation="-25 0 0"></a-entity>
     <!--<a-entity id="model" shadow="receive: false" drc-model="src: #skull-drc; texture: #skull-drc-texture" scale="5 5 5" position="0 0 0" rotation="-25 0 0"></a-entity>-->
 
     <a-entity id="sky" shadow="receive: false" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 128 128 128; bottomColor: 0 0 0" scale="-1 1 1" position="" rotation="" visible=""></a-entity>
@@ -73,6 +74,7 @@
 
 </a-scene>
 
+<!-- TODO: compile bootstrap from SCSS to namespace the bootstrap CSS classes so they don't collide with the CSS embedded by the a-frame inspector when it is initialized -->
 <div id="hotspot-modal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
