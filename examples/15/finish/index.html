@@ -28,7 +28,7 @@
 <a-scene main vr-mode-ui="enabled: false">
 
     <a-assets>
-        <!--<a-asset-item id="skull-drc" src="assets/drc/skull/Scull.drc"></a-asset-item>-->
+        <a-asset-item id="skull-drc" src="assets/drc/skull/Scull.drc"></a-asset-item>
         <a-asset-item id="skull-drc-texture" src="assets/obj/skull/Scull_1.png"></a-asset-item>
         <a-asset-item id="skull-obj" src="assets/obj/skull/Scull.obj"></a-asset-item>
         <a-asset-item id="skull-mtl" src="assets/obj/skull/Scull.mtl"></a-asset-item>
@@ -67,7 +67,7 @@
 
     <!-- DRC models are currently incompatible with a-frame 0.6.0 -->
     <a-entity id="model" advanced-texture="src: #skull-drc-texture; shininess: 0; smoothShading: true;" shadow="receive: true" obj-model="obj: #skull-obj;" scale="0.01 0.01 0.01" position="0 0 0" rotation="-25 0 0"></a-entity>
-    <!--<a-entity id="model" shadow="receive: false" drc-model="src: #skull-drc; texture: #skull-drc-texture" scale="5 5 5" position="0 0 0" rotation="-25 0 0"></a-entity>-->
+    <!--<a-entity id="model"advanced-texture="src: #skull-drc-texture; shininess: 0; smoothShading: false;" shadow="receive: true" drc-model="src: #skull-drc;" scale="5 5 5" position="0 0 0" rotation="-25 0 0"></a-entity>-->
 
     <a-entity id="sky" shadow="receive: false" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 128 128 128; bottomColor: 0 0 0" scale="-1 1 1" position="" rotation="" visible=""></a-entity>
 
