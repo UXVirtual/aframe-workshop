@@ -12,7 +12,7 @@
  */
 AFRAME.registerComponent('advanced-texture', {
     schema: {
-        texture:         { type: 'asset', required: true },
+        src:         { type: 'asset', required: true },
         crossorigin: { default: '' },
         shininess: { default: 30 }
     },

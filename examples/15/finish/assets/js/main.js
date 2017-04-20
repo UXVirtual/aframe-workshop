@@ -13,6 +13,10 @@ AFRAME.registerSystem('main', {
 
         var camera = document.querySelector('#camera');
 
+        var sceneEl = document.querySelector('a-scene');
+
+
+
         camera.addEventListener('click',function(e){
 
             var targetEl = e.detail.target;
@@ -20,21 +24,26 @@ AFRAME.registerSystem('main', {
             var targetElClass = targetEl.getAttribute('class');
 
             if(targetElClass === 'hotspot'){
-                console.log(targetEl);
-
-                console.log('Clicked hotspot');
-
+                sceneEl.pause();
                 self.$modal.modal('show');
             }
-
-
         });
 
         this.$modal.modal({
             show: false,
-            backdrop: false
+            backdrop: true
         });
 
+        this.$modal.on('hidden.bs.modal', function (e) {
+            sceneEl.play();
+
+            var orbitControlsComponent = camera.components['orbit-controls'];
+
+            //reset the orbit controls component state after resuming the scene so it continues to auto-rotate
+            orbitControlsComponent.state = orbitControlsComponent.STATE.NONE;
+        });
+
+        //wait for inspector to open / close
         setInterval(this.onInspector,1000);
     },
 
