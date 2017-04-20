@@ -1,16 +1,13 @@
-# File exported by Artec Group 3D Scanning Solutions
-# www.artec-group.com
+# Blender MTL File: 'None'
+# Material Count: 1
 
 newmtl material_0
-Ka 1 1 1
-Kd 1 1 1
-Ks 1 1 1
-Ns 1000
+Ns 1000.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
 map_Kd Scull_1.png
-
-newmtl material_1
-Ka 1 1 1
-Kd 1 1 1
-Ks 1 1 1
-Ns 1000
-

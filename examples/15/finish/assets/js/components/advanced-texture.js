@@ -14,7 +14,8 @@ AFRAME.registerComponent('advanced-texture', {
     schema: {
         src:         { type: 'asset', required: true },
         crossorigin: { default: '' },
-        shininess: { default: 30 }
+        shininess: { default: 30 },
+        smoothShading: { default: true }
     },
     /**
      * `init` used to initialize material. Called once.
@@ -28,16 +29,32 @@ AFRAME.registerComponent('advanced-texture', {
             var url = self.convertToAbsoluteURL(document.baseURI,self.data.src);
 
             var loader = new THREE.TextureLoader();
+            if (self.data.crossorigin) loader.setCrossOrigin(self.data.crossorigin);
             loader.load(url, function ( texture ) {
-                //var material = new THREE.MeshLambertMaterial({map: texture, vertexColors: THREE.VertexColors});
+
+                console.log(texture);
+
+                //var material = new THREE.MeshPhongMaterial({map: texture});
                 //material.shading = THREE.SmoothShading;
+                //material.shininess = self.data.shininess;
                 e.target.object3D.traverse(function(child){
 
                     if(child instanceof THREE.Mesh){
-                        child.material.shading = THREE.SmoothShading;
+
+                        //child.geometry.mergeVertices();
+                        //child.geometry.computeFaceNormals();
+                        //child.geometry.computeVertexNormals();
+
+                        if(self.data.smoothShading){
+                            child.material.shading = THREE.SmoothShading;
+                        }else{
+                            child.material.shading = THREE.FlatShading;
+                        }
+
                         child.material.map = texture;
-                        child.material.needsUpdate = true;
                         child.material.shininess = self.data.shininess;
+                        child.material.needsUpdate = true;
+
 
 
                         //child.material = material;
