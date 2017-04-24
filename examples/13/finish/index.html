@@ -8,15 +8,13 @@
 <body>
 <a-scene>
 
-    <!-- investigate mentioning https://clara.io/ as a good resource for models online -->
-    <!-- link to this article on optimising 3D assets for a-frame: http://www.jaredpike.design/articles/troubleshooting-and-optimizing-3d-models-for-a-frame/ -->
-
+    <!-- particle engine is really slow at the default maxParticleCount once a lot of geometry has been loaded in - consider lowering this number to find something that works for you -->
     <a-assets>
         <a-asset-item id="cactus-obj" src="assets/obj/cactus/cactus.obj"></a-asset-item>
         <a-asset-item id="cactus-mtl" src="assets/obj/cactus/cactus.mtl"></a-asset-item>
     </a-assets>
 
-    <a-entity position="0 0 0" particle-system="preset: dust; type: 2; texture: assets/img/smokeparticle.png; color: #0000FF,#00FF00,#FF0000"></a-entity>
+    <a-entity position="0 0 0" particle-system="preset: dust; type: 2;  maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #0000FF,#00FF00,#FF0000"></a-entity>
 
     <a-entity obj-model="obj: #cactus-obj; mtl: #cactus-mtl" position="0 0 -4" scale="0.1 0.1 0.1"></a-entity>
 
