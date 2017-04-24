@@ -2,21 +2,25 @@
 <head>
     <title>Example 13</title>
     <script src="https://cdn.rawgit.com/aframevr/aframe/v0.5.0/dist/aframe-master.min.js"></script>
-
     <script src="https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/adfd82bf82ebedc7708edec3b2e89911da3e0bf3/dist/aframe-particle-system-component.min.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/Animation.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/AnimationHandler.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/KeyFrameAnimation.js"></script>
+    <script src="assets/js/components/collada-animation-mixer.js"></script>
 </head>
 <body>
 <a-scene>
 
     <!-- particle engine is really slow at the default maxParticleCount once a lot of geometry has been loaded in - consider lowering this number to find something that works for you -->
-    <a-assets>
-        <a-asset-item id="cactus-obj" src="assets/obj/cactus/cactus.obj"></a-asset-item>
-        <a-asset-item id="cactus-mtl" src="assets/obj/cactus/cactus.mtl"></a-asset-item>
-    </a-assets>
 
-    <a-entity position="0 0 0" particle-system="preset: dust; type: 2;  maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #0000FF,#00FF00,#FF0000"></a-entity>
 
-    <a-entity obj-model="obj: #cactus-obj; mtl: #cactus-mtl" position="0 0 -4" scale="0.1 0.1 0.1"></a-entity>
+    <a-entity position="0 0 -4" particle-system="preset: dust; type: 2;  maxParticleCount: 50; texture: assets/img/smokeparticle.png; color: #0000ff,#00ff00,#ff0000; opacity: 1;"></a-entity>
+
+    <a-entity id="cactus" position="0 -0.1 -4" scale="0.1 0.1 0.1" rotation="90 0 0"
+              collada-animation-mixer
+              collada-model="src: url(assets/dae/cactus/cactus-jump.dae)">
+        <a-entity position="0 0 -1.5" particle-system="maxParticleCount: 25; type:2; color: #ffc408; opacity: 1; maxAge: 2.5; size: 0.3"></a-entity>
+    </a-entity>
 
     <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
     <a-sky color="#ECECEC"></a-sky>
