@@ -74,6 +74,12 @@ AFRAME.registerSystem('main', {
         if (isMobile) {
             var $particles = $('#particles');
             $particles.remove();
+
+            //insert cursor
+
+            //TODO: add support for automatically adding cursor for mobile only
+            //var camera = document.querySelector('a-camera');
+            //<a-cursor intersection-spawn-multi="event: click; template: #voxel-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-cursor>
         }
     },
 
