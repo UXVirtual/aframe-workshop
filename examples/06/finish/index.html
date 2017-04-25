@@ -2,28 +2,56 @@
 <head>
     <title>Example 06</title>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
-    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/b326549cf8224780b04473e7d94992790bf736fa/aframe/build/aframe-ar.js"></script>
-    <script>THREEx.ArToolkitContext.baseURL = 'https://cdn.rawgit.com/jeromeetienne/AR.js/b326549cf8224780b04473e7d94992790bf736fa/three.js/'</script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/640b24f3afa9d27adba27915eb96b1a134dd0a29/aframe/build/aframe-ar.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+    <script>THREEx.ArToolkitContext.baseURL = 'https://cdn.rawgit.com/jeromeetienne/AR.js/640b24f3afa9d27adba27915eb96b1a134dd0a29/three.js/'</script>
+
+    <script src="assets/js/main.js"></script>
 
 </head>
 <body style="margin: 0; overflow: hidden;">
 
-    <a-scene embedded artoolkit="sourceType: webcam;">
+<a-scene main embedded artoolkit="sourceType: webcam;">
 
         <a-assets>
-            <a-asset-item id="cactus-obj" src="assets/obj/cactus/cactus.obj"></a-asset-item>
-            <a-asset-item id="cactus-mtl" src="assets/obj/cactus/cactus.mtl"></a-asset-item>
+            <a-asset-item id="assetAframe" src="assets/ply/aframe.ply"></a-asset-item>
         </a-assets>
 
         <!-- print this pattern for tracking: https://github.com/jeromeetienne/AR.js/raw/b326549cf8224780b04473e7d94992790bf736fa/data/data/Hiro%20pattern%20with%20border.pdf -->
-        <a-marker preset="hiro">
-            <a-entity obj-model="obj: #cactus-obj; mtl: #cactus-mtl" scale="0.04 0.04 0.04" rotation="90 0 0"></a-entity>
-        </a-marker>
+        <a-entity ply-model="src: #assetAframe" rotation='-90 0 0'scale='0.02 0.02 0.02'></a-entity>
 
-    <a-camera wasd-controls-enabled="false" look-controls-enabled="false" position="0 0 0"></a-camera>
+        <a-marker-camera preset='hiro'></a-marker-camera>
 </a-scene>
 
+<div id="instructions-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">How To Play</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>Open and print <a href="assets/img/HIRO.jpg">this marker image</a></li>
+                    <li>OR open the above marker image on your desktop computer and view this example on your mobile phone</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
