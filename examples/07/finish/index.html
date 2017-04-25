@@ -26,7 +26,13 @@
         <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item>
     </a-assets>
 
-    <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20deg angle limit, "all boundaries" checked and delimit along UVs to preserve textures -->
+    <!-- scan models using skanect while the subject is being rotated 360 degrees on turntable. Sensor should move from
+    an upper vertical position to a lower position then back up again. Ideally this should take no longer than 2 minutes
+    to avoid anomalies in the scan and optimize quality -->
+
+    <!-- convert models to low-poly in Blender using Decimate modifier "Planar, 20deg angle limit, "all boundaries"
+    checked and delimit along UVs to preserve textures -->
+
     <!-- switch to edit mode and go to Mesh -> Faces -> Shade Smooth ->
 
     <!-- save models as OBJ with the following settings:
