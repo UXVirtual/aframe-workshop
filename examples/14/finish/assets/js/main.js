@@ -68,6 +68,13 @@ AFRAME.registerSystem('main', {
         },function(e){
             console.log('An error ocurred',e);
         });
+
+        // On mobile remove elements that are resource heavy
+        var isMobile = AFRAME.utils.device.isMobile();
+        if (isMobile) {
+            var $particles = $('#particles');
+            $particles.remove();
+        }
     },
 
     begin: function() {
