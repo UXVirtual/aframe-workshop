@@ -22,6 +22,7 @@
     <script src="https://cdn.rawgit.com/haydenjameslee/networked-aframe/v0.1.0/dist/networked-aframe.js"></script>
     <script src="https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/adfd82bf82ebedc7708edec3b2e89911da3e0bf3/dist/aframe-particle-system-component.min.js"></script>
 
+    <script src="assets/js/components/advanced-texture.js"></script>
     <script src="assets/js/components/intersection-spawn-multi.js"></script>
     <script src="assets/js/loaders/drc-model.js"></script>
     <script src="assets/js/main.js"></script>
@@ -109,7 +110,8 @@
     <!-- environment -->
 
     <!-- must scale drc model by 91x to make it the same size as the original ply -->
-    <a-entity id="environment" drc-model="src: #environment-model; texture: #environment-texture" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>
+    <!-- drc has issues loading correctly on new version of a-frame in Firefox. Using custom advanced-texture component to load texture works better -->
+    <a-entity id="environment" drc-model="src: #environment-model;" advanced-texture="src: #environment-texture; shininess: 0; smoothShading: false;" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>
     <!--<a-entity id="environment" obj-model="obj: #environment-obj;" advanced-texture="src: #environment-texture; shininess: 0; smoothShading: false;" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>-->
     <a-entity visible="false" position="0 -1 0">
         <a-box id="environment-collision1" position="-1.10 -4.56 1.92" scale="12.78 1 8.92"></a-box>
