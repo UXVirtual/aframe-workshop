@@ -30,10 +30,6 @@
     <a-assets>
         <a-asset-item id="bullet-obj" src="assets/obj/bullet/bullet.obj"></a-asset-item>
         <a-asset-item id="bullet-mtl" src="assets/obj/bullet/bullet.mtl"></a-asset-item>
-        <!--<a-asset-item id="skull-drc" src="assets/drc/skull/Scull.drc"></a-asset-item>-->
-        <a-asset-item id="skull-drc-texture" src="assets/obj/skull/Scull_1.png"></a-asset-item>
-        <a-asset-item id="skull-obj" src="assets/obj/skull/Scull.obj"></a-asset-item>
-        <!--<a-asset-item id="skull-mtl" src="assets/obj/skull/Scull.mtl"></a-asset-item>-->
         <a-asset-item id="distant-gunfire" src="assets/ogg/27362__genghis-attenborough__gunfire-at-kootwijk.ogg"></a-asset-item>
         <a-asset-item id="distant-gunfire2" src="assets/ogg/77727__kyster__gunfire-in-the-distance-01.ogg"></a-asset-item>
         <a-asset-item id="distant-gunfire3" src="assets/ogg/125932__alienistcog__reenactment2.ogg"></a-asset-item>
@@ -68,13 +64,12 @@
     <!-- Dim ambient lighting. -->
     <a-entity light="type:ambient; color: #fff; intensity: 0.1;" color=""></a-entity>
 
-    <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="0 0 1.233" material="shader: flat;"></a-circle>
-    <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-1.60 -0.21 -0.233" material="shader: flat;"></a-circle>
+    <a-circle id="hotspot1" class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-0.538 0 -0.506" material="shader: flat;"></a-circle>
+    <a-circle id="hotspot2" class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="2.892 -0.007 -0.004" material="shader: flat;"></a-circle>
+    <a-circle id="hotspot3" class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-2.292 0 0" material="shader: flat;"></a-circle>
 
     <!-- DRC models are currently incompatible with a-frame 0.6.0 -->
-    <!--<a-entity id="model" advanced-texture="src: #skull-drc-texture; shininess: 0; smoothShading: true;" shadow="receive: true" obj-model="obj: #skull-obj;" scale="0.01 0.01 0.01" position="0 0 0" rotation="-25 0 0"></a-entity>-->
-    <!--<a-entity id="model"advanced-texture="src: #skull-drc-texture; shininess: 0; smoothShading: false;" shadow="receive: true" drc-model="src: #skull-drc;" scale="5 5 5" position="0 0 0" rotation="-25 0 0"></a-entity>-->
-    <a-entity id="model" advanced-texture="envMap: assets/img/cubemaps/SwedishRoyalCastle; shininess: 30; reflectivity: 0.7; refractionRatio: 0.98; smoothShading: true; color: #ffd800; specular: #ffffff;" shadow="receive: true" obj-model="obj: #bullet-obj; mtl: #bullet-mtl"></a-entity>
+    <a-entity id="model" advanced-texture="envMap: assets/img/cubemaps/SwedishRoyalCastle; shininess: 5; reflectivity: 0.150; refractionRatio: 0.98; smoothShading: true; color: #c9a300; specular: #fffdf6;" shadow="receive: true" obj-model="obj: #bullet-obj; mtl: #bullet-mtl"></a-entity>
 
     <!-- sounds must be absolute URLs from root path. For some reason asset preloading doesn't work with these at the moment -->
     <a-entity sound="src: url(/examples/09/finish/assets/ogg/27362__genghis-attenborough__gunfire-at-kootwijk.ogg); autoplay: true; loop: true;" position="0 0 20"></a-entity>
