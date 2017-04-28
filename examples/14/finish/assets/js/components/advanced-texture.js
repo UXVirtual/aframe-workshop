@@ -12,10 +12,15 @@
  */
 AFRAME.registerComponent('advanced-texture', {
     schema: {
-        src:         { type: 'asset', required: true },
+        src:         { type: 'asset'},
         crossorigin: { default: '' },
-        shininess: { default: 30 },
-        smoothShading: { default: true }
+        shininess: { type: 'int', default: 0 },
+        specular: {type: 'color', default: "#ffffff"},
+        color: {type: 'color', default: "#ffffff"},
+        reflectivity: {type: 'float', default: 0},
+        refractionRatio: {type: 'float', default: 0},
+        smoothShading: { default: true },
+        envMap: {type: 'asset'}
     },
     /**
      * `init` used to initialize material. Called once.
@@ -26,48 +31,134 @@ AFRAME.registerComponent('advanced-texture', {
 
         this.el.addEventListener('model-loaded',function(e){
 
-            var url = self.convertToAbsoluteURL(document.baseURI,self.data.src);
+            e.target.object3D.traverse(function(child){
 
-            var loader = new THREE.TextureLoader();
-            if (self.data.crossorigin) loader.setCrossOrigin(self.data.crossorigin);
-            loader.load(url, function ( texture ) {
+                if(child instanceof THREE.Mesh){
 
-                console.log(texture);
+                    //child.geometry.mergeVertices();
+                    //child.geometry.computeFaceNormals();
+                    //child.geometry.computeVertexNormals();
 
-                //var material = new THREE.MeshPhongMaterial({map: texture});
-                //material.shading = THREE.SmoothShading;
-                //material.shininess = self.data.shininess;
-                e.target.object3D.traverse(function(child){
-
-                    if(child instanceof THREE.Mesh){
-
-                        //child.geometry.mergeVertices();
-                        //child.geometry.computeFaceNormals();
-                        //child.geometry.computeVertexNormals();
-
-                        if(self.data.smoothShading){
-                            child.material.shading = THREE.SmoothShading;
-                        }else{
-                            child.material.shading = THREE.FlatShading;
-                        }
-
-                        child.material.map = texture;
-                        child.material.shininess = self.data.shininess;
-                        child.material.needsUpdate = true;
+                    self.updateMaterial(child);
 
 
 
-                        //child.material = material;
+                    //child.material = material;
 
-                    }
-                });
+                }
             });
+
+
+
+            if(self.data.src){
+                var texUrl = self.convertToAbsoluteURL(document.baseURI,self.data.src);
+
+                var texloader = new THREE.TextureLoader();
+                if (self.data.crossorigin) texloader.setCrossOrigin(self.data.crossorigin);
+                texloader.load(texUrl, function ( texture ) {
+
+                    //var material = new THREE.MeshPhongMaterial({map: texture});
+                    //material.shading = THREE.SmoothShading;
+                    //material.shininess = self.data.shininess;
+                    e.target.object3D.traverse(function(child){
+
+                        if(child instanceof THREE.Mesh){
+
+                            //child.geometry.mergeVertices();
+                            //child.geometry.computeFaceNormals();
+                            //child.geometry.computeVertexNormals();
+
+
+                            child.material.map = texture;
+                            child.material.needsUpdate = true;
+
+
+
+                            //child.material = material;
+
+                        }
+                    });
+                });
+            }
+
+            if(self.data.envMap){
+
+                var path = self.convertToAbsoluteURL(document.baseURI,self.data.envMap)+'/';
+                var format = '.jpg';
+
+                var files = [
+                    'px' + format, 'nx' + format,
+                    'py' + format, 'ny' + format,
+                    'pz' + format, 'nz' + format
+                ];
+
+                var envMap = new THREE.CubeTextureLoader().setPath(path);
+
+                if (self.data.crossorigin) envMap.setCrossOrigin(self.data.crossorigin);
+                envMap.load(files, function ( envMap ) {
+
+                    console.log('Loaded envmap',envMap);
+
+                    //var material = new THREE.MeshPhongMaterial({map: texture});
+                    //material.shading = THREE.SmoothShading;
+                    //material.shininess = self.data.shininess;
+                    e.target.object3D.traverse(function(child){
+
+                        if(child instanceof THREE.Mesh){
+
+                            //child.geometry.mergeVertices();
+                            //child.geometry.computeFaceNormals();
+                            //child.geometry.computeVertexNormals();
+
+
+                            child.material.envMap = envMap;
+                            child.material.needsUpdate = true;
+
+
+                            //child.material = material;
+
+                        }
+                    });
+                });
+            }
+
+
 
 
 
         });
 
 
+
+
+    },
+
+    update: function(){
+
+        var self = this;
+
+        self.el.object3D.traverse(function(child){
+
+            if(child instanceof THREE.Mesh){
+                self.updateMaterial(child);
+            }
+        });
+    },
+
+    updateMaterial: function(mesh){
+        if(this.data.smoothShading){
+            mesh.material.shading = THREE.SmoothShading;
+        }else{
+            mesh.material.shading = THREE.FlatShading;
+        }
+
+        mesh.material.color = new THREE.Color(this.data.color);
+        mesh.material.combine = THREE.MixOperation;
+        mesh.material.reflectivity = this.data.reflectivity;
+        mesh.material.refractionRatio = this.data.refractionRatio;
+        mesh.material.specular = new THREE.Color(this.data.specular);
+        mesh.material.shininess = this.data.shininess;
+        mesh.material.needsUpdate = true;
     },
 
     convertToAbsoluteURL: function(base, relative) {
