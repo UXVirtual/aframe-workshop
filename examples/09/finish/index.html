@@ -1,0 +1,120 @@
+<html>
+<head>
+    <title>Example 09</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/aframevr/aframe/99b95772d9631d09a4e51d18587e7d0e1069ed56/dist/aframe-master.min.js"></script><!-- a-frame v0.6.0 with shadow support -->
+    <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/master/dist/aframe-orbit-controls-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
+    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
+    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/example/DRACOLoader.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.loaders.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.misc.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.controls.min.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/0f3e106ee6b9aa71c9e377a1172d4324356782d2/components/look-at/dist/aframe-look-at-component.js"></script><!-- v0.2.0 of this component is the only one that currently works -->
+    <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/33d4b822699b528651a0512cd7566b2742e19754/dist/aframe-mouse-cursor-component.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="assets/js/components/advanced-texture.js"></script>
+    <script src="assets/js/components/auto-scale.js"></script>
+    <script src="assets/js/loaders/drc-model.js"></script>
+    <script src="assets/js/main.js"></script>
+</head>
+
+<body>
+<a-scene main vr-mode-ui="enabled: false">
+
+    <a-assets>
+        <a-asset-item id="bullet-obj" src="assets/obj/bullet/bullet.obj"></a-asset-item>
+        <a-asset-item id="bullet-mtl" src="assets/obj/bullet/bullet.mtl"></a-asset-item>
+        <!--<a-asset-item id="skull-drc" src="assets/drc/skull/Scull.drc"></a-asset-item>-->
+        <a-asset-item id="skull-drc-texture" src="assets/obj/skull/Scull_1.png"></a-asset-item>
+        <a-asset-item id="skull-obj" src="assets/obj/skull/Scull.obj"></a-asset-item>
+        <!--<a-asset-item id="skull-mtl" src="assets/obj/skull/Scull.mtl"></a-asset-item>-->
+        <a-asset-item id="distant-gunfire" src="assets/ogg/27362__genghis-attenborough__gunfire-at-kootwijk.ogg"></a-asset-item>
+        <a-asset-item id="distant-gunfire2" src="assets/ogg/77727__kyster__gunfire-in-the-distance-01.ogg"></a-asset-item>
+        <a-asset-item id="distant-gunfire3" src="assets/ogg/125932__alienistcog__reenactment2.ogg"></a-asset-item>
+
+    </a-assets>
+
+    <a-entity
+            id="camera"
+            camera
+            mouse-cursor
+            position="0 1.5 3"
+            orbit-controls="
+                autoRotate: true;
+                autoRotateSpeed:0.05;
+                target: #model;
+                enableDamping: true;
+                dampingFactor: 0.125;
+                rotateSpeed:0.05;
+                minDistance:2;
+                maxDistance:4;
+                minZoom:4;
+                maxZoom:0;
+                enableKeys: false;
+                enablePan:false;">
+        <!-- Red directional light shining from the top left. -->
+        <a-light light="type: directional; castShadow: true; color: #fff; intensity: 0.8; shadowCameraVisible: false; shadowMapHeight: 2048; shadowMapWidth: 2048;" position="-1 1 0"></a-light>
+        <!-- Blue point light, 5 meters in the air. -->
+        <a-light light="type: point; castShadow: true; color: #fff; intensity: 0.3; shadowCameraVisible: false; shadowMapHeight: 512; shadowMapWidth: 512;" position="0 5 0"></a-light>
+    </a-entity>
+
+
+    <!-- Dim ambient lighting. -->
+    <a-entity light="type:ambient; color: #fff; intensity: 0.1;" color=""></a-entity>
+
+    <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="0 0 1.233" material="shader: flat;"></a-circle>
+    <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-1.60 -0.21 -0.233" material="shader: flat;"></a-circle>
+
+    <!-- DRC models are currently incompatible with a-frame 0.6.0 -->
+    <!--<a-entity id="model" advanced-texture="src: #skull-drc-texture; shininess: 0; smoothShading: true;" shadow="receive: true" obj-model="obj: #skull-obj;" scale="0.01 0.01 0.01" position="0 0 0" rotation="-25 0 0"></a-entity>-->
+    <!--<a-entity id="model"advanced-texture="src: #skull-drc-texture; shininess: 0; smoothShading: false;" shadow="receive: true" drc-model="src: #skull-drc;" scale="5 5 5" position="0 0 0" rotation="-25 0 0"></a-entity>-->
+    <a-entity id="model" advanced-texture="envMap: assets/img/cubemaps/SwedishRoyalCastle; shininess: 30; reflectivity: 0.7; refractionRatio: 0.98; smoothShading: true; color: #ffd800; specular: #ffffff;" shadow="receive: true" obj-model="obj: #bullet-obj; mtl: #bullet-mtl"></a-entity>
+
+    <!-- sounds must be absolute URLs from root path. For some reason asset preloading doesn't work with these at the moment -->
+    <a-entity sound="src: url(/examples/09/finish/assets/ogg/27362__genghis-attenborough__gunfire-at-kootwijk.ogg); autoplay: true; loop: true;" position="0 0 20"></a-entity>
+    <a-entity sound="src: url(/examples/09/finish/assets/ogg/77727__kyster__gunfire-in-the-distance-01.ogg); autoplay: true; loop: true;" position="0 0 -20"></a-entity>
+    <a-entity sound="src: url(/examples/09/finish/assets/ogg/125932__alienistcog__reenactment2.ogg); autoplay: true; loop: true;" position="10 0 10"></a-entity>
+
+
+
+    <a-entity id="sky" shadow="receive: false" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 128 128 128; bottomColor: 0 0 0" scale="-1 1 1" position="" rotation="" visible=""></a-entity>
+
+
+</a-scene>
+
+<!-- TODO: compile bootstrap from SCSS to namespace the bootstrap CSS classes so they don't collide with the CSS embedded by the a-frame inspector when it is initialized -->
+<div id="hotspot-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Information Hotspot</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Mauris a pulvinar erat, at congue tortor. Aenean et tellus at massa placerat vulputate. Sed ultrices
+                    lorem ex, sed pellentesque odio suscipit eu. Morbi ac erat vehicula, porttitor lectus vel, auctor
+                    ipsum. Praesent a luctus mauris, non aliquet est. Nunc consequat sem nibh, rhoncus molestie libero
+                    dignissim interdum. Integer tristique ipsum at est rhoncus, a tincidunt lorem bibendum. Nullam felis
+                    nulla, eleifend sit amet facilisis non, luctus vel tortor. Nunc a ante ac velit malesuada vulputate.
+                    Sed suscipit suscipit sapien et faucibus. Phasellus commodo nulla a leo consectetur volutpat. Mauris
+                    luctus volutpat rutrum. Sed lacinia gravida erat eu tincidunt. Aenean sit amet sodales odio, vitae
+                    lobortis massa. Phasellus convallis sapien et libero volutpat, eget venenatis libero imperdiet.
+                    Phasellus lobortis odio sed aliquam vulputate.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
