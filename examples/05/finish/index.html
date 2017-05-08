@@ -43,6 +43,10 @@
                 custom-kinematic-body="height:0.5; radius: 0.5; enableSlopes: false;"
                 entity-movement-controls-gamepad2
                   >
+
+            <!-- investigate adding donmccurdy's animation-mixer component that will support loading fbx-animations exported from mixamo as individual files -->
+            <!-- https://github.com/donmccurdy/aframe-extras/tree/master/src/loaders -->
+
             <a-entity collada-animation-mixer="autoplay: true; loop: false;"
                       collada-model="src: url(assets/dae/cactus/cactus-walk.dae)" rotation="90 0 0" position="0 -0.6 0" scale="0.1 0.1 0.1"></a-entity>
         </a-entity>
