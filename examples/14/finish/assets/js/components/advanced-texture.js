@@ -48,10 +48,17 @@ AFRAME.registerComponent('advanced-texture', {
                 }
             });
 
-
+            var pattern = /^((http|https|ftp):\/\/)/;
 
             if(self.data.src){
-                var texUrl = self.convertToAbsoluteURL(document.baseURI,self.data.src);
+
+                var texUrl;
+
+                if(!pattern.test(self.data.src)) {
+                    texUrl = this.convertToAbsoluteURL(document.baseURI,self.data.src);
+                }else{
+                    texUrl = self.data.src;
+                }
 
                 var texloader = new THREE.TextureLoader();
                 if (self.data.crossorigin) texloader.setCrossOrigin(self.data.crossorigin);
@@ -83,7 +90,14 @@ AFRAME.registerComponent('advanced-texture', {
 
             if(self.data.envMap){
 
-                var path = self.convertToAbsoluteURL(document.baseURI,self.data.envMap)+'/';
+                var path;
+
+                if(!pattern.test(self.data.src)) {
+                    path = self.convertToAbsoluteURL(document.baseURI,self.data.envMap)+'/';
+                }else{
+                    path = self.data.envMap;
+                }
+
                 var format = '.jpg';
 
                 var files = [
