@@ -27,12 +27,15 @@ THREE.DRACOLoader.prototype = {
 
     constructor: THREE.DRACOLoader,
 
-    load: function(url, onLoad, onProgress, onError) {
+    load: function(url, onLoad, onProgress, onError, crossOrigin) {
         const scope = this;
         const loader = new THREE.FileLoader(scope.manager);
         loader.setPath(this.path);
         loader.setResponseType('arraybuffer');
-        loader.crossOrigin = 'anonymous';
+        if(crossOrigin){
+            loader.crossOrigin = crossOrigin;
+        }
+
         loader.load(url, function(blob) {
             scope.decodeDracoFile(blob, onLoad);
         }, onProgress, onError);
