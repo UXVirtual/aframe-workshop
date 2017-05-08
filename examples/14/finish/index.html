@@ -51,36 +51,41 @@
         </script>
         <script id="avatar-template" type="text/html">
             <a-entity class="avatar">
-                <a-sphere class="head"
-                          color="#5985ff"
-                          scale="0.45 0.5 0.4"
-                          random-color
-                        ></a-sphere>
+                <a-box class="head"
+                       color="#5985ff"
+                       scale="0.45 0.5 0.4"
+                       material="shader: standard"
+                       random-color
+                        ></a-box>
                 <a-entity class="face"
                           position="0 0.05 0"
                         >
-                    <a-sphere class="eye"
-                              color="#efefef"
-                              position="0.16 0.1 -0.35"
-                              scale="0.12 0.12 0.12"
+                    <a-box class="eye"
+                           color="#efefef"
+                           position="0.16 0.1 -0.2"
+                           scale="0.12 0.12 0.12"
+                           material="shader: standard"
                             >
-                        <a-sphere class="pupil"
-                                  color="#000"
-                                  position="0 0 -1"
-                                  scale="0.2 0.2 0.2"
-                                ></a-sphere>
-                    </a-sphere>
-                    <a-sphere class="eye"
-                              color="#efefef"
-                              position="-0.16 0.1 -0.35"
-                              scale="0.12 0.12 0.12"
+                        <a-box class="pupil"
+                               color="#000"
+                               position="0 0 -0.519"
+                               scale="0.2 0.2 0.2"
+                               material="shader: standard"
+                                ></a-box>
+                    </a-box>
+                    <a-box class="eye"
+                           color="#efefef"
+                           position="-0.16 0.1 -0.2"
+                           scale="0.12 0.12 0.12"
+                           material="shader: standard"
                             >
-                        <a-sphere class="pupil"
-                                  color="#000"
-                                  position="0 0 -1"
-                                  scale="0.2 0.2 0.2"
-                                ></a-sphere>
-                    </a-sphere>
+                        <a-box class="pupil"
+                               color="#000"
+                               position="0 0 -0.519"
+                               scale="0.2 0.2 0.2"
+                               material="shader: standard"
+                                ></a-box>
+                    </a-box>
                 </a-entity>
             </a-entity>
         </script>
