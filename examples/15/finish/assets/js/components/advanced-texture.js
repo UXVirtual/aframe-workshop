@@ -12,15 +12,15 @@
  */
 AFRAME.registerComponent('advanced-texture', {
     schema: {
-        src:         { type: 'asset'},
-        crossorigin: { default: '' },
+        src:         { type: 'asset'}, //this should be the URL to the texture file you wish to load. If loading cross-domain do NOT load it via a-asset-item as this will not send the correct headers
+        crossorigin: { type: 'string', default: '' },//if the src and texture are loaded from a different domain, then set this to 'anonymous'
         shininess: { type: 'int', default: 0 },
         specular: {type: 'color', default: "#ffffff"},
         color: {type: 'color', default: "#ffffff"},
         reflectivity: {type: 'float', default: 0},
         refractionRatio: {type: 'float', default: 0},
         smoothShading: { default: true },
-        envMap: {type: 'asset'}
+        envMap: {type: 'asset'} //this should be the URL to the environment map file you wish to load. If loading cross-domain do NOT load it via a-asset-item as this will not send the correct headers
     },
     /**
      * `init` used to initialize material. Called once.

@@ -14,9 +14,9 @@
 
 AFRAME.registerComponent('drc-model', {
     schema: {
-        src:         { type: 'asset', required: true },
-        texture:         { type: 'asset' },
-        crossorigin: { type: 'string', default: '' },
+        src:         { type: 'asset', required: true }, //this should be the URL to the DRC file you wish to load. If loading cross-domain do NOT load it via a-asset-item as this will not send the correct headers
+        texture:         { type: 'asset' },  //this should be the URL to the texture file you wish to load. If loading cross-domain do NOT load it via a-asset-item as this will not send the correct headers
+        crossorigin: { type: 'string', default: '' },//if the src and texture are loaded from a different domain, then set this to 'anonymous'
         dracoDecoderPath: {type: 'string', default: 'https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/draco_decoder.js' },
         dracoWASMWrapperPath: {type: 'string', default: 'https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/draco_wasm_wrapper.js'},
         dracoWASMPath: {type: 'string', default: 'https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/draco_decoder.wasm'}
@@ -31,12 +31,6 @@ AFRAME.registerComponent('drc-model', {
     },
 
     update: function () {
-
-
-        //TODO: update this to use the latest example from https://github.com/google/draco/blob/master/javascript/example/webgl_loader_draco.html
-        //which supports auto switching between regular JS and web assembly for faster decode times
-
-        console.log('Updating');
 
         var data = this.data;
         if (!data.src) return;
@@ -56,15 +50,11 @@ AFRAME.registerComponent('drc-model', {
 
         var pattern = /^((http|https|ftp):\/\/)/;
 
-        console.log('Loading: ',data.src);
-
         if(!pattern.test(data.src)) {
             url = this.convertToAbsoluteURL(document.baseURI,data.src);
         }else{
             url = data.src;
         }
-
-        console.log('Loading url',url);
 
         this.dracoLoader.load(url, function(object) {
             console.log('Loaded');
@@ -73,12 +63,10 @@ AFRAME.registerComponent('drc-model', {
             console.log('Progress ',progress);
         },function(error){
             console.log('There was an error loading Draco model: ',error);
-        });
+        },data.crossorigin);
     },
 
     load: function (model,texture) {
-
-        console.log('Loaded drc');
 
         var loader = new THREE.TextureLoader();
 
@@ -88,6 +76,7 @@ AFRAME.registerComponent('drc-model', {
         var geometry, material;
 
         if(texture){
+            if (self.data.crossorigin) loader.setCrossOrigin(self.data.crossorigin);
             loader.load(texture, function ( texture ) {
                 // Point cloud does not have face indices.
                 if (bufferGeometry.index == null) {
