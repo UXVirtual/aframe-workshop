@@ -33,7 +33,15 @@ AFRAME.registerComponent('drc-model', {
         loader.setVerbosity(1);
         if (data.crossorigin) loader.setCrossOrigin(data.crossorigin);
 
-        var url = this.convertToAbsoluteURL(document.baseURI,data.src);
+        var url;
+
+        var pattern = /^((http|https|ftp):\/\/)/;
+
+        if(!pattern.test(data.src)) {
+            url = this.convertToAbsoluteURL(document.baseURI,data.src);
+        }else{
+            url = data.src;
+        }
 
         loader.load(url, function(object) {
             this.load(object,data.texture);
