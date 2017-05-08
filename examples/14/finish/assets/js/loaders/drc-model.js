@@ -14,7 +14,7 @@
 
 AFRAME.registerComponent('drc-model', {
     schema: {
-        src:         { type: 'asset', required: true },
+        src:         { type: 'asset', required: true }, //you must set CORS headers if loading the model from a different domain to what the page is running on
         texture:         { type: 'asset' },
         crossorigin: { type: 'string', default: '' },
         dracoDecoderPath: {type: 'string', default: 'https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/draco_decoder.js' },
@@ -31,12 +31,6 @@ AFRAME.registerComponent('drc-model', {
     },
 
     update: function () {
-
-
-        //TODO: update this to use the latest example from https://github.com/google/draco/blob/master/javascript/example/webgl_loader_draco.html
-        //which supports auto switching between regular JS and web assembly for faster decode times
-
-        console.log('Updating');
 
         var data = this.data;
         if (!data.src) return;
@@ -56,15 +50,11 @@ AFRAME.registerComponent('drc-model', {
 
         var pattern = /^((http|https|ftp):\/\/)/;
 
-        console.log('Loading: ',data.src);
-
         if(!pattern.test(data.src)) {
             url = this.convertToAbsoluteURL(document.baseURI,data.src);
         }else{
             url = data.src;
         }
-
-        console.log('Loading url',url);
 
         this.dracoLoader.load(url, function(object) {
             console.log('Loaded');
@@ -77,8 +67,6 @@ AFRAME.registerComponent('drc-model', {
     },
 
     load: function (model,texture) {
-
-        console.log('Loaded drc');
 
         var loader = new THREE.TextureLoader();
 
