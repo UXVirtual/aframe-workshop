@@ -29,6 +29,8 @@ AFRAME.registerComponent('advanced-texture', {
 
         var self = this;
 
+        var pattern = /^((http|https|ftp):\/\/)/;
+
         this.el.addEventListener('model-loaded',function(e){
 
             e.target.object3D.traverse(function(child){
@@ -48,14 +50,12 @@ AFRAME.registerComponent('advanced-texture', {
                 }
             });
 
-            var pattern = /^((http|https|ftp):\/\/)/;
-
             if(self.data.src){
 
                 var texUrl;
 
                 if(!pattern.test(self.data.src)) {
-                    texUrl = this.convertToAbsoluteURL(document.baseURI,self.data.src);
+                    texUrl = self.convertToAbsoluteURL(document.baseURI,self.data.src);
                 }else{
                     texUrl = self.data.src;
                 }
@@ -92,7 +92,7 @@ AFRAME.registerComponent('advanced-texture', {
 
                 var path;
 
-                if(!pattern.test(self.data.src)) {
+                if(!pattern.test(self.data.envMap)) {
                     path = self.convertToAbsoluteURL(document.baseURI,self.data.envMap)+'/';
                 }else{
                     path = self.data.envMap;
