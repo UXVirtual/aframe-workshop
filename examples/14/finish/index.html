@@ -12,8 +12,8 @@
 
     <script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
-    <script src="https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/example/DRACOLoader.js"></script>
-    <!--<script src="assets/js/draco/DRACOLoader.js"></script>-->
+    <!--<script src="https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/example/DRACOLoader.js"></script>-->
+    <script src="assets/js/draco/DRACOLoader.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.loaders.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.misc.min.js"></script>
 
@@ -91,9 +91,7 @@
                  grab
                  snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"
                 ></a-mixin>
-        <a-asset-item id="environment-model" src="assets/drc/environment/environment.drc"></a-asset-item>
         <!--<a-asset-item id="environment-collision-mesh" src="assets/drc/environment/environment-collision.drc"></a-asset-item>-->
-        <a-asset-item id="environment-texture" src="assets/drc/environment/environment-hq.png"></a-asset-item>
         <!--<a-asset-item id="environment-texture" src="assets/obj/environment/environment_Mesh_color.png"></a-asset-item>-->
         <!--<a-asset-item id="environment-obj" src="assets/obj/environment/environment.obj"></a-asset-item>
         <a-asset-item id="environment-dae" src="assets/dae/environment.dae"></a-asset-item>
@@ -111,7 +109,7 @@
 
     <!-- must scale drc model by 91x to make it the same size as the original ply -->
     <!-- drc has issues loading correctly on new version of a-frame in Firefox. Using custom advanced-texture component to load texture works better -->
-    <a-entity id="environment" drc-model="src: https://cdn.glitch.com/f03f860a-363f-4c58-af73-ff6774d78fb7%2Fenvironment.drc?1494207119112; crossorigin: anonymous" advanced-texture="src: #environment-texture; shininess: 0; smoothShading: false; crossorigin: anonymous;" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>
+    <a-entity id="environment" drc-model="src: assets/drc/environment/environment.drc" advanced-texture="src: assets/drc/environment/environment-hq.png; shininess: 0; smoothShading: false;" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>
     <!--<a-entity id="environment" obj-model="obj: #environment-obj;" advanced-texture="src: #environment-texture; shininess: 0; smoothShading: false;" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>-->
     <a-entity visible="false" position="0 -1 0">
         <a-box id="environment-collision1" position="-1.10 -4.56 1.92" scale="12.78 1 8.92"></a-box>
