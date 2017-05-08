@@ -10,32 +10,53 @@
 
 //var dracoDecoder = DracoModule();
 //const DracoModule = Module;
-var fileDisplayArea = {innerText:''};
+//var fileDisplayArea = {innerText:''};
 
 AFRAME.registerComponent('drc-model', {
     schema: {
         src:         { type: 'asset', required: true },
         texture:         { type: 'asset' },
-        crossorigin: { default: '' }
+        crossorigin: { type: 'string', default: '' },
+        dracoDecoderPath: {type: 'string', default: 'https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/draco_decoder.js' },
+        dracoWASMWrapperPath: {type: 'string', default: 'https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/draco_wasm_wrapper.js'},
+        dracoWASMPath: {type: 'string', default: 'https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/draco_decoder.wasm'}
     },
 
     init: function () {
         this.model = null;
+
+        // Global Draco decoder type.
+        this.dracoDecoderType = {};
+        this.dracoLoader = undefined;
     },
 
     update: function () {
-        var loader,
-            data = this.data;
+
+
+        //TODO: update this to use the latest example from https://github.com/google/draco/blob/master/javascript/example/webgl_loader_draco.html
+        //which supports auto switching between regular JS and web assembly for faster decode times
+
+        console.log('Updating');
+
+        var data = this.data;
         if (!data.src) return;
 
         this.remove();
-        loader = new THREE.DRACOLoader();
-        loader.setVerbosity(1);
-        if (data.crossorigin) loader.setCrossOrigin(data.crossorigin);
+
+        this.loadDracoDecoder();
+    },
+
+    initDraco: function() {
+
+        var data = this.data;
+
+        this.dracoLoader.setVerbosity(1);
 
         var url;
 
         var pattern = /^((http|https|ftp):\/\/)/;
+
+        console.log('Loading: ',data.src);
 
         if(!pattern.test(data.src)) {
             url = this.convertToAbsoluteURL(document.baseURI,data.src);
@@ -43,16 +64,21 @@ AFRAME.registerComponent('drc-model', {
             url = data.src;
         }
 
-        loader.load(url, function(object) {
+        console.log('Loading url',url);
+
+        this.dracoLoader.load(url, function(object) {
+            console.log('Loaded');
             this.load(object,data.texture);
         }.bind(this),function(progress){
-            //console.log('Progress ',progress);
+            console.log('Progress ',progress);
         },function(error){
             console.log('There was an error loading Draco model: ',error);
         });
     },
 
     load: function (model,texture) {
+
+        console.log('Loaded drc');
 
         var loader = new THREE.TextureLoader();
 
@@ -89,6 +115,65 @@ AFRAME.registerComponent('drc-model', {
             self.computeGeometry(bufferGeometry,geometry);
         }
     },
+
+    // This function loads a JavaScript file and adds it to the page. "path"
+    // is the path to the JavaScript file. "onLoadFunc" is the function to be
+    // called when the JavaScript file has been loaded.
+    loadJavaScriptFile: function(path, onLoadFunc) {
+        const head = document.getElementsByTagName('head')[0];
+        const element = document.createElement('script');
+        element.type = 'text/javascript';
+        element.src = path;
+        if (onLoadFunc !== null)
+            element.onload = onLoadFunc;
+        head.appendChild(element);
+    },
+    loadWebAssemblyDecoder: function() {
+
+        var self = this;
+
+        this.dracoDecoderType['wasmBinaryFile'] = self.data.dracoWASMPath;
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', self.data.dracoWASMPath, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function() {
+            // draco_wasm_wrapper.js must be loaded before DracoModule is
+            // created. The object passed into DracoModule() must contain a
+            // property with the name of wasmBinary and the value must be an
+            // ArrayBuffer containing the contents of the .wasm file.
+            self.dracoDecoderType['wasmBinary'] = xhr.response;
+            self.createDracoDecoder();
+        };
+        xhr.send(null)
+    },
+    // This function will test if the browser has support for WebAssembly. If
+    // it does it will download the WebAssembly Draco decoder, if not it will
+    // download the asmjs Draco decoder.
+    // TODO: Investigate moving the Draco decoder loading code
+    // over to DRACOLoader.js.
+    loadDracoDecoder: function() {
+        var self = this;
+
+        if (typeof WebAssembly !== 'object') {
+            // No WebAssembly support
+            this.loadJavaScriptFile(this.data.dracoDecoderPath, function(){
+
+                self.createDracoDecoder();
+            });
+        } else {
+            this.loadJavaScriptFile(this.data.dracoWASMWrapperPath, function(){
+                console.log('Loaded JS file');
+                self.loadWebAssemblyDecoder();
+            });
+        }
+    },
+
+    createDracoDecoder: function() {
+        this.dracoLoader = new THREE.DRACOLoader();
+        this.dracoLoader.setDracoDecoderType(this.dracoDecoderType);
+        this.initDraco();
+    },
+
 
     computeGeometry: function(bufferGeometry,geometry) {
         var self = this;
