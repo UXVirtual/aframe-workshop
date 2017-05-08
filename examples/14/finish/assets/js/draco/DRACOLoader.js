@@ -1,3 +1,4 @@
+/* Modified DRACOLoader from https://github.com/google/draco/commit/ecdd29e44ba3649f692a00a937893c5580fb5284 - added support for injecting crossOrigin*/
 // Copyright 2016 The Draco Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
