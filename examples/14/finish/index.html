@@ -4,7 +4,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <script src="https://cdn.rawgit.com/aframevr/aframe/99b95772d9631d09a4e51d18587e7d0e1069ed56/dist/aframe-master.js"></script>
+    <script src="https://cdn.rawgit.com/aframevr/aframe/e0250dbf0c3921d7320ca8d97cac7cace3d073b0/dist/aframe-master.js"></script>
     <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
     <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
     <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
@@ -12,8 +12,8 @@
 
     <script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
-    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/draco_decoder.js"></script>
-    <script src="https://cdn.rawgit.com/google/draco/e648e1bde5d9a90572bb0866bbfa0ec71e65009a/javascript/example/DRACOLoader.js"></script>
+    <script src="https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/example/DRACOLoader.js"></script>
+    <!--<script src="assets/js/draco/DRACOLoader.js"></script>-->
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.loaders.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.misc.min.js"></script>
 
@@ -111,7 +111,7 @@
 
     <!-- must scale drc model by 91x to make it the same size as the original ply -->
     <!-- drc has issues loading correctly on new version of a-frame in Firefox. Using custom advanced-texture component to load texture works better -->
-    <a-entity id="environment" drc-model="src: #environment-model;" advanced-texture="src: #environment-texture; shininess: 0; smoothShading: false;" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>
+    <a-entity id="environment" drc-model="src: https://cdn.glitch.com/f03f860a-363f-4c58-af73-ff6774d78fb7%2Fenvironment.drc?1494207119112; crossorigin: anonymous" advanced-texture="src: #environment-texture; shininess: 0; smoothShading: false; crossorigin: anonymous;" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>
     <!--<a-entity id="environment" obj-model="obj: #environment-obj;" advanced-texture="src: #environment-texture; shininess: 0; smoothShading: false;" scale="91 91 91" shadow="receive: true" position="0 1 0"></a-entity>-->
     <a-entity visible="false" position="0 -1 0">
         <a-box id="environment-collision1" position="-1.10 -4.56 1.92" scale="12.78 1 8.92"></a-box>
