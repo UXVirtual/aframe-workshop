@@ -36,9 +36,9 @@
     <a-assets>
         <a-asset-item id="bullet-obj" src="assets/obj/bullet/bullet.obj"></a-asset-item>
         <a-asset-item id="bullet-mtl" src="assets/obj/bullet/bullet.mtl"></a-asset-item>
-        <a-asset-item id="distant-gunfire" src="assets/ogg/27362__genghis-attenborough__gunfire-at-kootwijk.ogg"></a-asset-item>
-        <a-asset-item id="distant-gunfire2" src="assets/ogg/77727__kyster__gunfire-in-the-distance-01.ogg"></a-asset-item>
-        <a-asset-item id="distant-gunfire3" src="assets/ogg/125932__alienistcog__reenactment2.ogg"></a-asset-item>
+        <audio id="distant-gunfire" src="assets/ogg/27362__genghis-attenborough__gunfire-at-kootwijk.ogg"></audio>
+        <audio id="distant-gunfire2" src="assets/ogg/77727__kyster__gunfire-in-the-distance-01.ogg"></audio>
+        <audio id="distant-gunfire3" src="assets/ogg/125932__alienistcog__reenactment2.ogg"></audio>
     </a-assets>
 
     <a-camera
@@ -80,9 +80,9 @@
     <a-entity id="model" advanced-texture="envMap: assets/img/cubemaps/SwedishRoyalCastle; shininess: 5; reflectivity: 0.150; refractionRatio: 0.98; smoothShading: true; color: #c9a300; specular: #fffdf6;" shadow="receive: true" obj-model="obj: #bullet-obj; mtl: #bullet-mtl"></a-entity>
 
     <!-- sounds must be absolute URLs from root path. For some reason asset preloading doesn't work with these at the moment -->
-    <a-entity id="sound1" sound="src: url(/examples/09/finish/assets/ogg/27362__genghis-attenborough__gunfire-at-kootwijk.ogg); autoplay: true; loop: true;" position="0 0 20"></a-entity>
-    <a-entity id="sound2" sound="src: url(/examples/09/finish/assets/ogg/77727__kyster__gunfire-in-the-distance-01.ogg); autoplay: true; loop: true;" position="0 0 -20"></a-entity>
-    <a-entity id="sound3" sound="src: url(/examples/09/finish/assets/ogg/125932__alienistcog__reenactment2.ogg); autoplay: true; loop: true;" position="10 0 10"></a-entity>
+    <a-entity id="sound1" sound="src: #distant-gunfire; autoplay: true; loop: true;" position="0 0 20"></a-entity>
+    <a-entity id="sound2" sound="src: #distant-gunfire2; autoplay: true; loop: true;" position="0 0 -20"></a-entity>
+    <a-entity id="sound3" sound="src: #distant-gunfire3; autoplay: true; loop: true;" position="10 0 10"></a-entity>
 
     <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #ffff00,#ffffcc"></a-entity>
 
