@@ -58,7 +58,8 @@
                 minZoom:4;
                 maxZoom:0;
                 enableKeys: false;
-                enablePan:true;">
+                enablePan:true;
+                logPosition:false;">
         <!-- Red directional light shining from the top left. -->
         <a-light light="type: directional; castShadow: true; color: #fff; intensity: 0.8; shadowCameraVisible: false; shadowMapHeight: 2048; shadowMapWidth: 2048;" position="-1 1 0"></a-light>
         <!-- Blue point light, 5 meters in the air. -->
@@ -70,9 +71,10 @@
     <!-- Dim ambient lighting. -->
     <a-light light="type:ambient; color: #fff; intensity: 0.1;" color=""></a-light>
 
-    <a-circle id="hotspot1" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-0.538 0 -0.506" material="shader: flat;"></a-circle>
-    <a-circle id="hotspot2" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="3.025 -0.007 -0.004" material="shader: flat;"></a-circle>
-    <a-circle id="hotspot3" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-2.292 0 0" material="shader: flat;"></a-circle>
+    <!-- Special thanks to Eric Jinks (https://github.com/Jinksi) for coming up with the rotateToPosition logic on aframe-orbit-controls-component to better illustrate hotspot areas -->
+    <a-circle id="hotspot1" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" rotateToPosition="-0.964449148083754 0.027254289423805034 -3.8818932294008524" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-0.538 0 -0.506" material="shader: flat;"></a-circle>
+    <a-circle id="hotspot2" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" rotateToPosition="3.9999804638206027 -0.00995775084276031 -0.007558587873826918" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="3.025 -0.007 -0.004" material="shader: flat;"></a-circle>
+    <a-circle id="hotspot3" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" rotateToPosition="-3.9989764614762784 0.07397253012508073 0.05210878376378217" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-2.292 0 0" material="shader: flat;"></a-circle>
 
     <!-- DRC models are currently incompatible with a-frame 0.6.0 -->
     <a-entity id="model" advanced-texture="envMap: assets/img/cubemaps/SwedishRoyalCastle; shininess: 5; reflectivity: 0.150; refractionRatio: 0.98; smoothShading: true; color: #c9a300; specular: #fffdf6;" shadow="receive: true" obj-model="obj: #bullet-obj; mtl: #bullet-mtl"></a-entity>

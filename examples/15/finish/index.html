@@ -53,7 +53,8 @@
                 minZoom:4;
                 maxZoom:0;
                 enableKeys: false;
-                enablePan:true;">
+                enablePan:true;
+                logPosition:false;">
         <!-- Red directional light shining from the top left. -->
         <a-light light="type: directional; castShadow: true; color: #fff; intensity: 0.8; shadowCameraVisible: false; shadowMapHeight: 2048; shadowMapWidth: 2048;" position="-1 1 0"></a-light>
         <!-- Blue point light, 5 meters in the air. -->
@@ -64,8 +65,9 @@
     <!-- Dim ambient lighting. -->
     <a-entity light="type:ambient; color: #fff; intensity: 0.1;" color=""></a-entity>
 
-    <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="0 0 1.233" material="shader: flat;"></a-circle>
-    <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-1.60 -0.21 -0.233" material="shader: flat;"></a-circle>
+    <!-- Special thanks to Eric Jinks (https://github.com/Jinksi) for coming up with the rotateToPosition logic on aframe-orbit-controls-component to better illustrate hotspot areas -->
+    <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" rotateToPosition="-0.6830676308116326 0.12291889643375495 3.2815102554520434" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="0 0 1.233" material="shader: flat;"></a-circle>
+    <a-circle class="hotspot" shadow="receive: false" color="#f00" radius="0.05" rotateToPosition="-3.293944481883262 -0.43555248241272715 -0.4585016742988899" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-1.60 -0.21 -0.233" material="shader: flat;"></a-circle>
 
     <!-- DRC models are currently incompatible with a-frame 0.6.0 -->
     <a-entity id="model" advanced-texture="src: #skull-drc-texture; shininess: 0; smoothShading: true;" shadow="receive: true" obj-model="obj: #skull-obj;" scale="0.01 0.01 0.01" position="0 0 0" rotation="-25 0 0"></a-entity>

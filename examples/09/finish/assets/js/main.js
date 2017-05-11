@@ -17,6 +17,7 @@ AFRAME.registerSystem('main', {
 
         var modelEl = document.querySelector('#model');
 
+        var rotating = false;
 
         camera.addEventListener('click',function(e){
 
@@ -25,8 +26,24 @@ AFRAME.registerSystem('main', {
             var targetElClass = targetEl.getAttribute('class');
 
             if(targetElClass === 'hotspot'){
-                sceneEl.pause();
-                self.$modal.modal('show');
+
+                if(!rotating){
+                    rotating = true;
+                    camera.setAttribute('orbit-controls', {
+                        rotateTo: targetEl.getAttribute('rotateToPosition')
+                    });
+
+                    setTimeout(function(){
+                        sceneEl.pause();
+                        self.$modal.modal('show');
+                        rotating = false;
+                    },2000);
+                }
+
+
+
+                //console.log(targetEl.getAttribute('rotateToPosition'))
+                //console.log(camera.getAttribute('orbit-controls'))
             }
         });
 
