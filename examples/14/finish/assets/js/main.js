@@ -64,27 +64,34 @@ AFRAME.registerSystem('main', {
 
         checkConnected(function(){
             console.log('Connected to server. Can begin') ;
-            self.begin();
+            self.beginNetwork();
         },function(e){
             console.log('An error ocurred',e);
         });
 
-        // On mobile remove elements that are resource heavy
-        var isMobile = AFRAME.utils.device.isMobile();
-        if (isMobile) {
-            var $particles = $('#particles');
-            $particles.remove();
+        var scene = document.querySelector('a-scene');
 
-            //insert cursor
+        scene.addEventListener('loaded',function(){
 
-            //TODO: add support for automatically adding cursor for mobile only
-            //var camera = document.querySelector('a-camera');
-            //<a-cursor intersection-spawn-multi="event: click; template: #voxel-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-cursor>
-        }
+
+            // On mobile remove elements that are resource heavy
+            var isMobile = AFRAME.utils.device.isMobile();
+            if (isMobile) {
+                var $particles = $('#particles');
+                $particles.remove();
+            }else{
+                //fuse only works on mobile as desktop supports click events
+                var cursor = document.querySelector('#cursor');
+                console.log(cursor);
+                cursor.setAttribute('cursor', 'fuse', false);
+            }
+        });
+
+
     },
 
-    begin: function() {
-        console.log('Beginning...');
+    beginNetwork: function() {
+        console.log('Beginning network functionality...');
     },
 
     tick: function (t, dt) {

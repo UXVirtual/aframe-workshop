@@ -43,20 +43,30 @@
       signallingUrl: //localhost:8080/;
     ">
     <a-assets>
-        <script id="voxel-template" type="text/html">
-            <a-entity class="voxel"
-                     geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
-                     material="shader: standard; roughness: 1; metalness: 0; color: #272727; wireframe: false;"
-                     grab
-                      shadow="receive: true"
-                    ></a-entity>
-        </script>
-        <script id="voxel-template2" type="text/html">
+
+        <img id="sand-texture" src="assets/img/tiles/sand.png" />
+        <img id="dirt-texture" src="assets/img/tiles/dirt.png" />
+        <img id="greystone-texture" src="assets/img/tiles/greystone.png" />
+
+        <script id="sand-block-template" type="text/html">
             <a-entity class="voxel"
                       geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
-                      material="shader: standard; roughness: 1; metalness: 0; color: #660000; wireframe: false;"
-                      grab
-                      shadow="receive: true"
+                      material="src: #sand-texture; shader: standard; roughness: 1; metalness: 0; wireframe: false;"
+                      grab shadow="receive: true"
+                    ></a-entity>
+        </script>
+        <script id="dirt-block-template" type="text/html">
+            <a-entity class="voxel"
+                      geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                      material="src: #dirt-texture; shader: standard; roughness: 1; metalness: 0; wireframe: false;"
+                      grab shadow="receive: true"
+                    ></a-entity>
+        </script>
+        <script id="greystone-block-template" type="text/html">
+            <a-entity class="voxel"
+                      geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                      material="src: #greystone-texture; shader: standard; roughness: 1; metalness: 0; wireframe: false;"
+                      grab shadow="receive: true"
                     ></a-entity>
         </script>
         <script id="avatar-template" type="text/html">
@@ -115,7 +125,7 @@
     </a-assets>
 
 
-    <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #00FF00"></a-entity>
+    <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #ffff00"></a-entity>
 
 
     <a-entity id="sky" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 191 207 158; bottomColor: 227 225 210" scale="-1 1 1" position="" rotation="" visible=""></a-entity>
@@ -141,18 +151,18 @@
 
     <!-- Hands. -->
     <a-entity id="teleHand" hand-controls="left" teleport-controls="type: parabolic; collisionEntities: [class='voxel'], #environment-collision1, #environment-collision2, #environment-collision3, #environment-collision4, #environment-collision5, #environment-collision6; maxLength: 20; curveShootingSpeed: 20;"></a-entity>
-    <a-entity id="blockHand" hand-controls="right" controller-cursor intersection-spawn-multi="event: click; templates: #voxel-template, #voxel-template2; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-entity>
+    <a-entity id="blockHand" hand-controls="right" controller-cursor intersection-spawn-multi="event: click; templates: #sand-block-template, #dirt-block-template, #greystone-block-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-entity>
 
     <!-- Red directional light shining from the top left. -->
     <!--<a-light id="directionalLight" light="type: directional; castShadow: true; color: #fff; intensity: 0.8; shadowCameraVisible: false; shadowMapHeight: 256; shadowMapWidth: 256;" position="-1 3.282 0"></a-light>-->
     <!-- Blue point light, 5 meters in the air. -->
-    <a-light id="pointLight" light="type: point; castShadow: true; color: #fff; intensity: 0.690; shadowCameraVisible: false; shadowMapHeight: 32; shadowMapWidth: 32;" position="0 43.123 0"></a-light>
+    <a-light id="pointLight" light="type: point; castShadow: true; color: #fff; intensity: 0.690; shadowCameraVisible: false; shadowMapHeight: 32; shadowMapWidth: 32;" position="0 7.743 0"></a-light>
     <!-- Dim ambient lighting. -->
     <a-light id="ambientLight" light="type:ambient; color: #fff; intensity: 1;"></a-light>
 
     <!-- Camera. -->
     <a-camera>
-        <a-cursor intersection-spawn-multi="event: click; templates: #voxel-template, #voxel-template2; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-cursor>
+        <a-cursor id="cursor" intersection-spawn-multi="event: click; templates: #sand-block-template, #dirt-block-template, #greystone-block-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-cursor>
     </a-camera>
 </a-scene>
 </body>
