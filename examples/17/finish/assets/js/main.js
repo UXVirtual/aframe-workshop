@@ -18,12 +18,7 @@ AFRAME.registerSystem('main', {
         var checkpoint2 = document.querySelector('#checkpoint2');
         var checkpoint3 = document.querySelector('#checkpoint3');
 
-        var teleportParticles = document.querySelector('#teleport-particles');
-
-        console.log(teleportParticles);
-
         //wait for scene to be loaded before accessing objects
-
         scene.addEventListener('loaded',function(){
             self.disableParticles();
         });
@@ -31,7 +26,6 @@ AFRAME.registerSystem('main', {
         checkpoint1.addEventListener('click',self.onCheckpointClick.bind(this));
         checkpoint2.addEventListener('click',self.onCheckpointClick.bind(this));
         checkpoint3.addEventListener('click',self.onCheckpointClick.bind(this));
-
     },
 
     onCheckpointClick: function(e){
@@ -45,31 +39,23 @@ AFRAME.registerSystem('main', {
 
             self.enableParticles();
 
-            //teleportParticles.setAttribute('particle-system','maxAge',6);
-
             setTimeout(function(){
                 self.disableParticles();
-                //teleportParticles.setAttribute('particle-system','maxAge',0);
             },500);
 
-
-
-                teleportSoundEmitter.components.sound.playSound();
+            teleportSoundEmitter.components.sound.playSound();
         }
     },
 
     disableParticles: function(){
         var teleportParticles = document.querySelector('#teleport-particles');
-        //teleportParticles.setAttribute('visible',false);
         teleportParticles.components['particle-system'].particleGroup.emitters[0].disable();
-        //console.log('Disabled particle system');
     },
 
     enableParticles: function(){
         var teleportParticles = document.querySelector('#teleport-particles');
-        //teleportParticles.setAttribute('visible',true);
-        teleportParticles.components['particle-system'].particleGroup.emitters[0].enable();
-        //console.log('Enabled particle system');
+        var particleGroup = teleportParticles.components['particle-system'].particleGroup;
+        particleGroup.emitters[0].enable();
     },
 
     tick: function (t, dt) {

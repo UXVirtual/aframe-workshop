@@ -6,8 +6,7 @@
     <title>Example 17</title>
     <script src="https://aframe.io/releases/0.5.0/aframe.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/adfd82bf82ebedc7708edec3b2e89911da3e0bf3/dist/aframe-particle-system-component.min.js"></script>
-
+    <script src="https://cdn.rawgit.com/hazardu5/aframe-particle-system-component/badf442bfc58a1510f6689cd29b609694e97621d/dist/aframe-particle-system-component.min.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 <body>
@@ -16,26 +15,31 @@
         <a-mixin id="checkpoint"></a-mixin>
         <a-mixin id="checkpoint-hovered" color="#6CEEB5"></a-mixin>
         <audio id="teleport-sound" src="assets/ogg/220202__gameaudio__teleport-casual.ogg"></audio>
+        <img id="particle-texture" src="assets/img/particles/swirl_white.png" />
     </a-assets>
 
     <!-- Player -->
     <a-entity camera="userHeight: 1.6"
               universal-controls="movementControls: checkpoint"
               checkpoint-controls="mode: teleport">
-        <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 500"
+        <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 2000"
                   position="0 0 -1"
                   geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
                   material="color: black; shader: flat"
                   raycaster="objects: .hotspot">
-            <a-animation begin="click" attribute="material.color" from="red" to="black" dur="0"></a-animation>
-            <a-animation begin="click" attribute="scale" from="0.8 0.8 0.8" to="1 1 1" dur="0"></a-animation>
-            <a-animation begin="cursor-fusing" attribute="material.color" from="black" to="red" dur="500"></a-animation>
+            <a-animation begin="click" attribute="material.color" from="red" to="black" dur="0" dur="250"></a-animation>
+            <a-animation begin="click" attribute="scale" from="0.7 0.7 0.7" to="1 1 1" dur="0" dur="250"></a-animation>
+            <a-animation begin="mouseleave" attribute="scale" from="0.7 0.7 0.7" to="1 1 1" dur="0" dur="250"></a-animation>
+            <a-animation begin="cursor-fusing" attribute="material.color" from="black" to="red" dur="2000"></a-animation>
             <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
-                         fill="forwards" from="1 1 1" to="0.8 0.8 0.8" dur="500"></a-animation>
+                         fill="forwards" from="1 1 1" to="0.7 0.7 0.7" dur="250"></a-animation>
+            <a-animation begin="mouseleave" easing="ease-in" attribute="scale"
+                         fill="forwards" from="0.7 0.7 0.7" to="1 1 1" dur="250"></a-animation>
+
         </a-entity>
 
         <a-entity id="teleport-sound-emitter" sound="src: #teleport-sound; autoplay: false; loop: false;" position="0 0 -1"></a-entity>
-        <a-entity id="teleport-particles" position="0 0 -1" particle-system="preset: default; type: 1; particleCount: 25; color: #0000ff; randomize: true; opacity: 0.5; velocityValue: 0 5 0; size: 0.2"></a-entity>
+        <a-entity id="teleport-particles" position="0 0 -0.5" particle-system="blending: 1; texture: #particle-texture; preset: default; type: 1; particleCount: 25; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
 
     </a-entity>
 
