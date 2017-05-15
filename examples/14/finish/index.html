@@ -12,17 +12,17 @@
 
     <script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/d262266ffb7501c99cad8224b85a6630d4d06c7f/dist/aframe-daydream-controller-component.min.js"></script>
 
-    <script src="https://unpkg.com/aframe-extras.ocean@%5E3.5.x/dist/aframe-extras.ocean.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
     <!--<script src="https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/example/DRACOLoader.js"></script>-->
     <script src="assets/js/draco/DRACOLoader.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.loaders.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.7.0/dist/aframe-extras.misc.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/hazardu5/aframe-particle-system-component/badf442bfc58a1510f6689cd29b609694e97621d/dist/aframe-particle-system-component.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script src="https://cdn.rawgit.com/priologic/easyrtc/v1.1.0/api/easyrtc.js"></script>
     <script src="https://cdn.rawgit.com/haydenjameslee/networked-aframe/v0.1.0/dist/networked-aframe.js"></script>
-    <script src="https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/adfd82bf82ebedc7708edec3b2e89911da3e0bf3/dist/aframe-particle-system-component.min.js"></script>
 
     <script src="assets/js/components/advanced-texture.js"></script>
     <script src="assets/js/components/intersection-spawn-multi.js"></script>
@@ -43,12 +43,6 @@
       signallingUrl: //localhost:8080/;
     ">
     <a-assets>
-
-        <!-- block textures by http://www.kenney.nl/assets/voxel-pack -->
-        <img id="sand-texture" src="assets/img/tiles/sand.png" />
-        <img id="dirt-texture" src="assets/img/tiles/dirt.png" />
-        <img id="greystone-texture" src="assets/img/tiles/greystone.png" />
-
         <script id="sand-block-template" type="text/html">
             <a-entity class="voxel"
                       geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
@@ -110,19 +104,13 @@
                 </a-entity>
             </a-entity>
         </script>
-        <a-mixin id="voxel"
-                 geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
-                 material="shader: standard"
-                 random-color
-                 grab
-                 snap="offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"
-                ></a-mixin>
-        <!--<a-asset-item id="environment-collision-mesh" src="assets/drc/environment/environment-collision.drc"></a-asset-item>-->
-        <!--<a-asset-item id="environment-texture" src="assets/obj/environment/environment_Mesh_color.png"></a-asset-item>-->
-        <!--<a-asset-item id="environment-obj" src="assets/obj/environment/environment.obj"></a-asset-item>
-        <a-asset-item id="environment-dae" src="assets/dae/environment.dae"></a-asset-item>
-        <a-asset-item id="environment-mtl" src="assets/obj/environment/environment.mtl"></a-asset-item>
-        <a-asset-item id="environment-model-ply" src="assets/ply/environment/environment.bake.ply"></a-asset-item>-->
+        <img id="particle-texture" src="assets/img/particles/swirl_white.png" />
+        <audio id="teleport-sound" src="assets/ogg/220202__gameaudio__teleport-casual.ogg"></audio>
+
+        <!-- block textures by http://www.kenney.nl/assets/voxel-pack -->
+        <img id="sand-texture" src="assets/img/tiles/sand.png" />
+        <img id="dirt-texture" src="assets/img/tiles/dirt.png" />
+        <img id="greystone-texture" src="assets/img/tiles/greystone.png" />
     </a-assets>
 
 
@@ -161,10 +149,41 @@
     <!-- Dim ambient lighting. -->
     <a-light id="ambientLight" light="type:ambient; color: #fff; intensity: 1;"></a-light>
 
+    <!-- Checkpoints -->
+
+    <a-cylinder id="checkpoint1" class="checkpoint" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="0 0 -10" color="#ff0000"></a-cylinder>
+    <a-cylinder id="checkpoint2" class="checkpoint" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="3 0 13" color="#ff0000"></a-cylinder>
+    <a-cylinder id="checkpoint3" class="checkpoint" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="-15 0 5" color="#ff0000"></a-cylinder>
+    <a-cylinder id="checkpoint4" class="checkpoint" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="0 0 2" color="#ff0000"></a-cylinder>
+    <a-cylinder id="checkpoint5" class="checkpoint" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="0 0 2" color="#ff0000"></a-cylinder>
+
+
     <!-- Camera. -->
-    <a-camera>
-        <a-cursor id="cursor" intersection-spawn-multi="event: click; templates: #sand-block-template, #dirt-block-template, #greystone-block-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-cursor>
-    </a-camera>
+    <a-entity id="camera" camera="userHeight: 1.6"
+              universal-controls="movementControls: checkpoint, keyboard"
+              checkpoint-controls="mode: teleport">
+
+        <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 2000"
+                  position="0 0 -1"
+                  geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                  material="color: black; shader: flat"
+                  raycaster="objects: .checkpoint, #environment, .voxel"
+                  intersection-spawn-multi="event: click; templates: #sand-block-template, #dirt-block-template, #greystone-block-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5">
+            <a-animation begin="click" attribute="material.color" from="red" to="black" dur="0" dur="250"></a-animation>
+            <a-animation begin="click" attribute="scale" from="0.7 0.7 0.7" to="1 1 1" dur="0" dur="250"></a-animation>
+            <a-animation begin="mouseleave" attribute="scale" from="0.7 0.7 0.7" to="1 1 1" dur="0" dur="250"></a-animation>
+            <a-animation begin="cursor-fusing" attribute="material.color" from="black" to="red" dur="2000"></a-animation>
+            <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                         fill="forwards" from="1 1 1" to="0.7 0.7 0.7" dur="250"></a-animation>
+            <a-animation begin="mouseleave" easing="ease-in" attribute="scale"
+                         fill="forwards" from="0.7 0.7 0.7" to="1 1 1" dur="250"></a-animation>
+
+
+        </a-entity>
+        <a-entity id="teleport-sound-emitter" sound="src: #teleport-sound; autoplay: false; loop: false;" position="0 0 -1"></a-entity>
+        <a-entity id="teleport-particles" position="0 0 -0.5" particle-system="blending: 1; texture: #particle-texture; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
+
+    </a-entity>
 </a-scene>
 </body>
 </html>

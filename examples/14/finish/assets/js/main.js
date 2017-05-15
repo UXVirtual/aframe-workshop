@@ -22,8 +22,6 @@ function randomPointOnCircle(radius, angleRad) {
 // Called by Networked-Aframe when connected to server
 function onConnect(e) {
 
-    console.log('Client connected.',e );
-
     // Get random angle
     var angleRad = Math.random()*Math.PI*2;
 
@@ -37,9 +35,7 @@ function onConnect(e) {
     var rotationStr = '0 ' + angleToCenter + ' 0';
 
     // Create avatar with this position and rotation
-    console.log('Creating avatar...');
     NAF.entities.createAvatar('#avatar-template', positionStr, rotationStr);
-
     NAF.connection.isConnected();
 }
 
@@ -82,16 +78,60 @@ AFRAME.registerSystem('main', {
             }else{
                 //fuse only works on mobile as desktop supports click events
                 var cursor = document.querySelector('#cursor');
-                console.log(cursor);
                 cursor.setAttribute('cursor', 'fuse', false);
             }
-        });
 
+            self.disableTeleportParticles();
 
+            var camera = document.querySelector('#camera');
+
+            camera.addEventListener('fusing',function(){
+                console.log('Fusing...');
+            });
+
+            var checkpoint1 = document.querySelector('#checkpoint1');
+            var checkpoint2 = document.querySelector('#checkpoint2');
+            var checkpoint3 = document.querySelector('#checkpoint3');
+
+            checkpoint1.addEventListener('click',self.onCheckpointClick.bind(this));
+            checkpoint2.addEventListener('click',self.onCheckpointClick.bind(this));
+            checkpoint3.addEventListener('click',self.onCheckpointClick.bind(this));
+
+        }.bind(this));
     },
 
     beginNetwork: function() {
         console.log('Beginning network functionality...');
+    },
+
+    onCheckpointClick: function(e){
+
+        var targetEl = e.detail.target;
+        var targetElClass = targetEl.getAttribute('class');
+        var self = this;
+
+        if(targetElClass === 'hotspot'){
+            var teleportSoundEmitter = document.querySelector('#teleport-sound-emitter');
+
+            self.enableTeleportParticles();
+
+            setTimeout(function(){
+                self.disableTeleportParticles();
+            },500);
+
+            teleportSoundEmitter.components.sound.playSound();
+        }
+    },
+
+    disableTeleportParticles: function(){
+        var teleportParticles = document.querySelector('#teleport-particles');
+        teleportParticles.components['particle-system'].particleGroup.emitters[0].disable();
+    },
+
+    enableTeleportParticles: function(){
+        var teleportParticles = document.querySelector('#teleport-particles');
+        var particleGroup = teleportParticles.components['particle-system'].particleGroup;
+        particleGroup.emitters[0].enable();
     },
 
     tick: function (t, dt) {
