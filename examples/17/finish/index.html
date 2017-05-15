@@ -48,10 +48,15 @@
 
     <!-- Checkpoints -->
     <a-entity position="1 0 1">
-        <a-cylinder id="checkpoint1" class="hotspot" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="0 0 -5.2" color="#39BB82"></a-cylinder>
-        <a-cylinder id="checkpoint2" class="hotspot" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="3 0 0" color="#39BB82"></a-cylinder>
-        <a-cylinder id="checkpoint3" class="hotspot" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="-3 0 0" color="#39BB82"></a-cylinder>
+        <a-cylinder id="checkpoint1" class="hotspot" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="0 0 -5.2" color="#ff0000"></a-cylinder>
+        <a-cylinder id="checkpoint2" class="hotspot" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="3 0 0" color="#ff0000"></a-cylinder>
+        <a-cylinder id="checkpoint3" class="hotspot" checkpoint="offset: 0 1.6 0" radius="1" height="0.1" position="-3 0 0" color="#ff0000"></a-cylinder>
     </a-entity>
+
+    <a-box scale="0.25 2 0.25" color="#39BB82" position="-5 0 0"></a-box>
+    <a-box scale="0.25 3 0.25" color="#39BB82" position="5 0 4.5"></a-box>
+    <a-box scale="0.25 4 0.25" color="#39BB82" position="3 0 -5"></a-box>
+    <a-box scale="0.25 1 0.25" color="#39BB82" position="0 0 5"></a-box>
 
     <!-- Lighting -->
     <a-light type="ambient" color="#fff"></a-light>
