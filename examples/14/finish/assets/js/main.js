@@ -106,11 +106,13 @@ AFRAME.registerSystem('main', {
 
     onCheckpointClick: function(e){
 
+        console.log('Clicked checkpoint')
+
         var targetEl = e.detail.target;
         var targetElClass = targetEl.getAttribute('class');
         var self = this;
 
-        if(targetElClass === 'hotspot'){
+        if(targetElClass === 'checkpoint'){
             var teleportSoundEmitter = document.querySelector('#teleport-sound-emitter');
 
             self.enableTeleportParticles();
@@ -118,6 +120,8 @@ AFRAME.registerSystem('main', {
             setTimeout(function(){
                 self.disableTeleportParticles();
             },500);
+
+            console.log('Playing sound...');
 
             teleportSoundEmitter.components.sound.playSound();
         }
