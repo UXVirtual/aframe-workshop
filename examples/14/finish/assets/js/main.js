@@ -93,9 +93,12 @@ AFRAME.registerSystem('main', {
             var checkpoint2 = document.querySelector('#checkpoint2');
             var checkpoint3 = document.querySelector('#checkpoint3');
 
+            //TODO dynamically select checkpoints by class then apply listener to all
             checkpoint1.addEventListener('click',self.onCheckpointClick.bind(this));
             checkpoint2.addEventListener('click',self.onCheckpointClick.bind(this));
             checkpoint3.addEventListener('click',self.onCheckpointClick.bind(this));
+            checkpoint4.addEventListener('click',self.onCheckpointClick.bind(this));
+            checkpoint5.addEventListener('click',self.onCheckpointClick.bind(this));
 
         }.bind(this));
     },
@@ -105,8 +108,6 @@ AFRAME.registerSystem('main', {
     },
 
     onCheckpointClick: function(e){
-
-        console.log('Clicked checkpoint')
 
         var targetEl = e.detail.target;
         var targetElClass = targetEl.getAttribute('class');
@@ -121,8 +122,6 @@ AFRAME.registerSystem('main', {
                 self.disableTeleportParticles();
             },500);
 
-            console.log('Playing sound...');
-
             teleportSoundEmitter.components.sound.playSound();
         }
     },
@@ -130,14 +129,12 @@ AFRAME.registerSystem('main', {
     disableTeleportParticles: function(){
         var teleportParticles = document.querySelector('#teleport-particles');
         teleportParticles.components['particle-system'].particleGroup.emitters[0].disable();
-        console.log('Disabled teleport particles');
     },
 
     enableTeleportParticles: function(){
         var teleportParticles = document.querySelector('#teleport-particles');
         var particleGroup = teleportParticles.components['particle-system'].particleGroup;
         particleGroup.emitters[0].enable();
-        console.log('Enabled teleport particles');
     },
 
     tick: function (t, dt) {
