@@ -130,12 +130,14 @@ AFRAME.registerSystem('main', {
     disableTeleportParticles: function(){
         var teleportParticles = document.querySelector('#teleport-particles');
         teleportParticles.components['particle-system'].particleGroup.emitters[0].disable();
+        console.log('Disabled teleport particles');
     },
 
     enableTeleportParticles: function(){
         var teleportParticles = document.querySelector('#teleport-particles');
         var particleGroup = teleportParticles.components['particle-system'].particleGroup;
         particleGroup.emitters[0].enable();
+        console.log('Enabled teleport particles');
     },
 
     tick: function (t, dt) {

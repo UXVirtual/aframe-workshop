@@ -104,13 +104,14 @@
                 </a-entity>
             </a-entity>
         </script>
-        <img id="particle-texture" src="assets/img/particles/swirl_white.png" />
         <audio id="teleport-sound" src="assets/ogg/220202__gameaudio__teleport-casual.ogg"></audio>
 
         <!-- block textures by http://www.kenney.nl/assets/voxel-pack -->
         <img id="sand-texture" src="assets/img/tiles/sand.png" />
         <img id="dirt-texture" src="assets/img/tiles/dirt.png" />
         <img id="greystone-texture" src="assets/img/tiles/greystone.png" />
+
+        <!-- there is currently a bug in the img loader when applying the img asset to a particle-system texture - loads a blank image instead. This issue is not present in a-frame v0.5.0 -->
     </a-assets>
 
 
@@ -181,7 +182,7 @@
 
         </a-entity>
         <a-entity id="teleport-sound-emitter" sound="src: #teleport-sound; autoplay: false; loop: false;" position="0 0 -1"></a-entity>
-        <a-entity id="teleport-particles" position="0 0 -0.5" particle-system="blending: 0; texture: #particle-texture; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
+        <a-entity id="teleport-particles" position="0 0 -0.5" particle-system="blending: 1; texture: assets/img/particles/swirl_white.png; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
 
     </a-entity>
 </a-scene>
