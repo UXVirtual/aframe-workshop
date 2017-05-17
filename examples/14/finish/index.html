@@ -4,7 +4,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <script src="https://cdn.rawgit.com/aframevr/aframe/e0250dbf0c3921d7320ca8d97cac7cace3d073b0/dist/aframe-master.js"></script>
+    <script src="https://cdn.rawgit.com/aframevr/aframe/f8db22286dc6fb4f8fdc467e5d475f8902e4567d/dist/aframe-master.min.js"></script>
     <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
     <script src="https://unpkg.com/aframe-controller-cursor-component@0.2.x/dist/aframe-controller-cursor-component.min.js"></script>
     <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
@@ -138,6 +138,8 @@
     <!--<a-entity id="environment" ply-model="src: #environment-model-ply;" rotation="-90 0 0" position="0 -9 0" scale="0.5 0.5 0.5" shadow="receive: true"></a-entity>-->
 
     <a-entity id="ocean" position="-1.03 -1.60 1.42" ocean="density: 0.5; width: 18; depth: 15; speed: 0.05; amplitude:0" material="color: #fff6b6; opacity: 0.75; metalness: 0; roughness: 1" rotation="-90 0 0"></a-entity>
+
+    <!-- TODO: add support for block selection using https://github.com/kfarr/aframe-select-bar-component -->
 
     <!-- Hands. -->
     <a-entity id="teleHand" hand-controls="left" teleport-controls="type: parabolic; collisionEntities: [class='voxel'], #environment-collision1, #environment-collision2, #environment-collision3, #environment-collision4, #environment-collision5, #environment-collision6; maxLength: 20; curveShootingSpeed: 20;"></a-entity>
