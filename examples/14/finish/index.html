@@ -142,7 +142,14 @@
                 </a-entity>
             </a-entity>
         </script>
-        <audio id="teleport-sound" src="assets/mp3/220202__gameaudio__teleport-casual.mp3"></audio>
+        <audio id="teleport-sound" src="assets/ogg/220202__gameaudio__teleport-casual.ogg"></audio>
+        <audio id="pop1-sound" src="assets/ogg/240566__onikage22__blip-plock-pop1.ogg"></audio>
+        <audio id="pop2-sound" src="assets/ogg/240566__onikage22__blip-plock-pop2.ogg"></audio>
+        <audio id="pop3-sound" src="assets/ogg/240566__onikage22__blip-plock-pop3.ogg"></audio>
+        <audio id="pop4-sound" src="assets/ogg/240566__onikage22__blip-plock-pop4.ogg"></audio>
+        <audio id="pop5-sound" src="assets/ogg/240566__onikage22__blip-plock-pop5.ogg"></audio>
+        <audio id="pop6-sound" src="assets/ogg/240566__onikage22__blip-plock-pop6.ogg"></audio>
+        <audio id="pop7-sound" src="assets/ogg/240566__onikage22__blip-plock-pop7.ogg"></audio>
 
         <!-- block textures by http://www.kenney.nl/assets/voxel-pack -->
         <img id="sand-texture" src="assets/img/tiles/sand.png" />
@@ -240,6 +247,7 @@
                          fill="forwards" from="0.7 0.7 0.7" to="1 1 1" dur="250"></a-animation>
         </a-entity>
         <a-entity id="teleport-sound-emitter" sound="src: #teleport-sound; autoplay: false; loop: false;" position="0 0 -1"></a-entity>
+        <a-entity id="block-sound-emitter" sound="src: #pop1-sound; autoplay: false; loop: false; poolSize: 5;" position="0 0 -1"></a-entity>
         <a-entity id="teleport-particles" position="0 0 -0.5" particle-system="blending: 1; texture: assets/img/particles/swirl_white.png; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
 
         <a-entity id="cursor-menu" select-bar="controllerID: cursor" scale="0.7 0.7 0.7" position="0 -0.2 -0.3" rotation="0 0 0">

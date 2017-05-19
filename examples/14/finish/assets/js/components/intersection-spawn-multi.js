@@ -40,8 +40,6 @@ AFRAME.registerComponent('intersection-spawn-multi', {
 
     el.addEventListener(this.data.event, function(evt){
 
-
-
       var targetEl = evt.detail.intersectedEl;
       var targetElClass = targetEl.getAttribute('class');
 
@@ -53,9 +51,13 @@ AFRAME.registerComponent('intersection-spawn-multi', {
         pos.y = Math.floor(pos.y / self.data.snap.y) * self.data.snap.y+ self.data.offset.y;
         pos.z = Math.floor(pos.z / self.data.snap.z) * self.data.snap.z + self.data.offset.z;
 
-        var randomInt = Math.floor(Math.random() * (self.data.templates.length - 1 + 1)) + 0;
         var spawnEl = NAF.entities.createNetworkEntity(self.data.currenttemplate, pos, '0 0 0');
-        NAF.utils.whenEntityLoaded(spawnEl, function() {});
+        NAF.utils.whenEntityLoaded(spawnEl, function() {
+          var spawnEvent = new CustomEvent('spawnEvent', {'detail': {
+            target: spawnEl
+          }});
+          el.dispatchEvent(spawnEvent);
+        });
       }
     });
   }

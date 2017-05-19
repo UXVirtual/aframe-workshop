@@ -83,6 +83,8 @@ AFRAME.registerSystem('main', {
                 cursor.setAttribute('cursor', 'fuse', false);
             }
 
+            cursor.addEventListener('spawnEvent',self.onBlockSpawned);
+
             self.disableTeleportParticles();
 
             var camera = document.querySelector('#camera');
@@ -136,6 +138,19 @@ AFRAME.registerSystem('main', {
 
     beginNetwork: function() {
         console.log('Beginning network functionality...');
+    },
+
+    onBlockSpawned: function(e){
+        var target = e.detail.target;
+
+        var blockSoundEmitter = document.querySelector('#block-sound-emitter');
+
+        var soundArray = ['#pop1-sound','#pop2-sound','#pop3-sound','#pop4-sound','#pop5-sound','#pop6-sound','#pop7-sound'];
+        var randomKey = Math.floor(Math.random() * (soundArray.length - 1 + 1)) + 0;
+
+        blockSoundEmitter.setAttribute('sound','src',soundArray[randomKey]);
+
+        blockSoundEmitter.components.sound.playSound();
     },
 
     onCheckpointClick: function(e){
