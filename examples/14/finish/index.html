@@ -13,7 +13,14 @@
     <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/random-color.js"></script>
     <script src="https://cdn.rawgit.com/ngokevin/kframe/csstricks/scenes/aincraft/components/snap.js"></script>
 
-    <script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/d262266ffb7501c99cad8224b85a6630d4d06c7f/dist/aframe-daydream-controller-component.min.js"></script>
+    <!--<script src="https://rawgit.com/ryanbetts/aframe-daydream-controller-component/d262266ffb7501c99cad8224b85a6630d4d06c7f/dist/aframe-daydream-controller-component.min.js"></script>-->
+
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/1eeffa3c8d244ed004e0c5ac4a1dcaa8160f5f30/components/animation/dist/aframe-animation-component.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/kfarr/aframe-select-bar-component/706a65548abaed59c00ba55bf1ad85907dd8a3a1/dist/aframe-select-bar-component.min.js"></script>
+
+    <!--<script src="assets/js/components/aframe-select-bar-component.js"></script>-->
+
 
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
     <!--<script src="https://cdn.rawgit.com/google/draco/ecdd29e44ba3649f692a00a937893c5580fb5284/javascript/example/DRACOLoader.js"></script>-->
@@ -67,6 +74,34 @@
                       grab shadow="receive: true"
                     ></a-entity>
         </script>
+        <script id="cactus-block-template" type="text/html">
+            <a-entity class="voxel"
+                      geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                      material="src: #cactus-texture; shader: standard; roughness: 1; metalness: 0; wireframe: false;"
+                      grab shadow="receive: true"
+                    ></a-entity>
+        </script>
+        <script id="gravel-block-template" type="text/html">
+            <a-entity class="voxel"
+                      geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                      material="src: #gravel-texture; shader: standard; roughness: 1; metalness: 0; wireframe: false;"
+                      grab shadow="receive: true"
+                    ></a-entity>
+        </script>
+        <script id="greysand-block-template" type="text/html">
+            <a-entity class="voxel"
+                      geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                      material="src: #greysand-texture; shader: standard; roughness: 1; metalness: 0; wireframe: false;"
+                      grab shadow="receive: true"
+                    ></a-entity>
+        </script>
+        <script id="lava-block-template" type="text/html">
+            <a-entity class="voxel"
+                      geometry="primitive: box; height: 0.5; width: 0.5; depth: 0.5"
+                      material="src: #lava-texture; shader: standard; roughness: 1; metalness: 0; wireframe: false;"
+                      grab shadow="receive: true"
+                    ></a-entity>
+        </script>
         <script id="avatar-template" type="text/html">
             <a-entity class="avatar">
                 <a-box class="head"
@@ -113,8 +148,14 @@
         <img id="sand-texture" src="assets/img/tiles/sand.png" />
         <img id="dirt-texture" src="assets/img/tiles/dirt.png" />
         <img id="greystone-texture" src="assets/img/tiles/greystone.png" />
+        <img id="cactus-texture" src="assets/img/tiles/cactus_side.png" />
+        <img id="gravel-texture" src="assets/img/tiles/gravel_dirt.png" />
+        <img id="greysand-texture" src="assets/img/tiles/greysand.png" />
+        <img id="lava-texture" src="assets/img/tiles/lava.png" />
 
         <!-- there is currently a bug in the img loader when applying the img asset to a particle-system texture - loads a blank image instead. This issue is not present in a-frame v0.5.0 -->
+
+        <a-asset-item id="env_arrow" src="https://cdn.rawgit.com/kfarr/aframe-select-bar-component/706a65548abaed59c00ba55bf1ad85907dd8a3a1/examples/assets/env_arrow.obj"></a-asset-item>
     </a-assets>
 
 
@@ -145,8 +186,22 @@
     <!-- TODO: add support for block selection using https://github.com/kfarr/aframe-select-bar-component -->
 
     <!-- Hands. -->
-    <a-entity id="teleHand" hand-controls="left" teleport-controls="type: parabolic; collisionEntities: [class='voxel'], #environment-collision1, #environment-collision2, #environment-collision3, #environment-collision4, #environment-collision5, #environment-collision6; maxLength: 20; curveShootingSpeed: 20;"></a-entity>
-    <a-entity id="blockHand" hand-controls="right" controller-cursor intersection-spawn-multi="event: click; templates: #sand-block-template, #dirt-block-template, #greystone-block-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-entity>
+
+    <a-entity id="teleHand" oculus-touch-controls="hand: left" vive-controls="hand: left"  teleport-controls="type: parabolic; collisionEntities: [class='voxel'], #environment-collision1, #environment-collision2, #environment-collision3, #environment-collision4, #environment-collision5, #environment-collision6; maxLength: 20; curveShootingSpeed: 20;">
+        <a-entity id="hand-menu" select-bar="controllerID: teleHand" scale="0.7 0.7 0.7" position="0 0.05 0.08" rotation="-85 0 0">
+            <optgroup label="Blocks" value="blocks">
+                <option value="#sand-block-template" src="#sand-texture" selected>Sand</option>
+                <option value="#dirt-block-template" src="#dirt-texture">Dirt</option>
+                <option value="#greystone-block-template" src="#greystone-texture">Greystone</option>
+                <option value="#cactus-block-template" src="#cactus-texture">Cactus</option>
+                <option value="#gravel-block-template" src="#gravel-texture">Gravel</option>
+                <option value="#greysand-block-template" src="#greysand-texture">Greysand</option>
+                <option value="#lava-block-template" src="#lava-texture">Lava</option>
+            </optgroup>
+        </a-entity>
+    </a-entity>
+
+    <a-entity id="blockHand" hand-controls="right" controller-cursor intersection-spawn-multi="event: click; currenttemplate: #sand-block-template; templates: #sand-block-template, #dirt-block-template, #greystone-block-template, #cactus-block-template, #gravel-block-template, #greysand-block-template, #lava-block-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5"></a-entity>
 
     <!-- Red directional light shining from the top left. -->
     <!--<a-light id="directionalLight" light="type: directional; castShadow: true; color: #fff; intensity: 0.8; shadowCameraVisible: false; shadowMapHeight: 256; shadowMapWidth: 256;" position="-1 3.282 0"></a-light>-->
@@ -174,7 +229,7 @@
                   geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
                   material="color: black; shader: flat"
                   raycaster="objects: .checkpoint, #environment, .voxel"
-                  intersection-spawn-multi="event: click; templates: #sand-block-template, #dirt-block-template, #greystone-block-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5">
+                  intersection-spawn-multi="event: click; currenttemplate: #sand-block-template; templates: #sand-block-template, #dirt-block-template, #greystone-block-template, #cactus-block-template, #gravel-block-template, #greysand-block-template, #lava-block-template; offset: 0.25 0.25 0.25; snap: 0.5 0.5 0.5">
             <a-animation begin="click" attribute="material.color" from="red" to="black" dur="0" dur="250"></a-animation>
             <a-animation begin="click" attribute="scale" from="0.7 0.7 0.7" to="1 1 1" dur="0" dur="250"></a-animation>
             <a-animation begin="mouseleave" attribute="scale" from="0.7 0.7 0.7" to="1 1 1" dur="0" dur="250"></a-animation>
@@ -183,11 +238,21 @@
                          fill="forwards" from="1 1 1" to="0.7 0.7 0.7" dur="250"></a-animation>
             <a-animation begin="mouseleave" easing="ease-in" attribute="scale"
                          fill="forwards" from="0.7 0.7 0.7" to="1 1 1" dur="250"></a-animation>
-
-
         </a-entity>
         <a-entity id="teleport-sound-emitter" sound="src: #teleport-sound; autoplay: false; loop: false;" position="0 0 -1"></a-entity>
         <a-entity id="teleport-particles" position="0 0 -0.5" particle-system="blending: 1; texture: assets/img/particles/swirl_white.png; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
+
+        <a-entity id="cursor-menu" select-bar="controllerID: cursor" scale="0.7 0.7 0.7" position="0 -0.2 -0.3" rotation="0 0 0">
+            <optgroup label="Blocks" value="blocks">
+                <option value="#sand-block-template" src="#sand-texture" selected>Sand</option>
+                <option value="#dirt-block-template" src="#dirt-texture">Dirt</option>
+                <option value="#greystone-block-template" src="#greystone-texture">Greystone</option>
+                <option value="#cactus-block-template" src="#cactus-texture">Cactus</option>
+                <option value="#gravel-block-template" src="#gravel-texture">Gravel</option>
+                <option value="#greysand-block-template" src="#greysand-texture">Greysand</option>
+                <option value="#lava-block-template" src="#lava-texture">Lava</option>
+            </optgroup>
+        </a-entity>
 
     </a-entity>
 </a-scene>

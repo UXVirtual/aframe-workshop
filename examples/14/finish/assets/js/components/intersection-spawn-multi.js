@@ -11,19 +11,23 @@ AFRAME.registerComponent('intersection-spawn-multi', {
       type: 'array',
       required: true
     },
+    currenttemplate: {
+      type: 'string',
+      required: true
+    },
     event: {type: 'string', default: 'click'},
     offset: {type: 'vec3', default: {x: 0.25, y: 0.25, z: 0.25}},
     snap: {type: 'vec3', default: {x: 0.5, y: 0.5, z: 0.5}}
   },
 
   init: function () {
-    const data = this.data;
     const el = this.el;
+    var self = this;
 
-    for(var i = 0; i < data.templates.length; i++){
+    for(var i = 0; i < this.data.templates.length; i++){
 
       var templateSchema = {
-        template: data.templates[i],
+        template: this.data.templates[i],
         components: [
           'position'
         ]
@@ -34,7 +38,9 @@ AFRAME.registerComponent('intersection-spawn-multi', {
     NAF.options.compressSyncPackets = true;
     NAF.options.updateRate = 1;
 
-    el.addEventListener(data.event, function(evt){
+    el.addEventListener(this.data.event, function(evt){
+
+
 
       var targetEl = evt.detail.intersectedEl;
       var targetElClass = targetEl.getAttribute('class');
@@ -43,12 +49,12 @@ AFRAME.registerComponent('intersection-spawn-multi', {
         var worldPos = evt.detail.intersection.point;
         const pos = AFRAME.utils.clone(worldPos);
 
-        pos.x   = Math.floor(pos.x / data.snap.x) * data.snap.x + data.offset.x;
-        pos.y = Math.floor(pos.y / data.snap.y) * data.snap.y+ data.offset.y;
-        pos.z = Math.floor(pos.z / data.snap.z) * data.snap.z + data.offset.z;
+        pos.x   = Math.floor(pos.x / self.data.snap.x) * self.data.snap.x + self.data.offset.x;
+        pos.y = Math.floor(pos.y / self.data.snap.y) * self.data.snap.y+ self.data.offset.y;
+        pos.z = Math.floor(pos.z / self.data.snap.z) * self.data.snap.z + self.data.offset.z;
 
-        var randomInt = Math.floor(Math.random() * (data.templates.length - 1 + 1)) + 0;
-        var spawnEl = NAF.entities.createNetworkEntity(data.templates[randomInt], pos, '0 0 0');
+        var randomInt = Math.floor(Math.random() * (self.data.templates.length - 1 + 1)) + 0;
+        var spawnEl = NAF.entities.createNetworkEntity(self.data.currenttemplate, pos, '0 0 0');
         NAF.utils.whenEntityLoaded(spawnEl, function() {});
       }
     });

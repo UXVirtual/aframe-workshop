@@ -69,6 +69,8 @@ AFRAME.registerSystem('main', {
 
         scene.addEventListener('loaded',function(){
 
+            var cursor = document.querySelector('#cursor');
+            var blockHand = document.querySelector('#blockHand');
 
             // On mobile remove elements that are resource heavy
             var isMobile = AFRAME.utils.device.isMobile();
@@ -77,7 +79,7 @@ AFRAME.registerSystem('main', {
                 $particles.remove();
             }else{
                 //fuse only works on mobile as desktop supports click events
-                var cursor = document.querySelector('#cursor');
+
                 cursor.setAttribute('cursor', 'fuse', false);
             }
 
@@ -99,6 +101,35 @@ AFRAME.registerSystem('main', {
             checkpoint3.addEventListener('click',self.onCheckpointClick.bind(this));
             checkpoint4.addEventListener('click',self.onCheckpointClick.bind(this));
             checkpoint5.addEventListener('click',self.onCheckpointClick.bind(this));
+
+
+            var handMenu = document.querySelector('#hand-menu');
+            var cursorMenu = document.querySelector('#cursor-menu');
+
+
+            //TODO: remove cursorMenu if vive controls are available
+
+            //TODO: remove hand controls if vive controls are not available
+
+            document.addEventListener("mousewheel", function(e){
+                // cross-browser wheel delta
+                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+
+                //console.log('Mousewheel ',delta);
+
+                if(delta > 0){
+                    cursorMenu.components['select-bar'].onOptionPrevious();
+                }else{
+                    cursorMenu.components['select-bar'].onOptionNext();
+                }
+
+                cursor.setAttribute('intersection-spawn-multi','currenttemplate',cursorMenu.components['select-bar'].selectedOptionValue);
+
+            }, false);
+
+            handMenu.addEventListener("menuSelected",function(){
+                blockHand.setAttribute('intersection-spawn-multi','currenttemplate',handMenu.components['select-bar'].selectedOptionValue);
+            });
 
         }.bind(this));
     },
