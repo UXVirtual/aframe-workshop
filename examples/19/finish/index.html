@@ -1,0 +1,33 @@
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
+    <title>Example 19</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://cdn.rawgit.com/aframevr/aframe/70875d8fef84ac754b465d506dfe64ad62e68f29/dist/aframe-master.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.3/dist/aframe-extras.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</head>
+<body>
+<a-scene main>
+
+    <!-- Terrain -->
+    <a-grid></a-grid>
+
+    <!-- Match Gear VR controller if present, regardless of hand. -->
+    <a-entity gearvr-controls></a-entity>
+
+    <a-box scale="0.25 2 0.25" color="#39BB82" position="-5 0 0"></a-box>
+    <a-box scale="0.25 3 0.25" color="#39BB82" position="5 0 4.5"></a-box>
+    <a-box scale="0.25 4 0.25" color="#39BB82" position="3 0 -5"></a-box>
+    <a-box scale="0.25 1 0.25" color="#39BB82" position="0 0 5"></a-box>
+
+    <!-- Lighting -->
+    <a-light type="ambient" color="#fff"></a-light>
+</a-scene>
+</body>
+</html>
