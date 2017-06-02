@@ -74,9 +74,16 @@ AFRAME.registerSystem('main', {
 
             // On mobile remove elements that are resource heavy
             var isMobile = AFRAME.utils.device.isMobile();
-            if (isMobile) {
+            var isGearVR = AFRAME.utils.device.isGearVR();
+            if (isMobile || isGearVR) {
                 var $particles = $('#particles');
                 $particles.remove();
+                var $cursorMenu = $('#cursor-menu');
+                if($cursorMenu.length > 0){
+                    $cursorMenu.remove();
+                }
+
+
             }else{
                 //fuse only works on mobile as desktop supports click events
 
@@ -113,25 +120,33 @@ AFRAME.registerSystem('main', {
 
             //TODO: remove hand controls if vive controls are not available
 
-            document.addEventListener("mousewheel", function(e){
-                // cross-browser wheel delta
-                var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+            if(cursorMenu){
+                document.addEventListener("mousewheel", function(e){
+                    // cross-browser wheel delta
+                    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
 
-                //console.log('Mousewheel ',delta);
+                    //console.log('Mousewheel ',delta);
 
-                if(delta > 0){
-                    cursorMenu.components['select-bar'].onOptionPrevious();
-                }else{
-                    cursorMenu.components['select-bar'].onOptionNext();
-                }
+                    if(delta > 0){
+                        cursorMenu.components['select-bar'].onOptionPrevious();
+                    }else{
+                        cursorMenu.components['select-bar'].onOptionNext();
+                    }
 
-                cursor.setAttribute('intersection-spawn-multi','currenttemplate',cursorMenu.components['select-bar'].selectedOptionValue);
+                    cursor.setAttribute('intersection-spawn-multi','currenttemplate',cursorMenu.components['select-bar'].selectedOptionValue);
 
-            }, false);
+                }, false);
+            }
 
-            handMenu.addEventListener("menuSelected",function(){
-                blockHand.setAttribute('intersection-spawn-multi','currenttemplate',handMenu.components['select-bar'].selectedOptionValue);
-            });
+
+
+            if(handMenu){
+                handMenu.addEventListener("menuSelected",function(){
+                    blockHand.setAttribute('intersection-spawn-multi','currenttemplate',handMenu.components['select-bar'].selectedOptionValue);
+                });
+            }
+
+
 
         }.bind(this));
     },
