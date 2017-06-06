@@ -24,7 +24,14 @@ AFRAME.registerComponent('auto-scale', {
     },
 
     updateScale: function () {
-        var distance = this.el.object3D.position.distanceTo( this.target.object3D.position );
+
+        var vector = new THREE.Vector3();
+        vector.setFromMatrixPosition( this.el.object3D.matrixWorld );
+
+        var vectorTarget = new THREE.Vector3();
+        vectorTarget.setFromMatrixPosition( this.target.object3D.matrixWorld );
+
+        var distance = vector.distanceTo( vectorTarget );
         var newScale = this.originalScale.x*(distance/this.data.size);
         this.el.object3D.scale.set(newScale,newScale,newScale);
     },
