@@ -10,9 +10,14 @@
     <script src="https://cdn.rawgit.com/aframevr/aframe/f8db22286dc6fb4f8fdc467e5d475f8902e4567d/dist/aframe-master.min.js"></script>
     <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/81d1cadb314d03434a9db6ec53c10e471bf5ea8d/dist/aframe-particle-system-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/master/dist/aframe-particle-system-component.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/master/components/look-at/dist/aframe-look-at-component.js"></script>
+
+    <script src="assets/js/components/auto-scale.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
@@ -41,17 +46,52 @@
     </a-entity>
 
     <a-entity id="blockHand" hand-controls="right" controller-cursor></a-entity>
-    <a-light id="pointLight" light="type: point; castShadow: true; color: #fff; intensity: 0.690; shadowCameraVisible: true; shadowMapHeight: 16; shadowMapWidth: 16;" position="-21.906 10.450 0"></a-light>
+    <a-light id="pointLight" light="type: point; castShadow: true; color: #fff; intensity: 0.690; shadowCameraVisible: false; shadowMapHeight: 16; shadowMapWidth: 16;" position="-21.906 10.450 0"></a-light>
     <a-light id="ambientLight" light="type:ambient; color: #fff; intensity: 0.3;"></a-light>
 
     <!-- Checkpoints -->
     <a-entity position="0 1 0">
-        <a-cylinder id="checkpoint1" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="-5.990244099867345 0 -9.661835401782431" color="#ff0000" material="shader: flat"></a-cylinder>
-        <a-cylinder id="checkpoint2" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="7.527520977598818 0 -7.768530129491557" color="#ff0000" material="shader: flat"></a-cylinder>
-        <a-cylinder id="checkpoint3" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="8.719833634106338 0 10.106291804924217" color="#ff0000" material="shader: flat"></a-cylinder>
-        <a-cylinder id="checkpoint4" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="-8.634194987803516 0 10.554527150877323" color="#ff0000" material="shader: flat"></a-cylinder>
-        <a-cylinder id="checkpoint5" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="0 0 0" color="#ff0000" material="shader: flat"></a-cylinder>
+        <a-entity id="checkpoint1" look-at="#camera" checkpoint="offset: 0 0.6 0" position="-5.990244099867345 0 -9.661835401782431" auto-scale="target: #camera; size: 1; static: false">
+            <a-cylinder class="checkpoint" rotation="-90 0 0" radius="0.03" height="0" color="#ff0000" material="shader: flat" position="0 0.1 0"></a-cylinder>
+            <a-plane class="checkpoint" color="#ff0000" height="0.2" width="0.01" rotation="0 0 0" material="shader: flat"></a-plane>
+        </a-entity>
+        <a-entity id="checkpoint2" look-at="#camera" checkpoint="offset: 0 0.6 0" rotation="-90 0 0" position="7.527520977598818 0 -7.768530129491557" auto-scale="target: #camera; size: 1; static: false">
+            <a-cylinder class="checkpoint" rotation="-90 0 0" radius="0.03" height="0" color="#ff0000" material="shader: flat" position="0 0.1 0"></a-cylinder>
+            <a-plane class="checkpoint" color="#ff0000" height="0.2" width="0.01" rotation="0 0 0" material="shader: flat"></a-plane>
+        </a-entity>
+        <a-entity id="checkpoint3" look-at="#camera" checkpoint="offset: 0 0.6 0" rotation="-90 0 0" position="8.719833634106338 0 10.106291804924217" auto-scale="target: #camera; size: 1; static: false">
+            <a-cylinder class="checkpoint" rotation="-90 0 0" radius="0.03" height="0" color="#ff0000" material="shader: flat" position="0 0.1 0"></a-cylinder>
+            <a-plane class="checkpoint" color="#ff0000" height="0.2" width="0.01" rotation="0 0 0" material="shader: flat"></a-plane>
+        </a-entity>
+        <a-entity id="checkpoint4" look-at="#camera" checkpoint="offset: 0 0.6 0" rotation="-90 0 0" position="-8.634194987803516 0 10.554527150877323" auto-scale="target: #camera; size: 1; static: false">
+            <a-cylinder class="checkpoint" rotation="-90 0 0" radius="0.03" height="0" color="#ff0000" material="shader: flat" position="0 0.1 0"></a-cylinder>
+            <a-plane class="checkpoint" color="#ff0000" height="0.2" width="0.01" rotation="0 0 0" material="shader: flat"></a-plane>
+        </a-entity>
+        <a-entity id="checkpoint5" look-at="#camera" checkpoint="offset: 0 0.6 0" rotation="-90 0 0" position="0 0 0" auto-scale="target: #camera; size: 1; static: false">
+            <a-cylinder class="checkpoint" rotation="-90 0 0" radius="0.03" height="0" color="#ff0000" material="shader: flat" position="0 0.1 0"></a-cylinder>
+            <a-plane class="checkpoint" color="#ff0000" height="0.2" width="0.01" rotation="0 0 0" material="shader: flat"></a-plane>
+        </a-entity>
     </a-entity>
+
+    <a-curve id="track1">
+        <a-curve-point position="-5.990244099867345 1 -9.661835401782431"></a-curve-point>
+        <a-curve-point position="7.527520977598818 1 -7.768530129491557"></a-curve-point>
+        <a-curve-point position="8.719833634106338 1 10.106291804924217"></a-curve-point>
+        <a-curve-point position="-8.634194987803516 1 10.554527150877323"></a-curve-point>
+    </a-curve>
+
+    <a-entity alongpath="curve: #track1; dur: 20000; loop: true; rotate: true;">
+
+        <a-dodecahedron radius="0.5" material="color: #996600; metalness: 0; roughness: 0.780" shadow="receive: true; type: pcfsoft;">
+            <a-animation attribute="rotation"
+                         dur="2500"
+                         fill="forwards"
+                         to="360 0 360"
+                         easing="linear"
+                         repeat="indefinite"></a-animation>
+        </a-dodecahedron>
+    </a-entity>
+
 
 
     <!-- Camera. -->
@@ -74,7 +114,7 @@
                          fill="forwards" from="0.7 0.7 0.7" to="1 1 1" dur="250"></a-animation>
         </a-entity>
         <a-entity id="teleport-sound-emitter" sound="src: #teleport-sound; autoplay: false; loop: false;" position="0 0 -1"></a-entity>
-        <a-entity id="teleport-particles" position="0 0 -0.5" particle-system="blending: 1; texture: assets/img/particles/swirl_white.png; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
+        <a-entity id="teleport-particles" position="0 0 -0.2" particle-system="blending: 1; texture: assets/img/particles/swirl_white.png; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
     </a-entity>
 </a-scene>
 </body>

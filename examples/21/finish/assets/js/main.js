@@ -78,7 +78,7 @@ AFRAME.registerSystem('main', {
     },
 
     tick: function (t, dt) {
-        console.log(self.camera.getAttribute('position'));
+        //console.log(self.camera.getAttribute('position'));
 
     }
     // Other handlers and methods.
