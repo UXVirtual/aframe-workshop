@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>Example 21</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/aframevr/aframe/f8db22286dc6fb4f8fdc467e5d475f8902e4567d/dist/aframe-master.min.js"></script>
+    <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/81d1cadb314d03434a9db6ec53c10e471bf5ea8d/dist/aframe-particle-system-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</head>
+
+<!-- 1. Follow the instructions here to generate OBJ with baked lighting from MagicaVoxel: https://blog.sketchfab.com/voxel-workflow-with-3d-coat-meshlab/ -->
+<!-- 2. Convert OBJ to DRC -->
+
+<body>
+<a-scene main>
+    <a-assets>
+        <audio id="teleport-sound" src="assets/ogg/220202__gameaudio__teleport-casual.ogg"></audio>
+        <a-asset-item id="ground-model" src="assets/ply/desert.bake.ply"></a-asset-item>
+        <a-asset-item id="ground-model-obj" src="assets/obj/desert.obj"></a-asset-item>
+        <a-asset-item id="ground-model-material" src="assets/obj/desert.mtl"></a-asset-item>
+    </a-assets>
+
+   <!-- <a-entity id="ground" ply-model="src: #ground-model;" rotation="-90 0 0"></a-entity>-->
+    <a-entity id="ground-obj" obj-model="obj: #ground-model-obj;" material="color: #ffcc66; metalness: 0; roughness: 0.780" shadow="receive: true; type: pcfsoft;"></a-entity>
+
+    <a-entity id="sky" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 255 255 255; bottomColor: 255 204 102;" scale="-1 1 1" position="" rotation="" visible=""></a-entity>
+
+    <a-entity visible="true" position="0 0 0">
+        <a-box id="environment-collision1" position="0 0 0" scale="20 1 20"></a-box>
+    </a-entity>
+
+    <a-entity id="teleHand" oculus-touch-controls="hand: left" vive-controls="hand: left"  teleport-controls="type: parabolic; collisionEntities: #environment-collision1; maxLength: 20; curveShootingSpeed: 20;">
+    </a-entity>
+
+    <a-entity id="blockHand" hand-controls="right" controller-cursor></a-entity>
+    <a-light id="pointLight" light="type: point; castShadow: true; color: #fff; intensity: 0.690; shadowCameraVisible: true; shadowMapHeight: 16; shadowMapWidth: 16;" position="-21.906 10.450 0"></a-light>
+    <a-light id="ambientLight" light="type:ambient; color: #fff; intensity: 0.3;"></a-light>
+
+    <!-- Checkpoints -->
+    <a-entity position="0 1 0">
+        <a-cylinder id="checkpoint1" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="-5.990244099867345 0 -9.661835401782431" color="#ff0000" material="shader: flat"></a-cylinder>
+        <a-cylinder id="checkpoint2" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="7.527520977598818 0 -7.768530129491557" color="#ff0000" material="shader: flat"></a-cylinder>
+        <a-cylinder id="checkpoint3" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="8.719833634106338 0 10.106291804924217" color="#ff0000" material="shader: flat"></a-cylinder>
+        <a-cylinder id="checkpoint4" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="-8.634194987803516 0 10.554527150877323" color="#ff0000" material="shader: flat"></a-cylinder>
+        <a-cylinder id="checkpoint5" class="checkpoint" checkpoint="offset: 0 0.6 0" radius="1" height="0.1" position="0 0 0" color="#ff0000" material="shader: flat"></a-cylinder>
+    </a-entity>
+
+
+    <!-- Camera. -->
+    <a-entity id="camera" camera="userHeight: 1.6"
+              universal-controls="movementControls: checkpoint, keyboard"
+              checkpoint-controls="mode: teleport">
+
+        <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 2000"
+                  position="0 0 -1"
+                  geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03;"
+                  material="color: black; shader: flat"
+                  raycaster="objects: .checkpoint, #environment">
+            <a-animation begin="click" attribute="material.color" from="red" to="black" dur="0" dur="250"></a-animation>
+            <a-animation begin="click" attribute="scale" from="0.7 0.7 0.7" to="1 1 1" dur="0" dur="250"></a-animation>
+            <a-animation begin="mouseleave" attribute="scale" from="0.7 0.7 0.7" to="1 1 1" dur="0" dur="250"></a-animation>
+            <a-animation begin="cursor-fusing" attribute="material.color" from="black" to="red" dur="2000"></a-animation>
+            <a-animation begin="cursor-fusing" easing="ease-in" attribute="scale"
+                         fill="forwards" from="1 1 1" to="0.7 0.7 0.7" dur="250"></a-animation>
+            <a-animation begin="mouseleave" easing="ease-in" attribute="scale"
+                         fill="forwards" from="0.7 0.7 0.7" to="1 1 1" dur="250"></a-animation>
+        </a-entity>
+        <a-entity id="teleport-sound-emitter" sound="src: #teleport-sound; autoplay: false; loop: false;" position="0 0 -1"></a-entity>
+        <a-entity id="teleport-particles" position="0 0 -0.5" particle-system="blending: 1; texture: assets/img/particles/swirl_white.png; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
+    </a-entity>
+</a-scene>
+</body>
+</html>
