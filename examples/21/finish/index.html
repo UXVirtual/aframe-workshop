@@ -34,6 +34,8 @@
 <a-scene main>
     <a-assets>
         <audio id="teleport-sound" src="assets/ogg/220202__gameaudio__teleport-casual.ogg"></audio>
+        <audio id="rolling-sound" src="assets/ogg/182345__claire-h__stone-mechanisem-loop-01.ogg"></audio>
+        <audio id="ambient-sound" src="assets/ogg/138288__kangaroovindaloo__desert-at-night.ogg"></audio>
         <a-asset-item id="ground-model" src="assets/ply/desert.bake.ply"></a-asset-item>
         <a-asset-item id="ground-model-obj" src="assets/obj/desert.obj"></a-asset-item>
         <a-asset-item id="ground-model-material" src="assets/obj/desert.mtl"></a-asset-item>
@@ -88,6 +90,7 @@
     </a-curve>
 
     <a-entity alongpath="curve: #track1; dur: 20000; loop: true; rotate: true;">
+        <a-entity id="rolling-sound-emitter" sound="src: #rolling-sound; autoplay: true; loop: true;" position="0 0 0"></a-entity>
 
         <a-dodecahedron radius="0.5" material="color: #996600; metalness: 0; roughness: 0.780" shadow="receive: true; type: pcfsoft;">
             <a-animation attribute="rotation"
@@ -104,6 +107,8 @@
               collada-model="#cactus-model"
               shadow="receive: true; type: pcfsoft;">
     </a-entity>
+
+
 
     <!-- Camera. -->
     <a-entity id="camera" camera="userHeight: 1.6"
@@ -124,6 +129,7 @@
             <a-animation begin="mouseleave" easing="ease-in" attribute="scale"
                          fill="forwards" from="0.7 0.7 0.7" to="1 1 1" dur="250"></a-animation>
         </a-entity>
+        <a-entity id="ambient-sound-emitter" sound="src: #ambient-sound; autoplay: true; loop: true; volume: 0.5" position="0 0 -0.1"></a-entity>
         <a-entity id="teleport-sound-emitter" sound="src: #teleport-sound; autoplay: false; loop: false;" position="0 0 -1"></a-entity>
         <a-entity id="teleport-particles" position="0 0 -0.2" particle-system="blending: 1; texture: assets/img/particles/swirl_white.png; preset: default; type: 1; particleCount: 30; color: #ff0000; randomize: true; opacity: 1; velocityValue: 0 5 0; size: 0.2"></a-entity>
     </a-entity>
