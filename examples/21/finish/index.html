@@ -17,6 +17,12 @@
     <script src="https://cdn.rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
     <script src="https://cdn.rawgit.com/ngokevin/kframe/master/components/look-at/dist/aframe-look-at-component.js"></script>
 
+    <script src="assets/js/lib/three/examples/loaders/collada/Animation.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/AnimationHandler.js"></script>
+    <script src="assets/js/lib/three/examples/loaders/collada/KeyFrameAnimation.js"></script>
+
+    <script src="assets/js/components/collada-animation-mixer.js"></script>
+
     <script src="assets/js/components/auto-scale.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
@@ -31,12 +37,13 @@
         <a-asset-item id="ground-model" src="assets/ply/desert.bake.ply"></a-asset-item>
         <a-asset-item id="ground-model-obj" src="assets/obj/desert.obj"></a-asset-item>
         <a-asset-item id="ground-model-material" src="assets/obj/desert.mtl"></a-asset-item>
+        <a-asset-item id="cactus-model" src="assets/dae/cactus/cactus-jump.dae"></a-asset-item>
     </a-assets>
 
    <!-- <a-entity id="ground" ply-model="src: #ground-model;" rotation="-90 0 0"></a-entity>-->
     <a-entity id="ground-obj" obj-model="obj: #ground-model-obj;" material="color: #ffcc66; metalness: 0; roughness: 0.780" shadow="receive: true; type: pcfsoft;"></a-entity>
 
-    <a-entity id="sky" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 255 255 255; bottomColor: 255 204 102;" scale="-1 1 1" position="" rotation="" visible=""></a-entity>
+    <a-entity id="sky" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 255 255 255; bottomColor: 255 204 102;" scale="-1 1 1"></a-entity>
 
     <a-entity visible="true" position="0 0 0">
         <a-box id="environment-collision1" position="0 0 0" scale="20 1 20"></a-box>
@@ -74,10 +81,10 @@
     </a-entity>
 
     <a-curve id="track1">
-        <a-curve-point position="-5.990244099867345 1 -9.661835401782431"></a-curve-point>
-        <a-curve-point position="7.527520977598818 1 -7.768530129491557"></a-curve-point>
-        <a-curve-point position="8.719833634106338 1 10.106291804924217"></a-curve-point>
-        <a-curve-point position="-8.634194987803516 1 10.554527150877323"></a-curve-point>
+        <a-curve-point position="-5.990244099867345 1.2 -9.661835401782431"></a-curve-point>
+        <a-curve-point position="7.527520977598818 1.2 -7.768530129491557"></a-curve-point>
+        <a-curve-point position="8.719833634106338 1.2 10.106291804924217"></a-curve-point>
+        <a-curve-point position="-8.634194987803516 1.2 10.554527150877323"></a-curve-point>
     </a-curve>
 
     <a-entity alongpath="curve: #track1; dur: 20000; loop: true; rotate: true;">
@@ -86,13 +93,17 @@
             <a-animation attribute="rotation"
                          dur="2500"
                          fill="forwards"
-                         to="360 0 360"
+                         to="360 0 -360"
                          easing="linear"
                          repeat="indefinite"></a-animation>
         </a-dodecahedron>
     </a-entity>
 
-
+    <a-entity id="cactus" position="0 1 -4" scale="0.05 0.05 0.05" rotation="90 0 0" alongpath="curve: #track1; dur: 20000; loop: true; rotate: false;"
+              collada-animation-mixer
+              collada-model="#cactus-model"
+              shadow="receive: true; type: pcfsoft;">
+    </a-entity>
 
     <!-- Camera. -->
     <a-entity id="camera" camera="userHeight: 1.6"
