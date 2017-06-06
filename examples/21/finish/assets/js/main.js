@@ -33,6 +33,7 @@ AFRAME.registerSystem('main', {
             var checkpoint1 = document.querySelector('#checkpoint1');
             var checkpoint2 = document.querySelector('#checkpoint2');
             var checkpoint3 = document.querySelector('#checkpoint3');
+            var checkpoint4 = document.querySelector('#checkpoint4');
             var checkpoint5 = document.querySelector('#checkpoint5');
             var checkpoint6 = document.querySelector('#checkpoint6');
 
@@ -40,6 +41,7 @@ AFRAME.registerSystem('main', {
             checkpoint1.addEventListener('click',self.onCheckpointClick.bind(this));
             checkpoint2.addEventListener('click',self.onCheckpointClick.bind(this));
             checkpoint3.addEventListener('click',self.onCheckpointClick.bind(this));
+            checkpoint4.addEventListener('click',self.onCheckpointClick.bind(this));
             checkpoint5.addEventListener('click',self.onCheckpointClick.bind(this));
             checkpoint6.addEventListener('click',self.onCheckpointClick.bind(this));
 
