@@ -7,15 +7,16 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <script src="https://cdn.rawgit.com/aframevr/aframe/f8db22286dc6fb4f8fdc467e5d475f8902e4567d/dist/aframe-master.min.js"></script>
+    <script src="https://rawgit.com/aframevr/aframe/f8db22286dc6fb4f8fdc467e5d475f8902e4567d/dist/aframe-master.min.js"></script>
     <script src="https://unpkg.com/aframe-teleport-controls@0.2.x/dist/aframe-teleport-controls.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.rawgit.com/IdeaSpaceVR/aframe-particle-system-component/master/dist/aframe-particle-system-component.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/IdeaSpaceVR/aframe-particle-system-component/master/dist/aframe-particle-system-component.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
-    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.1/dist/aframe-extras.min.js"></script>
-    <script src="https://cdn.rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
-    <script src="https://cdn.rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
-    <script src="https://cdn.rawgit.com/ngokevin/kframe/master/components/look-at/dist/aframe-look-at-component.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
+    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
+    <script src="https://rawgit.com/ngokevin/kframe/master/components/look-at/dist/aframe-look-at-component.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-physics-system/v1.4.0/dist/aframe-physics-system.min.js"></script>
 
     <script src="assets/js/lib/three/examples/loaders/collada/Animation.js"></script>
     <script src="assets/js/lib/three/examples/loaders/collada/AnimationHandler.js"></script>
@@ -23,6 +24,7 @@
 
     <script src="assets/js/components/collada-animation-mixer.js"></script>
 
+    <script src="assets/js/components/follow.js"></script>
     <script src="assets/js/components/auto-scale.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
@@ -43,11 +45,13 @@
     </a-assets>
 
    <!-- <a-entity id="ground" ply-model="src: #ground-model;" rotation="-90 0 0"></a-entity>-->
+    <a-box id="physics-floor" static-body shadow="receive: true; type: pcfsoft;" scale="25 0.5 25" position="0 0.6 0" material="color: #ffcc66; metalness: 0; roughness: 0.780" shadow="receive: true; type: pcfsoft;"></a-box>
+
     <a-entity id="ground-obj" obj-model="obj: #ground-model-obj;" material="color: #ffcc66; metalness: 0; roughness: 0.780" shadow="receive: true; type: pcfsoft;"></a-entity>
 
     <a-entity id="sky" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 255 255 255; bottomColor: 255 204 102;" scale="-1 1 1"></a-entity>
 
-    <a-entity visible="true" position="0 0 0">
+    <a-entity visible="false" position="0 0.5 0">
         <a-box id="environment-collision1" position="0 0 0" scale="20 1 20"></a-box>
     </a-entity>
 
@@ -108,12 +112,38 @@
               shadow="receive: true; type: pcfsoft;">
     </a-entity>
 
+    <!-- Moving platforms -->
+    <a-box id="platform1"
+           material="color: #ff0000; metalness: 0; roughness: 0.780" shadow="receive: true; type: pcfsoft;"
+           width="4" height="0.25" depth="4"
+           position="7 0.125 -3.9"
+           velocity="0 0 0"
+           toggle-velocity="axis: z; min: -5; max: 5;"
+           static-body></a-box>
+    <a-box id="platform2"
+           material="color: #ff0000; metalness: 0; roughness: 0.780" shadow="receive: true; type: pcfsoft;"
+           width="4" height="0.25" depth="4"
+           position="-7 1.5 8.743"
+           velocity="0 0 0"
+           toggle-velocity="axis: y; min: 1; max: 5;"
+           static-body>
+    </a-box>
 
+    <a-entity id="checkpoint6" velocity="0 0 0"
+              toggle-velocity="axis: y; min: 1; max: 5;"
+              static-body position="-7 1.5 8.743" look-at="#camera" checkpoint="offset: 0 0.6 0" rotation="-90 0 0" auto-scale="target: #camera; size: 1; static: false">
+        <a-cylinder class="checkpoint" rotation="-90 0 0" radius="0.03" height="0" color="#ff0000" material="shader: flat" position="0 0.2 0"></a-cylinder>
+        <a-plane class="checkpoint" color="#ff0000" height="0.2" width="0.01" rotation="0 0 0" position="0 0.1 0" material="shader: flat"></a-plane>
+    </a-entity>
 
     <!-- Camera. -->
     <a-entity id="camera" camera="userHeight: 1.6"
+
               universal-controls="movementControls: checkpoint, keyboard"
-              checkpoint-controls="mode: teleport">
+              checkpoint-controls="mode: teleport"
+              kinematic-body
+              jump-ability
+            >
 
         <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 2000"
                   position="0 0 -1"
