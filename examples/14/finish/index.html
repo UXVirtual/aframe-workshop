@@ -32,7 +32,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script src="https://cdn.rawgit.com/priologic/easyrtc/v1.1.0/api/easyrtc.js"></script>
-    <script src="https://cdn.rawgit.com/haydenjameslee/networked-aframe/v0.1.0/dist/networked-aframe.js"></script>
+    <script src="https://rawgit.com/haydenjameslee/networked-aframe/0.2.0/dist/networked-aframe.min.js"></script>
 
     <script src="assets/js/components/advanced-texture.js"></script>
     <script src="assets/js/components/intersection-spawn-multi.js"></script>
@@ -44,11 +44,16 @@
 <!-- 2. Convert OBJ to DRC -->
 
 <body>
+
+<!-- TODO: adjust the way intersection-spawn-multi works so it correctly spawns networked entities from templates -->
+
 <a-scene main network-scene="
       app: aframe-workshop;
       room: default;
       audio: false;
       debug: false;
+      webrtc: false;
+      webrtcAudio: false;
       connectOnLoad: true;
       signallingUrl: //localhost:8080/;
     ">
