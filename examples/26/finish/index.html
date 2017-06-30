@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Example 26</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://cdn.rawgit.com/aframevr/aframe/master/dist/aframe-master.min.js"></script><!-- a-frame v0.6.0 with shadow support -->
+    <script src="https://cdn.rawgit.com/mflux/aframe-lod/46ba6e0f653e696c6ba14ff7860b7d0454bae64a/aframe-lod.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/0f3e106ee6b9aa71c9e377a1172d4324356782d2/components/look-at/dist/aframe-look-at-component.js"></script><!-- v0.2.0 of this component is the only one that currently works -->
+
+</head>
+<body>
+<a-scene stats>
+    <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+    <a-sky color="#ECECEC"></a-sky>
+
+    <a-lod position="0 1.25 -5">
+        <a-sphere lod-level="0" radius="1.25" segments-width="64" segments-height="42" material="color: red; wireframe: true"></a-sphere>
+        <a-sphere lod-level="3" radius="1.25" segments-width="36" segments-height="18" material="color: red; wireframe: true"></a-sphere>
+        <a-sphere lod-level="5" radius="1.25" segments-width="24" segments-height="9" material="color: red; wireframe: true"></a-sphere>
+        <a-sphere lod-level="8" radius="1.25" segments-width="12" segments-height="6" material="color: red; wireframe: true"></a-sphere>
+        <a-circle lod-level="10" radius="1.25" material="color: red; wireframe: true" look-at="#camera"></a-circle>
+
+    </a-lod>
+
+    <a-camera id="camera"></a-camera>
+
+</a-scene>
+
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
