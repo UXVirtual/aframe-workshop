@@ -56,13 +56,13 @@
     <a-light light="type:ambient; color: #fff; intensity: 0.1;" color=""></a-light>
 
     <!-- TODO: adapt this THREE.js demo for A-Frame: https://threejs.org/examples/webgl_materials_skin.html -->
-
+    <!-- TODO: implement PBR to make model look similar to this: https://www.cgtrader.com/3d-models/character/anatomy/human-baby-fetus -->
     <a-entity id="model" material="color: #616161; roughness: 0.320; metalness: 0" shadow="receive: true" sound="src: #heartbeat-sound; autoplay: true; loop: true;" obj-model="obj: #foetus-obj;"></a-entity>
 
-    <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #cccccc,#ffffff"></a-entity>
+    <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #3c3c3c,#1f1f1f"></a-entity>
 
 
-    <a-entity id="sky" shadow="receive: false" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 40 40 40; bottomColor: 0 0 0" scale="-1 1 1"></a-entity>
+    <a-entity id="sky" shadow="receive: false" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 30 30 30; bottomColor: 0 0 0" scale="-1 1 1"></a-entity>
 
 
 </a-scene>
