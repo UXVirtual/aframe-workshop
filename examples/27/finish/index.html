@@ -1,35 +1,28 @@
 <html>
 <head>
     <title>Example 27</title>
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
     <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/f77b2e7d14e6cc0353fcc7103fadd1f94853d61a/dist/aframe-orbit-controls-component.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
     <script src="https://cdn.rawgit.com/mayognaise/aframe-mouse-cursor-component/29ebf42b0d7eedfd35813a58f9ae01de3c408c01/dist/aframe-mouse-cursor-component.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <script src="http://cdn.rawgit.com/wizgrav/aframe-effects/afae166558bc28c712d2510cbc28a2f3e72243d5/dist/aframe-effects.min.js"></script>
     <script src="assets/js/components/advanced-texture.js"></script>
     <script src="assets/js/components/auto-scale.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
 <body>
-<a-scene main vr-mode-ui="enabled: false">
+<!-- documentation for colors effect here: https://github.com/wizgrav/aframe-effects/tree/master/components/colors -->
+<!--<a-scene effects="bloom, film, colors" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 512" colors="mode:hqprtom; mul: 0.66 0.5 0.66; pow: 1 1.33 1.66; quant: 0.3 0.3 0.1; orig: 0.33 0.66 0.66" main vr-mode-ui="enabled: false">-->
+<a-scene effects="bloom, film" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 512" main vr-mode-ui="enabled: false">
+
 
     <a-assets>
         <a-asset-item id="foetus-obj" src="assets/obj/foetus/foetus.obj"></a-asset-item>
         <a-asset-item id="foetus-mtl" src="assets/obj/foetus/foetus.mtl"></a-asset-item>
-        <audio id="distant-gunfire" src="assets/ogg/27362__genghis-attenborough__gunfire-at-kootwijk.ogg"></audio>
-        <audio id="distant-gunfire2" src="assets/ogg/77727__kyster__gunfire-in-the-distance-01.ogg"></audio>
-        <audio id="distant-gunfire3" src="assets/ogg/125932__alienistcog__reenactment2.ogg"></audio>
+        <audio id="heartbeat-sound" src="assets/ogg/heartbeat.ogg"></audio><!-- audio from https://archive.org/details/BabysHeartbeatAt11Weeks -->
     </a-assets>
 
     <a-camera
@@ -62,52 +55,17 @@
     <!-- Dim ambient lighting. -->
     <a-light light="type:ambient; color: #fff; intensity: 0.1;" color=""></a-light>
 
-    <!--<a-circle id="hotspot1" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" rotateToPosition="-0.964449148083754 0.027254289423805034 -3.8818932294008524" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-0.538 0 -0.506" material="shader: flat;"></a-circle>
-    <a-circle id="hotspot2" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" rotateToPosition="3.9999804638206027 -0.00995775084276031 -0.007558587873826918" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="3.025 -0.007 -0.004" material="shader: flat;"></a-circle>
-    <a-circle id="hotspot3" class="hotspot" shadow="receive: false" color="#ffcc00" radius="0.05" rotateToPosition="-3.9989764614762784 0.07397253012508073 0.05210878376378217" auto-scale="target: #camera; size: 1; static: false" look-at="#camera" position="-2.292 0 0" material="shader: flat;"></a-circle>
-    -->
+    <!-- TODO: adapt this THREE.js demo for A-Frame: https://threejs.org/examples/webgl_materials_skin.html -->
 
-    <!-- DRC models are currently incompatible with a-frame 0.6.0 -->
-    <a-entity id="model" advanced-texture="shininess: 5; reflectivity: 0.150; refractionRatio: 0.98; smoothShading: true; color: #c9a300; specular: #fffdf6;" shadow="receive: true" obj-model="obj: #foetus-obj;"></a-entity>
+    <a-entity id="model" material="color: #616161; roughness: 0.320; metalness: 0" shadow="receive: true" sound="src: #heartbeat-sound; autoplay: true; loop: true;" obj-model="obj: #foetus-obj;"></a-entity>
 
-    <!--<a-entity id="sound1" sound="src: #distant-gunfire; autoplay: true; loop: true;" position="0 0 20"></a-entity>
-    <a-entity id="sound2" sound="src: #distant-gunfire2; autoplay: true; loop: true;" position="0 0 -20"></a-entity>
-    <a-entity id="sound3" sound="src: #distant-gunfire3; autoplay: true; loop: true;" position="10 0 10"></a-entity>-->
-c
-    <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #ffff00,#ffffcc"></a-entity>
+    <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 25; texture: assets/img/smokeparticle.png; color: #cccccc,#ffffff"></a-entity>
 
 
-    <a-entity id="sky" shadow="receive: false" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 102 51 0; bottomColor: 0 0 0" scale="-1 1 1"></a-entity>
+    <a-entity id="sky" shadow="receive: false" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 40 40 40; bottomColor: 0 0 0" scale="-1 1 1"></a-entity>
 
 
 </a-scene>
-
-<div id="hotspot-modal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Information Hotspot</h4>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Mauris a pulvinar erat, at congue tortor. Aenean et tellus at massa placerat vulputate. Sed ultrices
-                    lorem ex, sed pellentesque odio suscipit eu. Morbi ac erat vehicula, porttitor lectus vel, auctor
-                    ipsum. Praesent a luctus mauris, non aliquet est. Nunc consequat sem nibh, rhoncus molestie libero
-                    dignissim interdum. Integer tristique ipsum at est rhoncus, a tincidunt lorem bibendum. Nullam felis
-                    nulla, eleifend sit amet facilisis non, luctus vel tortor. Nunc a ante ac velit malesuada vulputate.
-                    Sed suscipit suscipit sapien et faucibus. Phasellus commodo nulla a leo consectetur volutpat. Mauris
-                    luctus volutpat rutrum. Sed lacinia gravida erat eu tincidunt. Aenean sit amet sodales odio, vitae
-                    lobortis massa. Phasellus convallis sapien et libero volutpat, eget venenatis libero imperdiet.
-                    Phasellus lobortis odio sed aliquam vulputate.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 </body>
 </html>
