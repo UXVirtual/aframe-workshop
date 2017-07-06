@@ -16,7 +16,7 @@
     "generate-cert": "openssl req -nodes -x509 -newkey rsa:4096 -keyout localhost.key -out localhost.crt -days 365",
     "serve-https": "node node_modules/.bin/http-server ./ -p 3000 -o -S -C localhost.crt -K localhost.key",
     "collada2gltf": "node assets/js/converters/collada2gltf.js",
-    "obj2gltf": "node assets/js/converters/collada2gltf.js",
+    "obj2gltf": "node assets/js/converters/obj2gltf.js",
     "obj2drc": "bin/draco/Debug/draco_encoder -qp 14 -qt 14 -qn 14 -cl 5",
     "obj2drc-high": "bin/draco/Debug/draco_encoder -qp 0 -qt 0 -qn 0 -cl 0",
     "convert-example-14-env": "npm run obj2drc -- -i examples/14/finish/assets/obj/environment/environment.obj -o examples/14/finish/assets/drc/environment/environment.drc",
@@ -39,8 +39,8 @@
     "imagemin": "^5.2.2",
     "imagemin-mozjpeg": "^6.0.0",
     "imagemin-pngquant": "^5.0.0",
-    "networked-aframe": "^0.1.6",
-    "obj2gltf": "^0.1.7"
+    "networked-aframe": "^0.2.0",
+    "obj2gltf": "^1.1.1"
   },
   "dependencies": {
     "aframe": "0.5.0",
