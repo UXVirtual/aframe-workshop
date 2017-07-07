@@ -39,7 +39,12 @@
 
     <a-sphere position="-1 0.5 -3" material-grid-glitch="color: #4CC3D9;" position="0 1.25 -5" radius="1.25" color="#4CC3D9"></a-sphere>
     <a-sphere material-displacement position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-    <a-entity shadow="receive: true" json-model="src: url(//cdn.rawgit.com/mrdoob/three.js/r84/examples/obj/leeperrysmith/LeePerrySmith.js);" position="1 0.75 -3" material-skin="color: #bbbbbb; specular: #555555; src: url(//cdn.rawgit.com/mrdoob/three.js/r84/examples/obj/leeperrysmith/Map-COL.jpg); normalSrc: url(//cdn.rawgit.com/mrdoob/three.js/r84/examples/obj/leeperrysmith/Infinite-Level_02_Tangent_SmoothUV.jpg);" scale="0.4 0.4 0.4"></a-entity>
+
+    <!-- autogenerate normal map using http://www.smart-page.net/smartnormal/ -->
+
+    <a-sphere shadow="receive: true" position="1 0.75 -3" radius="1.25" material-skin="effectRTSize: 16; color: #bbbbbb; specular: #555555; src: url(assets/obj/skin/skin.jpg); normalSrc: url(assets/obj/skin/skin-normal.png);" scale="1 1 1"></a-sphere>
+    <!--<a-sphere shadow="receive: true" position="1 0.75 -3" radius="1.25" material="src:url(assets/obj/skin/skin.jpg); normalMap:url(assets/obj/skin/skin-normal.png); normalScale:-1 -1 -1" scale="1 1 1"></a-sphere>-->
+
     <!--<a-box material-skin position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" material="color:#bbbbbb; specular:#555555; shininess:50;"></a-box>-->
     <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
     <a-sky color="#ECECEC"></a-sky>
