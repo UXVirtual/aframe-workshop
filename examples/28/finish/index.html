@@ -7,21 +7,40 @@
 
     <script src="https://aframe.io/releases/0.6.0/aframe.js"></script>
 
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.8.5/dist/aframe-extras.min.js"></script>
+
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/ShaderSkin.js"></script>
+
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/BleachBypassShader.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/ConvolutionShader.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/CopyShader.js"></script>
+
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/BloomPass.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/TexturePass.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/MaskPass.js"></script>
+
+
+
+
     <script src="assets/js/shaders/material-glitch-grid.js"></script>
     <script src="assets/js/shaders/material-displacement.js"></script>
 
-   <!-- <script src="assets/js/ShaderSkin.js"></script>-->
-
-    <!--<script src="assets/js/shaders/BleachBypassShader.js"></script>
-    <script src="assets/js/shaders/ConvolutionShader.js"></script>
-    <script src="assets/js/shaders/CopyShader.js"></script>-->
+    <script src="assets/js/shaders/material-skin.js"></script>
 
 </head>
 <body>
 <a-scene>
+
+    <a-light light="type: directional; castShadow: true; color: #ffeedd; intensity: 1.5; shadowCameraVisible: false; shadowMapHeight: 2048; shadowMapWidth: 2048;" position="1 0.5 1"></a-light>
+    <a-light light="type: directional; castShadow: true; color: #ddddff; intensity: 0.5; shadowCameraVisible: false; shadowMapHeight: 512; shadowMapWidth: 512;" position="-1 0.5 -1"></a-light>
+
     <a-sphere position="-1 0.5 -3" material-grid-glitch="color: #4CC3D9;" position="0 1.25 -5" radius="1.25" color="#4CC3D9"></a-sphere>
     <a-sphere material-displacement position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    <a-entity shadow="receive: true" json-model="src: url(//cdn.rawgit.com/mrdoob/three.js/r84/examples/obj/leeperrysmith/LeePerrySmith.js);" position="1 0.75 -3" material-skin="color: #bbbbbb; specular: #555555; src: url(//cdn.rawgit.com/mrdoob/three.js/r84/examples/obj/leeperrysmith/Map-COL.jpg); normalSrc: url(//cdn.rawgit.com/mrdoob/three.js/r84/examples/obj/leeperrysmith/Infinite-Level_02_Tangent_SmoothUV.jpg);" scale="0.4 0.4 0.4"></a-entity>
+    <!--<a-box material-skin position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D" material="color:#bbbbbb; specular:#555555; shininess:50;"></a-box>-->
     <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
     <a-sky color="#ECECEC"></a-sky>
 </a-scene>
