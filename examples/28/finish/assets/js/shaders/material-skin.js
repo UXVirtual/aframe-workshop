@@ -8,7 +8,8 @@ AFRAME.registerComponent('material-skin', {
         color: {type: 'color', default: '#bbbbbb'},
         specular: {type: 'color', default: '#555555'},
         src: {type: 'asset', required: true},
-        normalSrc: {type: 'asset', required: true}
+        normalSrc: {type: 'asset', required: true},
+        effectRTSize: {type: 'int', default: 128}
     },
 
     firstPass: true,
@@ -19,7 +20,8 @@ AFRAME.registerComponent('material-skin', {
 
         this.el.sceneEl.addEventListener('render-target-loaded', function(){
             this.el.sceneEl.addEventListener('renderstart', function(){
-                this.camera = document.querySelector('[camera]').object3D.children[0];
+                this.camera = this.getCamera();
+
                 this.initShader();
             }.bind(this));
         }.bind(this));
@@ -51,12 +53,10 @@ AFRAME.registerComponent('material-skin', {
         this.uniformsUV[ "uRoughness" ].value = 0.185;
         this.uniformsUV[ "uSpecularBrightness" ].value = 0.7;
 
-
         this.uniforms = THREE.UniformsUtils.clone( this.uniformsUV );
         this.uniforms[ "tDiffuse" ].value = this.uniformsUV[ "tDiffuse" ].value;
         this.uniforms[ "tNormal" ].value = this.uniformsUV[ "tNormal" ].value;
         this.uniforms[ "passID" ].value = 1;
-
 
         var parameters = { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShader, uniforms: this.uniforms, lights: true };
         var parametersUV = { fragmentShader: shader.fragmentShader, vertexShader: shader.vertexShaderUV, uniforms: this.uniformsUV, lights: true };
@@ -91,8 +91,8 @@ AFRAME.registerComponent('material-skin', {
             stencilBuffer: false
         };
 
-        var rtwidth = 512;
-        var rtheight = 512;
+        var rtwidth = data.effectRTSize;
+        var rtheight = data.effectRTSize;
 
         //
 
@@ -152,6 +152,20 @@ AFRAME.registerComponent('material-skin', {
 
     },
 
+    getCamera: function () {
+        var camera;
+
+        document.querySelector('[camera]').object3D.traverse(function (child) {
+            if (child instanceof THREE.PerspectiveCamera) {
+                camera = child;
+            }
+        });
+
+        console.log('Got camera: ',camera);
+
+        return camera;
+    },
+
     /**
      * Apply the material to the current entity.
      */
@@ -167,12 +181,12 @@ AFRAME.registerComponent('material-skin', {
     tick: function (t) {
 
         if(this.composerBeckmann){
-            if ( this.firstPass ) {
+            //if ( this.firstPass ) {
 
-                //creates wet / shininess map on model during the first pass
-                this.composerBeckmann.render();
-                this.firstPass = false;
-            }
+            //creates wet / shininess map on model during the first pass
+            this.composerBeckmann.render();
+            //    this.firstPass = false;
+            //}
         }
 
         if(this.composer){
