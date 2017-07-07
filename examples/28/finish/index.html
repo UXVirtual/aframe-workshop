@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>Example 28</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://aframe.io/releases/0.6.0/aframe.js"></script>
+
+    <script src="assets/js/shaders/material-glitch-grid.js"></script>
+    <script src="assets/js/shaders/material-displacement.js"></script>
+
+   <!-- <script src="assets/js/ShaderSkin.js"></script>-->
+
+    <!--<script src="assets/js/shaders/BleachBypassShader.js"></script>
+    <script src="assets/js/shaders/ConvolutionShader.js"></script>
+    <script src="assets/js/shaders/CopyShader.js"></script>-->
+
+</head>
+<body>
+<a-scene>
+    <a-sphere position="-1 0.5 -3" material-grid-glitch="color: #4CC3D9;" position="0 1.25 -5" radius="1.25" color="#4CC3D9"></a-sphere>
+    <a-sphere material-displacement position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+    <a-sky color="#ECECEC"></a-sky>
+</a-scene>
+
+</body>
+</html>
