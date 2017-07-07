@@ -8,15 +8,29 @@
     <script src="https://cdn.rawgit.com/mayognaise/aframe-mouse-cursor-component/29ebf42b0d7eedfd35813a58f9ae01de3c408c01/dist/aframe-mouse-cursor-component.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
     <script src="https://cdn.rawgit.com/wizgrav/aframe-effects/afae166558bc28c712d2510cbc28a2f3e72243d5/dist/aframe-effects.min.js"></script>
+
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/ShaderSkin.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/BleachBypassShader.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/ConvolutionShader.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/CopyShader.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/BloomPass.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/TexturePass.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/MaskPass.js"></script>
+
     <script src="assets/js/components/advanced-texture.js"></script>
     <script src="assets/js/components/auto-scale.js"></script>
+    <script src="assets/js/shaders/material-skin.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
 <body>
 <!-- documentation for colors effect here: https://github.com/wizgrav/aframe-effects/tree/master/components/colors -->
 <!--<a-scene effects="bloom, film, colors" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 512" colors="mode:hqprtom; mul: 0.66 0.5 0.66; pow: 1 1.33 1.66; quant: 0.3 0.3 0.1; orig: 0.33 0.66 0.66" main vr-mode-ui="enabled: false">-->
-<a-scene effects="bloom, film" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 1024" main vr-mode-ui="enabled: false">
+<a-scene effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main>
+    <!--<a-scene main>-->
 
 
     <a-assets>
@@ -44,20 +58,24 @@
                 enableKeys: false;
                 enablePan:true;
                 logPosition:false;">
-        <!-- Red directional light shining from the top left. -->
-        <a-light light="type: directional; castShadow: true; color: #fff; intensity: 0.8; shadowCameraVisible: false; shadowMapHeight: 2048; shadowMapWidth: 2048;" position="-1 1 0"></a-light>
-        <!-- Blue point light, 5 meters in the air. -->
-        <a-light light="type: point; castShadow: true; color: #fff; intensity: 0.3; shadowCameraVisible: false; shadowMapHeight: 512; shadowMapWidth: 512;" position="0 5 0"></a-light>
 
     </a-camera>
 
+        <!-- Red directional light shining from the top left. -->
+        <a-light light="type: directional; castShadow: false; color: #fff; intensity: 1.5; shadowCameraVisible: false; shadowMapHeight: 2048; shadowMapWidth: 2048;" position="-1 1 0"></a-light>
+        <!-- Blue point light, 5 meters in the air. -->
+        <a-light light="type: directional; castShadow: false; color: #fff; intensity: 0.3; shadowCameraVisible: false; shadowMapHeight: 512; shadowMapWidth: 512;" position="0 5 0"></a-light>
 
-    <!-- Dim ambient lighting. -->
+
+
+        <!-- Dim ambient lighting. -->
     <a-light light="type:ambient; color: #fff; intensity: 0.1;" color=""></a-light>
 
     <!-- TODO: adapt this THREE.js demo for A-Frame: https://threejs.org/examples/webgl_materials_skin.html -->
     <!-- TODO: implement PBR to make model look similar to this: https://www.cgtrader.com/3d-models/character/anatomy/human-baby-fetus -->
     <a-entity id="model" material="color: #616161; roughness: 0.320; metalness: 0" shadow="receive: true" sound="src: #heartbeat-sound; autoplay: true; loop: true;" obj-model="obj: #foetus-obj;"></a-entity>
+    <!--<a-sphere id="model" shadow="receive: true" radius="1.25" segments-height="72" segments-width="144" material-skin="effectRTSize: 16; color: #616161; specular: #555555; src: url(assets/obj/skin/skin.jpg); normalSrc: url(assets/obj/skin/skin-normal.png);" scale="1 1 1"></a-sphere>-->
+
 
     <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 64; texture: assets/img/smokeparticle.png; color: #3c3c3c,#1f1f1f"></a-entity>
 
