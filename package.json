@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run serve",
-    "serve": "concurrently --kill-others \"npm run networked-aframe\" \"npm run serve-http\"",
+    "serve": "concurrently --kill-others \"npm run networked-aframe\" \"npm run serve-https\"",
     "networked-aframe": "cd node_modules/networked-aframe; npm run dev",
     "serve-http": "node node_modules/.bin/http-server ./ -p 3000 -o --gzip",
     "generate-cert": "openssl req -nodes -x509 -newkey rsa:4096 -keyout localhost.key -out localhost.crt -days 365",
