@@ -33,7 +33,7 @@ Example files for an A-Frame workshop [http://hazardu5.github.io/aframe-workshop
 
 ### Running HTTPS server
 
-Optionally, you can run a local HTTPS server to test WebRTC functionality.
+Optionally, you can run a local HTTPS server to test WebRTC or native WebVR functionality. These APIs are not usually available for non-secure origins.
 
 1.  Run the following command to generate a self-signed SSL cert.
 
@@ -50,6 +50,8 @@ Optionally, you can run a local HTTPS server to test WebRTC functionality.
 3.  A browser window will automatically launch with the default index page. Optionally, you can access the server via
     [https://localhost:3000](https://localhost:3000) or [https://YOUR_IP:3000](https://YOUR_IP:3000) where `YOUR_IP` is
     the IP address of your computer on your network.
+
+    You may be presented with a warning before viewing the apge. You can safely ignore this.
 
 ### Converting OBJ to Draco
 
