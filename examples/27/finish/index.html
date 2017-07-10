@@ -9,35 +9,26 @@
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
     <script src="https://cdn.rawgit.com/wizgrav/aframe-effects/afae166558bc28c712d2510cbc28a2f3e72243d5/dist/aframe-effects.min.js"></script>
 
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/ShaderSkin.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/BleachBypassShader.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/ConvolutionShader.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/shaders/CopyShader.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/BloomPass.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/TexturePass.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/ShaderPass.js"></script>
-    <script src="//cdn.rawgit.com/mrdoob/three.js/r84/examples/js/postprocessing/MaskPass.js"></script>
-
-    <script src="assets/js/components/advanced-texture.js"></script>
-    <script src="assets/js/components/auto-scale.js"></script>
-    <script src="assets/js/shaders/material-skin.js"></script>
+    <script src="assets/js/components/look-controls-entity-rotater.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
 <body>
 <!-- documentation for colors effect here: https://github.com/wizgrav/aframe-effects/tree/master/components/colors -->
 <!--<a-scene effects="bloom, film, colors" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 512" colors="mode:hqprtom; mul: 0.66 0.5 0.66; pow: 1 1.33 1.66; quant: 0.3 0.3 0.1; orig: 0.33 0.66 0.66" main vr-mode-ui="enabled: false">-->
-<a-scene effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main>
+<a-scene debug effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main>
     <!--<a-scene main>-->
 
 
     <a-assets>
         <a-asset-item id="foetus-obj" src="assets/obj/foetus/foetus.obj"></a-asset-item>
         <a-asset-item id="foetus-mtl" src="assets/obj/foetus/foetus.mtl"></a-asset-item>
+        <a-asset-item id="foetus-lq-obj" src="assets/obj/foetus-lq/foetus-lq.obj"></a-asset-item>
+        <a-asset-item id="foetus-lq-mtl" src="assets/obj/foetus-lq/foetus-lq.mtl"></a-asset-item>
         <audio id="heartbeat-sound" src="assets/ogg/heartbeat.ogg"></audio><!-- audio from https://archive.org/details/BabysHeartbeatAt11Weeks -->
     </a-assets>
+
+    <!-- TODO: add logic that activates when look-controls are present on the camera to rotate the orbit-controls target when the users head is rotates past a certain point on the left and right of model -->
 
     <a-camera
             id="camera"
@@ -57,6 +48,7 @@
                 maxZoom:0;
                 enableKeys: false;
                 enablePan:true;
+                autoVRLookCam: true;
                 logPosition:false;">
 
     </a-camera>
