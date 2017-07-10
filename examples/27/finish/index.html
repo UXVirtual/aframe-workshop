@@ -8,8 +8,9 @@
     <script src="https://cdn.rawgit.com/mayognaise/aframe-mouse-cursor-component/29ebf42b0d7eedfd35813a58f9ae01de3c408c01/dist/aframe-mouse-cursor-component.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
     <script src="https://cdn.rawgit.com/wizgrav/aframe-effects/afae166558bc28c712d2510cbc28a2f3e72243d5/dist/aframe-effects.min.js"></script>
-
-    <script src="assets/js/components/look-controls-entity-rotater.js"></script>
+    <script src="https://cdn.rawgit.com/ngokevin/kframe/b1fe321aaa90ece7cae5bc9efc35a35573bd3364/components/look-at/dist/aframe-look-at-component.js"></script>
+    <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
+    <script src="assets/js/components/look-controls-entity-rotator.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
@@ -34,7 +35,7 @@
             id="camera"
             camera
             mouse-cursor
-            position="0 1.5 0.5"
+            position="0 0 0.5"
             orbit-controls="
                 autoRotate: true;
                 autoRotateSpeed:0.05;
@@ -69,7 +70,7 @@
     <!--<a-sphere id="model" shadow="receive: true" radius="1.25" segments-height="72" segments-width="144" material-skin="effectRTSize: 16; color: #616161; specular: #555555; src: url(assets/obj/skin/skin.jpg); normalSrc: url(assets/obj/skin/skin-normal.png);" scale="1 1 1"></a-sphere>-->
 
 
-    <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 64; texture: assets/img/smokeparticle.png; color: #3c3c3c,#1f1f1f"></a-entity>
+    <a-entity id="particles" position="0 0 0" particle-system="preset: dust; type: 1; maxParticleCount: 256; texture: assets/img/smokeparticle.png; color: #3c3c3c,#1f1f1f"></a-entity>
 
 
     <a-entity id="sky" shadow="receive: false" geometry="primitive: sphere; radius: 5000" material="shader: gradient; topColor: 30 30 30; bottomColor: 0 0 0" scale="-1 1 1"></a-entity>

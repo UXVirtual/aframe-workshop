@@ -9,7 +9,11 @@ AFRAME.registerSystem('main', {
 
         var self = this;
 
-        this.camera = document.querySelector('#camera');
+        this.cameraEl = document.querySelector('#camera');
+
+        this.defaultOrbitControls = this.cameraEl.getAttribute('orbit-controls');
+        this.defaultCameraPosition = this.cameraEl.getAttribute('position');
+        this.defaultCameraRotation = this.cameraEl.getAttribute('rotation');
 
         this.particlesEl = document.querySelector('#particles');
 
@@ -20,10 +24,13 @@ AFRAME.registerSystem('main', {
 
         this.modelEl = document.querySelector('#model');
         this.defaultModel = this.modelEl.getAttribute('obj-model');
+        this.defaultModelSound = this.modelEl.getAttribute('sound');
+
+        this.defaultModelRotation = this.modelEl.getAttribute('rotation');
 
         var rotating = false;
 
-        this.camera.addEventListener('click',function(e){
+        this.cameraEl.addEventListener('click',function(e){
 
             var targetEl = e.detail.target;
 
@@ -47,6 +54,8 @@ AFRAME.registerSystem('main', {
 
         this.removeScanlines();
 
+        this.addAlternateControls();
+
         if(AFRAME.utils.device.isMobile()){
             this.setLQParticules();
             this.setLQModel();
@@ -58,6 +67,7 @@ AFRAME.registerSystem('main', {
     onExitVR: function(){
         console.log('Exited VR');
 
+        this.removeAlternateControls();
         this.addScanlines();
         this.setDefaultParticles();
         this.setDefaultModel();
@@ -74,14 +84,17 @@ AFRAME.registerSystem('main', {
     },
 
     setLQParticules: function(){
-        //this.particlesEl.setAttribute('particle-system','maxParticleCount',16);
+        this.particlesEl.components['particle-system'].particleGroup.emitters[0].disable();
+        /*if(this.particlesEl){
+            this.particlesEl.parentNode.removeChild(this.particlesEl);
+        }*/
 
-        this.particlesEl.parentNode.removeChild(this.particlesEl);
     },
 
     setDefaultParticles: function(){
 
-        this.particlesEl.setAttribute('particle-system',this.defaultParticlesAttr);
+        this.particlesEl.components['particle-system'].particleGroup.emitters[0].enable();
+        //this.particlesEl.setAttribute('particle-system',this.defaultParticlesAttr);
     },
 
     setDefaultModel: function(){
@@ -90,6 +103,40 @@ AFRAME.registerSystem('main', {
 
     setLQModel: function(){
         this.modelEl.setAttribute('obj-model','obj: #foetus-lq-obj');
+    },
+
+    addAlternateControls: function(){
+
+        console.log('Adding alternate controls');
+
+        //this.modelEl.setAttribute('sound','positional',false);
+        //this.modelEl.setAttribute('sound','volume',1);
+
+        //this.cameraEl.removeAttribute('orbit-controls');
+
+        setTimeout(function(){
+            console.log('Resetting camera position');
+            this.cameraEl.setAttribute('look-controls-entity-rotator','target:#model');
+            this.cameraEl.setAttribute('rotation','0 0 0');
+            this.cameraEl.setAttribute('position','0 -0.2 2.5'); //TODO: camera position must be set in orbit component as it will overwrite any other value set
+
+        }.bind(this),250);
+    },
+
+    removeAlternateControls: function(){
+
+        console.log('Removing alternate controls');
+
+        //this.modelEl.setAttribute('sound',this.defaultModelSound);
+
+        //this.cameraEl.setAttribute('orbit-controls',this.defaultOrbitControls);
+        this.cameraEl.removeAttribute('look-controls-entity-rotator');
+        /*setTimeout(function() {
+            this.modelEl.setAttribute('rotation', this.defaultModelRotation);
+            this.cameraEl.setAttribute('rotation', this.defaultCameraRotation);
+            this.cameraEl.setAttribute('position', this.defaultCameraPosition);
+        });*/
+
     },
 
     tick: function (t, dt) {

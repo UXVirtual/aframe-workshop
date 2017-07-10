@@ -7,18 +7,23 @@ if (typeof AFRAME === 'undefined') {
 /**
  * Example component for A-Frame.
  */
-AFRAME.registerComponent('look-controls-entity-rotater', {
-    schema: { },
+AFRAME.registerComponent('look-controls-entity-rotator', {
+    schema: {
+        target: {type: 'selector', required: true}
+    },
 
     /**
      * Set if component needs multiple instancing.
      */
     multiple: false,
 
+    rotation: null,
     /**
      * Called once when component is attached. Generally for initial setup.
      */
-    init: function () { },
+    init: function () {
+        this.targetEl = this.data.target;
+    },
 
     /**
      * Called when component is attached and when component data changes.
@@ -35,7 +40,32 @@ AFRAME.registerComponent('look-controls-entity-rotater', {
     /**
      * Called on each scene tick.
      */
-    // tick: function (t) { },
+    tick: function (t) {
+        //this.debounce(this.setTargetRotation.bind(this),1000);
+
+        this.setTargetRotation();
+    },
+
+    setTargetRotation: function(){
+        console.log('Setting target rotation');
+        this.rotation = this.el.getAttribute('rotation');
+        this.targetEl.setAttribute('rotation',this.rotation.x*-10+' '+this.rotation.y*-10+' 0');
+    },
+
+    debounce: function(func, wait, immediate) {
+        var timeout;
+        return function() {
+            var context = this, args = arguments;
+            var later = function() {
+                timeout = null;
+                if (!immediate) func.apply(context, args);
+            };
+            var callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+            if (callNow) func.apply(context, args);
+        };
+    },
 
     /**
      * Called when entity pauses.
