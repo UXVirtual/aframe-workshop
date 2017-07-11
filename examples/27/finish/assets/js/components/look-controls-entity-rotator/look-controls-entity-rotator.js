@@ -12,7 +12,7 @@ if (typeof AFRAME === 'undefined') {
 AFRAME.registerComponent('look-controls-entity-rotator', {
     schema: {
         target: {type: 'selector', required: true},
-        smoothing: {type: 'int', default: 5}
+        smoothing: {type: 'int', default: 10}
     },
 
     /**
@@ -21,13 +21,20 @@ AFRAME.registerComponent('look-controls-entity-rotator', {
     multiple: false,
 
     tickCount: 0,
-
+    lastRotation: {x:0,y:0},
     rotationSamples: [],
     /**
      * Called once when component is attached. Generally for initial setup.
      */
     init: function () {
         this.targetEl = this.data.target;
+
+        var lastRotation = this.el.getAttribute('rotation');
+
+        this.lastRotation = {
+            x: lastRotation.x,
+            y: lastRotation.y
+        };
     },
 
     /**
@@ -131,7 +138,7 @@ AFRAME.registerComponent('look-controls-entity-rotator', {
         const rotation = this.el.getAttribute('rotation');
 
         //sample current camera rotation
-        this.rotationSamples.push([Number(rotation.x),Number(rotation.y)]);
+        this.rotationSamples.push([Math.round(Number(rotation.x) * 100) / 100,Math.round(Number(rotation.y) * 100) / 100]);
 
         //only allow a max of 10 samples in array
         if(this.rotationSamples.length > this.data.smoothing){
@@ -149,7 +156,21 @@ AFRAME.registerComponent('look-controls-entity-rotator', {
 
             const coords = smooth(1);
 
-            this.targetEl.setAttribute('rotation',Number(coords[0])*-10+' '+Number(coords[1])*-10+' 0');
+            //console.log(coords);
+
+            //console.log('x: '+(Math.round(this.lastRotation.x * 10) / 10)+' x2: '+(Math.round(coords[0] * 10) / 10));
+
+            if(Math.round(this.lastRotation.x * 50) / 50 !== Math.round(coords[0] * 50) / 50 && Math.round(this.lastRotation.y * 50) / 50 !== Math.round(coords[1] * 50) / 50){
+                this.targetEl.setAttribute('rotation',Number(coords[0])*-10+' '+Number(coords[1])*-10+' 0');
+
+            }
+
+            this.lastRotation = {
+                x: coords[0],
+                y: coords[1]
+            };
+
+
         }
 
 

@@ -28,6 +28,10 @@ AFRAME.registerSystem('main', {
 
         this.defaultModelRotation = this.modelEl.getAttribute('rotation');
 
+        this.gridEl = document.querySelector('#grid');
+
+        this.defaultGridMaterial = this.gridEl.getAttribute('material');
+
         var rotating = false;
 
         this.cameraEl.addEventListener('click',function(e){
@@ -47,6 +51,21 @@ AFRAME.registerSystem('main', {
         this.sceneEl.addEventListener('enter-vr',this.onEnterVR.bind(this));
         this.sceneEl.addEventListener('exit-vr',this.onExitVR.bind(this));
 
+        //this.autoEnterVR();
+
+    },
+
+    autoEnterVR: function(){
+        window.addEventListener('load', function () {
+            var scene = document.querySelector('a-scene');
+            if (scene.hasLoaded) {
+                scene.enterVR();
+            } else {
+                scene.addEventListener('loaded', function () {
+                    scene.enterVR();
+                });
+            }
+        });
     },
 
     onEnterVR: function(){
@@ -58,6 +77,7 @@ AFRAME.registerSystem('main', {
 
         if(AFRAME.utils.device.isMobile()){
             this.setLQParticules();
+            this.setAlternateGridMaterial();
             this.setLQModel();
         }
 
@@ -69,8 +89,17 @@ AFRAME.registerSystem('main', {
 
         this.removeAlternateControls();
         this.addScanlines();
+        this.setDefaultGridMaterial();
         this.setDefaultParticles();
         this.setDefaultModel();
+    },
+
+    setAlternateGridMaterial: function(){
+        this.gridEl.setAttribute('material','opacity',0.8);
+    },
+
+    setDefaultGridMaterial: function(){
+        this.gridEl.setAttribute('material',this.defaultGridMaterial);
     },
 
     addScanlines: function(){
