@@ -12,14 +12,15 @@ if (typeof AFRAME === 'undefined') {
 AFRAME.registerComponent('look-controls-entity-rotator', {
     schema: {
         target: {type: 'selector', required: true},
-        smoothing: {type: 'int', default: 20},
-        precision: {type: 'int', default: 2}
+        smoothing: {type: 'int', default: 100}
     },
 
     /**
      * Set if component needs multiple instancing.
      */
     multiple: false,
+
+    tickCount: 0,
 
     rotationSamples: [],
     /**
@@ -45,12 +46,25 @@ AFRAME.registerComponent('look-controls-entity-rotator', {
      * Called on each scene tick.
      */
     tick: function (t) {
-        //this.debounce(this.setTargetRotation.bind(this),1000);
+        this.setTargetRotation(t);
 
-        this.setTargetRotation();
+        //this.setTargetRotationSmoothed();
     },
 
-    setTargetRotation: function(){
+    setTargetRotation: function(t){
+
+        if(this.tickCount < 10){
+            this.tickCount++;
+        }else{
+            this.tickCount = 0;
+            const rotation = this.el.getAttribute('rotation');
+            this.targetEl.setAttribute('rotation',rotation.x*-10+' '+rotation.y*-10+' 0');
+        }
+
+
+    },
+
+    setTargetRotationSmoothed: function(){
 
         const rotation = this.el.getAttribute('rotation');
 
@@ -73,12 +87,6 @@ AFRAME.registerComponent('look-controls-entity-rotator', {
 
             const coords = smooth(1);
 
-            //console.log(x,y);
-
-            //console.log(this.rotationSamplesX);
-
-            //console.log('Setting target rotation');
-            //this.rotation = this.el.getAttribute('rotation');
             this.targetEl.setAttribute('rotation',Number(coords[0])*-10+' '+Number(coords[1])*-10+' 0');
         }
 
