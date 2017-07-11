@@ -1,8 +1,9 @@
 <html>
 <head>
     <title>Example 27</title>
-    <!--<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>--><!-- lerp component has a bug with v0.6. Fixed in v0.6.1 -->
-    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script><!-- lerp component has a bug with v0.6. Fixed in v0.6.1 -->
+    <!--<script src="https://cdn.rawgit.com/aframevr/aframe/89d1de0782a06a06f022c464cb1c1a31ec18b9ee/dist/aframe-master.min.js"></script>-->
+    <!--<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>-->
     <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/f77b2e7d14e6cc0353fcc7103fadd1f94853d61a/dist/aframe-orbit-controls-component.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
@@ -12,7 +13,7 @@
     <script src="https://cdn.rawgit.com/ngokevin/kframe/b1fe321aaa90ece7cae5bc9efc35a35573bd3364/components/look-at/dist/aframe-look-at-component.js"></script>
     <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
     <script src="assets/js/components/look-controls-entity-rotator/vendor/Smooth-0.1.7.js"></script>
-    <script src="assets/js/components/look-controls-entity-rotator/look-controls-entity-rotator.js"></script>
+    <script src="assets/js/components/look-controls-entity-rotator/look-controls-entity-rotator.js?v=0.1"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
@@ -68,7 +69,7 @@
 
     <!-- TODO: adapt this THREE.js demo for A-Frame: https://threejs.org/examples/webgl_materials_skin.html -->
     <!-- TODO: implement PBR to make model look similar to this: https://www.cgtrader.com/3d-models/character/anatomy/human-baby-fetus -->
-    <a-entity id="model" lerp="duration: 100; properties: rotation" material="color: #616161; roughness: 0.320; metalness: 0" shadow="receive: true" sound="src: #heartbeat-sound; autoplay: true; loop: true;" obj-model="obj: #foetus-obj;"></a-entity>
+    <a-entity id="model" material="color: #616161; roughness: 0.320; metalness: 0" shadow="receive: true" sound="src: #heartbeat-sound; autoplay: true; loop: true;" obj-model="obj: #foetus-obj;"></a-entity>
     <!--<a-sphere id="model" shadow="receive: true" radius="1.25" segments-height="72" segments-width="144" material-skin="effectRTSize: 16; color: #616161; specular: #555555; src: url(assets/obj/skin/skin.jpg); normalSrc: url(assets/obj/skin/skin-normal.png);" scale="1 1 1"></a-sphere>-->
 
 
