@@ -5,11 +5,15 @@ if (typeof AFRAME === 'undefined') {
 }
 
 /**
- * Example component for A-Frame.
+ * Look Controls Entity Rotator
+ *
+ * Depends on Smooth.js 0.1.7 -
  */
 AFRAME.registerComponent('look-controls-entity-rotator', {
     schema: {
-        target: {type: 'selector', required: true}
+        target: {type: 'selector', required: true},
+        smoothing: {type: 'int', default: 20},
+        precision: {type: 'int', default: 2}
     },
 
     /**
@@ -17,7 +21,7 @@ AFRAME.registerComponent('look-controls-entity-rotator', {
      */
     multiple: false,
 
-    rotation: null,
+    rotationSamples: [],
     /**
      * Called once when component is attached. Generally for initial setup.
      */
@@ -47,24 +51,38 @@ AFRAME.registerComponent('look-controls-entity-rotator', {
     },
 
     setTargetRotation: function(){
-        console.log('Setting target rotation');
-        this.rotation = this.el.getAttribute('rotation');
-        this.targetEl.setAttribute('rotation',this.rotation.x*-10+' '+this.rotation.y*-10+' 0');
-    },
 
-    debounce: function(func, wait, immediate) {
-        var timeout;
-        return function() {
-            var context = this, args = arguments;
-            var later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            };
-            var callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
-        };
+        const rotation = this.el.getAttribute('rotation');
+
+        //sample current camera rotation
+        this.rotationSamples.push([Number(rotation.x),Number(rotation.y)]);
+
+        //only allow a max of 10 samples in array
+        if(this.rotationSamples.length > this.data.smoothing){
+            this.rotationSamples.splice(0, 1);
+        }
+
+        //console.log(this.rotationSamplesX,this.rotationSamplesY);
+
+        if(this.rotationSamples.length === this.data.smoothing && this.rotationSamples.length === this.data.smoothing){
+            const smooth = Smooth(this.rotationSamples,{
+                method: Smooth.METHOD_CUBIC,
+                clip: Smooth.CLIP_PERIODIC,
+                cubicTension: Smooth.CUBIC_TENSION_CATMULL_ROM
+            });
+
+            const coords = smooth(1);
+
+            //console.log(x,y);
+
+            //console.log(this.rotationSamplesX);
+
+            //console.log('Setting target rotation');
+            //this.rotation = this.el.getAttribute('rotation');
+            this.targetEl.setAttribute('rotation',Number(coords[0])*-10+' '+Number(coords[1])*-10+' 0');
+        }
+
+
     },
 
     /**

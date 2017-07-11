@@ -118,7 +118,7 @@ AFRAME.registerSystem('main', {
             console.log('Resetting camera position');
             this.cameraEl.setAttribute('look-controls-entity-rotator','target:#model');
             this.cameraEl.setAttribute('rotation','0 0 0');
-            this.cameraEl.setAttribute('position','0 -0.2 2.5'); //TODO: camera position must be set in orbit component as it will overwrite any other value set
+            this.cameraEl.setAttribute('position','0 0.5 2.5'); //TODO: camera position must be set in orbit component as it will overwrite any other value set
 
         }.bind(this),250);
     },
