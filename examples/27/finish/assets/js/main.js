@@ -52,6 +52,50 @@ AFRAME.registerSystem('main', {
         this.sceneEl.addEventListener('enter-vr',this.onEnterVR.bind(this));
         this.sceneEl.addEventListener('exit-vr',this.onExitVR.bind(this));
 
+        this.initModals();
+
+
+
+    },
+
+    isPortrait: function(){
+        return (window.matchMedia("(orientation: portrait)").matches);
+    },
+
+    isLandscape: function(){
+        return (window.matchMedia("(orientation: landscape)").matches);
+    },
+
+    /*updateModals: function(viewport){
+
+        if(this.isPortrait()){
+            $('.instructions__description').addClass('col-xs-offset-1').addClass('col-xs-9').removeClass('col-xs-10');
+        }
+
+        if(this.isLandscape()){
+            $('.instructions__description').removeClass('col-xs-offset-1').removeClass('col-xs-9').addClass('col-xs-10');
+        }
+
+        // Executes only in XS breakpoint
+        if(viewport.is('xs')) {
+            // ...
+
+        }
+
+        // Executes in SM, MD and LG breakpoints
+        if(viewport.is('>=sm')) {
+            // ...
+            $('.instructions__description').removeClass('col-xs-offset-1').removeClass('col-xs-9').addClass('col-xs-10');
+        }
+
+        // Executes in XS and SM breakpoints
+        if(viewport.is('<md')) {
+            // ...
+        }
+    },*/
+
+    initModals: function(){
+
         if(AFRAME.utils.device.isMobile()) {
             var $modal = $('#mobile-instructions-modal');
             $modal.modal();
@@ -64,6 +108,25 @@ AFRAME.registerSystem('main', {
 
         }
 
+        /*(function($, viewport){
+            $(document).ready(function() {
+
+                //this.updateModals(viewport);
+
+
+
+                //$(window).bind("orientationchange", function() {
+                //    this.updateModals(viewport);
+                //}.bind(this), false);
+
+                //$(window).bind("resize", function() {
+                    //viewport.changed(function() {
+                //        this.updateModals(viewport);
+                    //}.bind(this))
+                //}.bind(this),false);
+
+            }.bind(this));
+        }.bind(this))(jQuery, ResponsiveBootstrapToolkit);*/
     },
 
     onEnterVR: function(){
@@ -74,7 +137,6 @@ AFRAME.registerSystem('main', {
         this.addAlternateControls();
 
         if(AFRAME.utils.device.isMobile()){
-            //TODO: replace grid src with a non transparent texture
             this.setLQParticules();
             this.setAlternateGridMaterial();
             this.setLQModel();

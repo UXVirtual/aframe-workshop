@@ -14,6 +14,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/responsive-toolkit@2.6.3/dist/bootstrap-toolkit.min.js"></script>
 
     <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script><!-- lerp component has a bug with v0.6. Fixed in v0.6.1 -->
     <!--<script src="https://cdn.rawgit.com/aframevr/aframe/89d1de0782a06a06f022c464cb1c1a31ec18b9ee/dist/aframe-master.min.js"></script>-->
@@ -99,7 +100,7 @@
 
 </a-scene>
 
-<div id="mobile-instructions-modal" class="modal fade" tabindex="-1" role="dialog">
+<div id="mobile-instructions-modal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -108,38 +109,38 @@
             </div>
             <div class="modal-body">
 
-                <div class="row vertical-align">
-                    <div class="col-xs-4">
-                        <span class="fa-stack fa-4x">
+                <div class="row instructions vertical-align">
+                    <div class="col-xs-2 text-center">
+                        <span class="fa-stack fa-2x">
                           <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
                           <i class="fa fa-hand-paper-o fa-stack-1x text-muted" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="col-xs-7 col-xs-offset-1">
+                    <div class="instructions__description col-xs-9 col-xs-offset-1">
                         <p>Swipe left and right to rotate</p>
                     </div>
                 </div>
 
-                <div class="row vertical-align">
-                    <div class="col-xs-4">
-                        <span class="fa-stack fa-4x">
+                <div class="row instructions vertical-align">
+                    <div class="col-xs-2 text-center">
+                        <span class="fa-stack fa-2x">
                           <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
                           <i class="fa fa-hand-lizard-o fa-stack-1x text-muted" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="col-xs-7 col-xs-offset-1">
+                    <div class="instructions__description col-xs-9 col-xs-offset-1">
                         <p>Pinch with 2 fingers to zoom</p>
                     </div>
                 </div>
 
-                <div class="row vertical-align">
-                    <div class="col-xs-4">
-                        <span class="fa-stack fa-4x">
+                <div class="row instructions vertical-align">
+                    <div class="col-xs-2 text-center">
+                        <span class="fa-stack fa-2x">
                           <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
                           <i class="fa fa-simplybuilt fa-rotate-180 fa-stack-1x text-muted" aria-hidden="true"></i>
                         </span>
                     </div>
-                    <div class="col-xs-7 col-xs-offset-1">
+                    <div class="instructions__description col-xs-9 col-xs-offset-1">
                         <p>Tap to enter VR mode and put on VR headset</p>
                     </div>
                 </div>
