@@ -52,10 +52,12 @@ AFRAME.registerSystem('main', {
         this.sceneEl.addEventListener('enter-vr',this.onEnterVR.bind(this));
         this.sceneEl.addEventListener('exit-vr',this.onExitVR.bind(this));
 
+        //disable effects if debug mode is enabled in the scene as they are incompatible with the inspector
+        if(this.sceneEl.hasAttribute('debug')){
+            this.removeEffects();
+        }
+
         this.initModals();
-
-
-
     },
 
     isPortrait: function(){
@@ -96,17 +98,25 @@ AFRAME.registerSystem('main', {
 
     initModals: function(){
 
+        var $modal;
+
         if(AFRAME.utils.device.isMobile()) {
-            var $modal = $('#mobile-instructions-modal');
+            $modal = $('#mobile-instructions-modal');
             $modal.modal();
             $modal.on('hidden.bs.modal', function (e) {
                 this.sceneEl.setAttribute('vr-mode-ui','enabled',true);
             }.bind(this));
-
         }else{
-            $('#desktop-instructions-modal').modal();
-
+            $modal = $('#desktop-instructions-modal');
+            $modal.modal();
         }
+
+
+
+        this.$originalModal = $modal.clone();
+
+        //wait for inspector to open / close
+        setInterval(this.onInspector.bind(this),1000);
 
         /*(function($, viewport){
             $(document).ready(function() {
@@ -166,6 +176,15 @@ AFRAME.registerSystem('main', {
         this.gridEl.setAttribute('material',this.defaultGridMaterial);
         this.gridEl.setAttribute('src',this.defaultGridTexture);
         this.gridEl.setAttribute('visible',true);
+    },
+
+    removeEffects: function(){
+
+        //window.AFRAME.Effects.remove();
+
+        this.sceneEl.setAttribute('effects','');
+        //this.sceneEl.removeAttribute('bloom');
+        //this.sceneEl.removeAttribute('film');
     },
 
     addScanlines: function(){
@@ -234,9 +253,52 @@ AFRAME.registerSystem('main', {
 
     },
 
+    // Other handlers and methods.
+
+    onInspector: function() {
+
+        console.log('Inspector opened');
+
+        /*if(this.sceneEl.getAttribute('inspector')){
+            this.removeEffects();
+        }*/
+
+        if(typeof AFRAME.INSPECTOR !== 'undefined' && AFRAME.INSPECTOR.opened){
+
+
+
+            if(this.lastInspectorState !== 'opened'){
+
+                console.log('Removed modals');
+                $('.instructions-modal').remove();
+                this.lastInspectorState = 'opened';
+                var hs = document.querySelectorAll('link[rel=stylesheet]');
+                for (var i = 0, max = hs.length; i < max - 1; i++) {
+                    hs[i].parentNode.removeChild(hs[i]);
+                }
+            }
+
+        }else{
+            if(this.lastInspectorState !== 'closed'){
+
+                this.addScanlines();
+
+                /*var $body = $('body');
+
+                var hs = document.querySelectorAll('style');
+                for (var i = 0, max = hs.length; i < max - 1; i++) {
+                    hs[i].parentNode.removeChild(hs[i]);
+                }
+                $body.append(this.$originalModal);
+                this.$modal = $('.instructions-modal');*/
+                this.lastInspectorState = 'closed';
+
+            }
+
+        }
+    },
+
     tick: function (t, dt) {
-
-
 
     }
 });
