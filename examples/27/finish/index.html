@@ -1,6 +1,20 @@
 <html>
 <head>
     <title>Example 27</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+
+    <!-- Optional theme -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script><!-- lerp component has a bug with v0.6. Fixed in v0.6.1 -->
     <!--<script src="https://cdn.rawgit.com/aframevr/aframe/89d1de0782a06a06f022c464cb1c1a31ec18b9ee/dist/aframe-master.min.js"></script>-->
     <!--<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>-->
@@ -21,12 +35,13 @@
 <body>
 <!-- documentation for colors effect here: https://github.com/wizgrav/aframe-effects/tree/master/components/colors -->
 <!--<a-scene effects="bloom, film, colors" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 512" colors="mode:hqprtom; mul: 0.66 0.5 0.66; pow: 1 1.33 1.66; quant: 0.3 0.3 0.1; orig: 0.33 0.66 0.66" main vr-mode-ui="enabled: false">-->
-<a-scene debug effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main>
+<a-scene effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main vr-mode-ui="enabled:false">
     <!--<a-scene main>-->
 
 
     <a-assets>
         <img id="grid-img" src="assets/img/grid.png" />
+        <img id="grid-opaque-img" src="assets/img/grid-opaque.png" />
         <a-asset-item id="foetus-obj" src="assets/obj/foetus/foetus.obj"></a-asset-item>
         <a-asset-item id="foetus-mtl" src="assets/obj/foetus/foetus.mtl"></a-asset-item>
         <a-asset-item id="foetus-lq-obj" src="assets/obj/foetus-lq/foetus-lq.obj"></a-asset-item>
@@ -80,9 +95,99 @@
 
     <a-sky id="sky" shadow="receive: false" material="shader: gradient; topColor: 30 30 30; bottomColor: 0 0 0" scale="-1 1 1"></a-sky>
 
-    <a-grid id="grid" geometry="primitive: circle; radius: 20" src="#grid-img" material="transparent:true; opacity: 0.2" position="0 -2 0"></a-grid>
+    <a-grid id="grid" geometry="primitive: plane;" src="#grid-img" material="transparent:true; opacity: 0.2; shader: flat" position="0 -2 0"></a-grid>
 
 </a-scene>
+
+<div id="mobile-instructions-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Instructions</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row vertical-align">
+                    <div class="col-xs-4">
+                        <span class="fa-stack fa-4x">
+                          <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+                          <i class="fa fa-hand-paper-o fa-stack-1x text-muted" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="col-xs-7 col-xs-offset-1">
+                        <p>Swipe left and right to rotate</p>
+                    </div>
+                </div>
+
+                <div class="row vertical-align">
+                    <div class="col-xs-4">
+                        <span class="fa-stack fa-4x">
+                          <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+                          <i class="fa fa-hand-lizard-o fa-stack-1x text-muted" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="col-xs-7 col-xs-offset-1">
+                        <p>Pinch with 2 fingers to zoom</p>
+                    </div>
+                </div>
+
+                <div class="row vertical-align">
+                    <div class="col-xs-4">
+                        <span class="fa-stack fa-4x">
+                          <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+                          <i class="fa fa-simplybuilt fa-rotate-180 fa-stack-1x text-muted" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="col-xs-7 col-xs-offset-1">
+                        <p>Tap to enter VR mode and put on VR headset</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="desktop-instructions-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Instructions</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <span class="fa-stack fa-5x">
+                          <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+                          <i class="fa fa-mouse-pointer fa-stack-1x text-muted" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <span class="fa-stack fa-5x">
+                          <i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
+                          <i class="fa fa-arrows-v fa-stack-1x text-muted" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <p>Click and drag left and right to rotate</p>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <p>Scroll your mouse wheel or swipe up/down on your trackpad with 2 fingers to zoom</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </body>
 </html>
