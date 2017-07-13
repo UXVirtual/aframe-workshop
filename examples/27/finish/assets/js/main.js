@@ -22,7 +22,10 @@ AFRAME.registerSystem('main', {
 
         this.sceneEl = document.querySelector('a-scene');
 
+        this.sceneEl.addEventListener('preloading-complete',this.onPreloadingComplete.bind(this));
+
         this.modelEl = document.querySelector('#model');
+
         this.defaultModel = this.modelEl.getAttribute('obj-model');
         this.defaultModelSound = this.modelEl.getAttribute('sound');
 
@@ -98,22 +101,23 @@ AFRAME.registerSystem('main', {
 
     initModals: function(){
 
-        var $modal;
+        this.$preloaderModal = $('#preloader-modal');
+        this.$preloaderModal.modal();
 
         if(AFRAME.utils.device.isMobile()) {
-            $modal = $('#mobile-instructions-modal');
-            $modal.modal();
-            $modal.on('hidden.bs.modal', function (e) {
+            this.$modal = $('#mobile-instructions-modal');
+            this.$modal.modal({show:false});
+            this.$modal.on('hidden.bs.modal', function (e) {
                 this.sceneEl.setAttribute('vr-mode-ui','enabled',true);
             }.bind(this));
         }else{
-            $modal = $('#desktop-instructions-modal');
-            $modal.modal();
+            this.$modal = $('#desktop-instructions-modal');
+            this.$modal.modal({show:false});
         }
 
 
 
-        this.$originalModal = $modal.clone();
+        this.$originalModal = this.$modal.clone();
 
         //wait for inspector to open / close
         setInterval(this.onInspector.bind(this),1000);
@@ -137,6 +141,12 @@ AFRAME.registerSystem('main', {
 
             }.bind(this));
         }.bind(this))(jQuery, ResponsiveBootstrapToolkit);*/
+    },
+
+    onPreloadingComplete: function(){
+        console.log('Preloading complete');
+        this.$preloaderModal.modal('hide');
+        this.$modal.modal('show');
     },
 
     onEnterVR: function(){
@@ -256,8 +266,6 @@ AFRAME.registerSystem('main', {
     // Other handlers and methods.
 
     onInspector: function() {
-
-        console.log('Inspector opened');
 
         /*if(this.sceneEl.getAttribute('inspector')){
             this.removeEffects();

@@ -16,8 +16,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!--<script src="https://unpkg.com/responsive-toolkit@2.6.3/dist/bootstrap-toolkit.min.js"></script>-->
 
-    <!--<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>--><!-- lerp component has a bug with v0.6. Fixed in v0.6.1 -->
-   <script src="https://cdn.rawgit.com/aframevr/aframe/89d1de0782a06a06f022c464cb1c1a31ec18b9ee/dist/aframe-master.min.js"></script>
+    <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script><!-- lerp component has a bug with v0.6. Fixed in v0.6.1 -->
+   <!--<script src="https://cdn.rawgit.com/aframevr/aframe/89d1de0782a06a06f022c464cb1c1a31ec18b9ee/dist/aframe-master.min.js"></script>-->
     <!--<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>-->
     <script src="https://cdn.rawgit.com/tizzle/aframe-orbit-controls-component/f77b2e7d14e6cc0353fcc7103fadd1f94853d61a/dist/aframe-orbit-controls-component.min.js"></script>
     <script src="https://unpkg.com/aframe-gradient-sky@1.0.4/dist/gradientsky.min.js"></script>
@@ -31,23 +31,25 @@
     <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
     <script src="assets/js/components/look-controls-entity-rotator/vendor/Smooth-0.1.7.js"></script>
     <script src="assets/js/components/look-controls-entity-rotator/look-controls-entity-rotator.js?v=0.1"></script>
+    <script src="assets/js/systems/preloader.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
 <body>
 <!-- documentation for colors effect here: https://github.com/wizgrav/aframe-effects/tree/master/components/colors -->
 <!--<a-scene effects="bloom, film, colors" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 512" colors="mode:hqprtom; mul: 0.66 0.5 0.66; pow: 1 1.33 1.66; quant: 0.3 0.3 0.1; orig: 0.33 0.66 0.66" main vr-mode-ui="enabled: false">-->
-<a-scene effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main vr-mode-ui="enabled:false">
+<a-scene preloader="target:#preloader-modal; progressValueAttr: aria-valuenow; progressStyle: width; bar: #preloader-modal .progress-bar; label: #preloader-modal .progress-label;" effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main vr-mode-ui="enabled:false">
     <!--<a-scene main>-->
 
 
-    <a-assets>
+    <a-assets timeout="60000">
         <img id="grid-img" src="assets/img/grid.png" />
         <img id="grid-opaque-img" src="assets/img/grid-opaque.png" />
-        <a-asset-item id="foetus-obj" src="assets/obj/foetus/foetus.obj"></a-asset-item>
-        <a-asset-item id="foetus-mtl" src="assets/obj/foetus/foetus.mtl"></a-asset-item>
-        <a-asset-item id="foetus-lq-obj" src="assets/obj/foetus-lq/foetus-lq.obj"></a-asset-item>
-        <a-asset-item id="foetus-lq-mtl" src="assets/obj/foetus-lq/foetus-lq.mtl"></a-asset-item>
+        <a-asset-item id="foetus-obj" src="assets/obj/foetus/foetus.obj" preload="auto"></a-asset-item>
+        <a-asset-item id="foetus-mtl" src="assets/obj/foetus/foetus.mtl" preload="auto"></a-asset-item>
+        <a-asset-item id="foetus-lq-obj" src="assets/obj/foetus-lq/foetus-lq.obj" preload="auto"></a-asset-item>
+        <a-asset-item id="foetus-lq-mtl" src="assets/obj/foetus-lq/foetus-lq.mtl" preload="auto"></a-asset-item>
+        <!-- preload="auto" is broken for sounds in 0.6. They will not play after being preloaded -->
         <audio id="heartbeat-sound" src="assets/ogg/heartbeat.ogg"></audio><!-- audio from https://archive.org/details/BabysHeartbeatAt11Weeks -->
     </a-assets>
 
@@ -85,6 +87,7 @@
 
         <!-- Dim ambient lighting. -->
     <a-light light="type:ambient; color: #fff; intensity: 0.1;" color=""></a-light>
+
     <a-entity id="model" material="color: #616161; roughness: 0.320; metalness: 0" shadow="receive: true" sound="src: #heartbeat-sound; autoplay: true; loop: true;" obj-model="obj: #foetus-obj;"></a-entity>
     <!--<a-sphere id="model" shadow="receive: true" radius="1.25" segments-height="72" segments-width="144" material-skin="effectRTSize: 16; color: #616161; specular: #555555; src: url(assets/obj/skin/skin.jpg); normalSrc: url(assets/obj/skin/skin-normal.png);" scale="1 1 1"></a-sphere>-->
 
@@ -187,6 +190,24 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<div id="preloader-modal" class="modal instructions-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog__full" role="document">
+        <div class="modal-content vertical-align">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                            <span class="progress-label">Loading 0% Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
 </body>
 </html>
