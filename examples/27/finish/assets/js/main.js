@@ -61,6 +61,8 @@ AFRAME.registerSystem('main', {
         }
 
         this.initModals();
+
+        this.onEnterVR();
     },
 
     isPortrait: function(){
@@ -101,8 +103,7 @@ AFRAME.registerSystem('main', {
 
     initModals: function(){
 
-        this.$preloaderModal = $('#preloader-modal');
-        this.$preloaderModal.modal();
+        //this.$preloaderModal = $('#preloader-modal');
 
         if(AFRAME.utils.device.isMobile()) {
             this.$modal = $('#mobile-instructions-modal');
@@ -145,8 +146,10 @@ AFRAME.registerSystem('main', {
 
     onPreloadingComplete: function(){
         console.log('Preloading complete');
-        this.$preloaderModal.modal('hide');
+
         this.$modal.modal('show');
+
+        this.onExitVR();
     },
 
     onEnterVR: function(){

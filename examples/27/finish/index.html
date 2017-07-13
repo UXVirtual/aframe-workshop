@@ -10,7 +10,6 @@
 
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -38,7 +37,7 @@
 <body>
 <!-- documentation for colors effect here: https://github.com/wizgrav/aframe-effects/tree/master/components/colors -->
 <!--<a-scene effects="bloom, film, colors" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 512" colors="mode:hqprtom; mul: 0.66 0.5 0.66; pow: 1 1.33 1.66; quant: 0.3 0.3 0.1; orig: 0.33 0.66 0.66" main vr-mode-ui="enabled: false">-->
-<a-scene preloader="target:#preloader-modal; progressValueAttr: aria-valuenow; progressStyle: width; bar: #preloader-modal .progress-bar; label: #preloader-modal .progress-label;" effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main vr-mode-ui="enabled:false">
+<a-scene preloader effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main vr-mode-ui="enabled:false">
     <!--<a-scene main>-->
 
 
@@ -190,24 +189,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-
-<div id="preloader-modal" class="modal instructions-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog__full" role="document">
-        <div class="modal-content vertical-align">
-                <div class="col-md-6 col-md-offset-3">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
-                            <span class="progress-label">Loading 0% Complete</span>
-                        </div>
-                    </div>
-                </div>
-
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
 
 </body>
 </html>
