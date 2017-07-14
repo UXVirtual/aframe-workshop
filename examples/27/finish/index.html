@@ -28,16 +28,16 @@
     <!--<script src="assets/js/components/aframe-effects.min.js"></script>-->
     <script src="https://cdn.rawgit.com/ngokevin/kframe/b1fe321aaa90ece7cae5bc9efc35a35573bd3364/components/look-at/dist/aframe-look-at-component.js"></script>
     <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/gladeye/aframe-preloader-component/1.0.0/dist/aframe-preloader-component.min.js"></script>
     <script src="assets/js/components/look-controls-entity-rotator/vendor/Smooth-0.1.7.js"></script>
     <script src="assets/js/components/look-controls-entity-rotator/look-controls-entity-rotator.js?v=0.1"></script>
-    <script src="assets/js/systems/preloader.js"></script>
     <script src="assets/js/main.js"></script>
 </head>
 
 <body>
 <!-- documentation for colors effect here: https://github.com/wizgrav/aframe-effects/tree/master/components/colors -->
 <!--<a-scene effects="bloom, film, colors" bloom="radius: 0.66" film="speed:0.5; nIntensity:1; sIntensity:0.5; sCount: 512" colors="mode:hqprtom; mul: 0.66 0.5 0.66; pow: 1 1.33 1.66; quant: 0.3 0.3 0.1; orig: 0.33 0.66 0.66" main vr-mode-ui="enabled: false">-->
-<a-scene preloader effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main vr-mode-ui="enabled:false">
+<a-scene preloader="clickToClose: false; autoClose: true" effects="bloom, film" bloom="radius: 0.66" film="speed:0.01; nIntensity:1; sIntensity:0.95; sCount: 1024" main vr-mode-ui="enabled:false">
     <!--<a-scene main>-->
 
 
