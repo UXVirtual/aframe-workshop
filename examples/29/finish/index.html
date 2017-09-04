@@ -32,6 +32,7 @@
             bottom: 0;
             background-color: rgb(0, 0, 0);
             display: block;
+            z-index: -1;
         }
 
         body > div#fullscreenContainer > canvas#fullscreen.maximum {
@@ -39,16 +40,6 @@
             height: 256px;
             width: 256px;
             margin: 0;
-            padding: 0;
-        }
-
-        body > div#fullscreenContainer > canvas#fullscreen.minimum {
-            position: absolute;
-            height: 144px;
-            width: 160px;
-            top: 50%;
-            left: 50%;
-            margin: -72px 0 0 -80px;
             padding: 0;
         }
     </style>
@@ -89,12 +80,12 @@
     //mess binaries can be downloaded from: https://archive.org/details/emularity_engine_jsmame
     var emulator = new Emulator(document.querySelector("#fullscreen"),
             null,
-            new JSMAMELoader(JSMAMELoader.driver("1943"),
+            new JSMAMELoader(JSMAMELoader.driver("bublbobl"),
                     JSMAMELoader.nativeResolution(256, 256),
-                    JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mame1943.js.gz"),
-                    JSMAMELoader.mountZip("1943.zip",
+                    JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mamebublbobl.js.gz"), //https://archive.org/download/emularity_engine_v1/mame1943.js.gz
+                    JSMAMELoader.mountFile("bublbobl.zip",
                             JSMAMELoader.fetchFile("Game File",
-                                    "assets/js/emularity/emulators/jsmess/1943.zip"))))
+                                    "assets/js/emularity/emulators/jsmess/bublbobl.zip"))))
     emulator.setScale(1);
     emulator.start({ waitAfterDownloading: false });
 </script>
