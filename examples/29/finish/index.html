@@ -9,6 +9,14 @@
 
     <script src="https://cdn.rawgit.com/wizgrav/aframe-effects/master/dist/aframe-effects.min.js"></script>
 
+    <script src="https://cdn.rawgit.com/mayognaise/aframe-draw-shader/master/dist/aframe-draw-shader.min.js"></script>
+
+    <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+
+    <script src="assets/js/components/noise.js"></script>
+
     <!--<script src="https://aframe.io/releases/0.6.1/aframe.js"></script>-->
 
     <script src="assets/js/components/area-light.js"></script>
@@ -17,11 +25,12 @@
 <a-scene effects="bloom, fxaa" bloom="radius: 0.01" fxaa>
     <a-assets>
         <a-asset-item id="model" src="assets/gltf/arcade_machine/scene.gltf"></a-asset-item>
+        <img id="static-img" src="assets/img/static-downsized.gif" />
     </a-assets>
 
     <!--<a-plane id="area-light1" area-light="width:0.1; height: 0.1" width="0.25" height="0.25" position="-0.109 1.554 -3.928" rotation="74.141 -180 -180" material="emissive: #ffffff; side: double"></a-plane>-->
-    <a-plane id="area-light2" area-light="width:0.1; height: 0.1" width="0.25" height="0.25" position="-0.029 1.554 -3.928" rotation="-60 0 0" material="emissive: #ffffff; side: double"></a-plane>
-
+    <!--<a-plane id="area-light2" area-light="width:0.1; height: 0.1" width="0.25" height="0.25" position="-0.029 1.554 -3.928" rotation="-60 0 0" material="shader: html; target: #canvas; fps: 60; emissive: #ffffff; side: double"></a-plane>-->
+    <a-plane id="area-light2" area-light="width:0.1; height: 0.1" width="0.25" height="0.25" position="-0.029 1.554 -3.928" rotation="-60 0 0" material="shader:gif;src:#static-img; emissive: #ffffff;"></a-plane>
     <!--<a-entity obj-model="obj: #model-obj; mtl: #model-mtl"></a-entity>-->
     <a-entity gltf-model="#model" position="0 1.418 -3.800" rotation="0 180 0"></a-entity>
 
@@ -32,4 +41,23 @@
 </a-scene>
 
 </body>
+
+<!--<canvas id="canvas" style="width: 50%; height: 50%; display: block; margin: 0 auto;"></canvas>
+<script type="text/javascript" src="assets/js/emularity/es6-promise.js"></script>
+<script type="text/javascript" src="assets/js/emularity/browserfs.min.js"></script>
+<script type="text/javascript" src="assets/js/emularity/loader.js"></script>
+<script type="text/javascript">
+    //mess binaries can be downloaded from: https://archive.org/details/emularity_engine_jsmame
+    var emulator = new Emulator(document.querySelector("#canvas"),
+            null,
+            new JSMAMELoader(JSMAMELoader.driver("targ"),
+                    JSMAMELoader.nativeResolution(256, 256),
+                    JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mameexidy.js"),
+                    JSMAMELoader.mountFile("targ.zip",
+                            JSMAMELoader.fetchFile("Game File",
+                                    "assets/zip/targ.zip"))))
+    emulator.setScale(2);
+    emulator.start({ waitAfterDownloading: true });
+</script>-->
+
 </html>
