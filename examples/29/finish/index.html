@@ -17,13 +17,25 @@
 
     <!--<script src="https://aframe.io/releases/0.6.1/aframe.js"></script>-->
 
+    <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="assets/js/emularity/es6-promise.js"></script>
+    <script type="text/javascript" src="assets/js/emularity/browserfs.min.js"></script>
+    <script type="text/javascript" src="assets/js/emularity/loader.js"></script>
+
     <script src="assets/js/components/area-light.js"></script>
 
     <script src="assets/js/components/canvas-surface.js"></script>
 
+    <script src="assets/js/main.js"></script>
+
     <style>
+
+        body{
+            background: #000000;
+        }
         body > div#fullscreenContainer {
-            position: fixed;
+            position: absolute;
             height: 256px;
             width: 256px;
             left: 0;
@@ -36,7 +48,7 @@
         }
 
         body > div#fullscreenContainer > canvas#fullscreen.maximum {
-            position: static;
+            position: absolute;
             height: 256px;
             width: 256px;
             margin: 0;
@@ -46,18 +58,17 @@
 </head>
 <body>
 
-
-
-<a-scene effects="bloom, fxaa" bloom="radius: 0.01" fxaa>
+<a-scene main effects="bloom, fxaa" bloom="radius: 0.01" fxaa>
 <!--<a-scene>-->
     <a-assets>
         <a-asset-item id="model" src="assets/gltf/arcade_machine/scene.gltf"></a-asset-item>
         <img id="static-img" src="assets/img/static-downsized.gif" />
         <img id="arcade-1943-img" src="assets/img/1943.gif" />
+
     </a-assets>
 
     <!--<a-plane id="area-light2" area-light="width:0.1; height: 0.1; intensity: 0.8" width="0.500" height="0.400" position="-0.034 1.598 -4.063" rotation="-61.000 0 0" material="shader:gif;src:#static-img; emissive: #ffffff;"></a-plane>-->
-    <a-plane id="area-light2" area-light="width:0.1; height: 0.1; intensity: 0.8" width="0.500" height="0.400" position="-0.034 1.598 -4.063" rotation="-61.000 0 0" canvas-surface material="shader: draw; emissive: #ffffff;"></a-plane>
+    <a-plane id="area-light2" area-light="width:0.1; height: 0.1; intensity: 0.8" width="0.500" height="0.400" position="-0.034 1.598 -4.063" rotation="-61.000 0 0" canvas-surface material="shader:gif;src:#static-img; emissive: #ffffff;"></a-plane>
     <a-entity gltf-model="#model" position="0 1.418 -3.800" rotation="0 180 0"></a-entity>
 
     <a-light id="ambient-light" type="ambient" intensity="0.3"></a-light>
@@ -73,23 +84,9 @@
     <canvas id="fullscreen" class="maximum"></canvas>
 </div>
 
-<script type="text/javascript" src="assets/js/emularity/es6-promise.js"></script>
-<script type="text/javascript" src="assets/js/emularity/browserfs.min.js"></script>
-<script type="text/javascript" src="assets/js/emularity/loader.js"></script>
-<script type="text/javascript">
-    //mess binaries can be downloaded from: https://archive.org/details/emularity_engine_jsmame
-    var emulator = new Emulator(document.querySelector("#fullscreen"),
-            null,
-            new JSMAMELoader(JSMAMELoader.driver("bublbobl"),
-                    JSMAMELoader.nativeResolution(256, 256),
-                    JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mamebublbobl.js.gz"), //https://archive.org/download/emularity_engine_v1/mame1943.js.gz
-                    JSMAMELoader.mountFile("bublbobl.zip",
-                            JSMAMELoader.fetchFile("Game File",
-                                    "assets/js/emularity/emulators/jsmess/bublbobl.zip"))))
-    emulator.setScale(1);
-    emulator.start({ waitAfterDownloading: false });
-</script>
 
+
+<iframe id="sc-widget" width="100%" height="450" scrolling="no" frameborder="no"></iframe>
 </body>
 
 
