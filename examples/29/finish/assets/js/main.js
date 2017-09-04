@@ -11,8 +11,13 @@ AFRAME.registerSystem('main', {
 
             console.log('Ready');
 
+
             //mess binaries can be downloaded from: https://archive.org/details/emularity_engine_jsmame
-            var emulator = new Emulator(document.querySelector("#fullscreen"),
+
+            //list of popular MAME games on IA: https://archive.org/details/internetarcade
+
+            //local ROM
+            /*var emulator = new Emulator(document.querySelector("#fullscreen"),
                 {
                     before_emulator: function(){
                         console.log('On before emulator callback');
@@ -21,11 +26,29 @@ AFRAME.registerSystem('main', {
                 },
                 new JSMAMELoader(JSMAMELoader.driver("bublbobl"),
                     JSMAMELoader.nativeResolution(256, 256),
-                    JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mamebublbobl.js.gz"), //https://archive.org/download/emularity_engine_v1/mame1943.js.gz
+                    JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mamebublbobl.js.gz"), //bios files can be downloaded from https://archive.org/download/emularity_engine_v1/
                     JSMAMELoader.mountFile("bublbobl.zip",
                         JSMAMELoader.fetchFile("Game File",
-                            "assets/js/emularity/emulators/jsmess/bublbobl.zip"))))
+                            "assets/js/emularity/emulators/jsmess/bublbobl.zip")),
+                    JSMAMELoader.mountFile("bublbobl.cfg", //config files can be downloaded from https://archive.org/download/jsmess_config_v2/
+                        JSMAMELoader.fetchFile("Config File",
+                            "assets/js/emularity/emulators/configs/bublbobl.cfg"))
+                )
+            );*/
+
+            //Z80 based games tend to work better
+
+            var emulator = new IALoader(document.querySelector("#fullscreen"),
+                "arcade_monsterb",
+                {
+                    before_emulator: function(){
+                        console.log('On before emulator callback');
+                    },
+                    before_run: this.onBeforeRun
+                }
+            );
             emulator.setScale(1);
+            emulator.setConfig
             emulator.start({ waitAfterDownloading: false });
 
             var scWidgetEl = document.querySelector('#sc-widget');
@@ -40,7 +63,7 @@ AFRAME.registerSystem('main', {
             scWidget.bind(SC.Widget.Events.READY, function() {
                 console.log('Soundcloud player widget ready');
                 scWidget.play();
-                scWidget.setVolume(30);
+                scWidget.setVolume(20);
             });
         }.bind(this));
 
