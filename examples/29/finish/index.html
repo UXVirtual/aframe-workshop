@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>Example 29</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://cdn.rawgit.com/aframevr/aframe/36cde3c/dist/aframe-master.min.js"></script>
+
+    <script src="https://cdn.rawgit.com/wizgrav/aframe-effects/master/dist/aframe-effects.min.js"></script>
+
+    <!--<script src="https://aframe.io/releases/0.6.1/aframe.js"></script>-->
+
+    <script src="assets/js/components/area-light.js"></script>
+</head>
+<body>
+<!--<a-scene effects="bloom, fxaa" bloom="radius: 0.01" fxaa>-->
+    <a-scene>
+    <a-assets>
+        <a-asset-item id="model-obj" src="assets/obj/arcade-machine/model.obj"></a-asset-item>
+        <a-asset-item id="model-mtl" src="assets/obj/arcade-machine/materials.mtl"></a-asset-item>
+        <a-asset-item id="model" src="assets/gltf/arcade_machine/scene.gltf"></a-asset-item>
+    </a-assets>
+
+    <!--<a-plane id="area-light1" area-light="width:0.1; height: 0.1" width="0.25" height="0.25" position="-0.109 1.554 -3.928" rotation="74.141 -180 -180" material="emissive: #ffffff; side: double"></a-plane>-->
+    <a-plane id="area-light2" area-light="width:0.1; height: 0.1" width="0.25" height="0.25" position="-0.029 1.554 -3.928" rotation="-60 0 0" material="emissive: #ffffff; side: double"></a-plane>
+
+    <!--<a-entity obj-model="obj: #model-obj; mtl: #model-mtl"></a-entity>-->
+    <a-entity gltf-model="#model" position="0 1.418 -3.800" rotation="0 180 0"></a-entity>
+
+    <a-light type="ambient" intensity="0.3"></a-light>
+
+    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#FF0000"></a-plane>
+    <a-sky color="#000000"></a-sky>
+</a-scene>
+
+</body>
+</html>
