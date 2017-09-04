@@ -429,7 +429,8 @@ var Module = null;
      };
 
      var get_other_emulator_config_url = function (module) {
-       return '//cors.archive.org/cors/emularity_config_v1/' + module + '.cfg';
+         return 'assets/js/emularity/emulators/configs/' + module + '.cfg';
+       //return '//cors.archive.org/cors/emularity_config_v1/' + module + '.cfg';
      };
 
      var get_meta_url = function (game_path) {
