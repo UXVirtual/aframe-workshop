@@ -38,6 +38,8 @@ AFRAME.registerSystem('main', {
 
             //Z80 based games tend to work better
 
+            //configs downloadable from https://archive.org/download/emularity_config_v1
+
             var emulator = new IALoader(document.querySelector("#fullscreen"),
                 "arcade_monsterb",
                 {
