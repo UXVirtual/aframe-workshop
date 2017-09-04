@@ -33,13 +33,13 @@ AFRAME.registerSystem('main', {
 
             var rnd = Math.floor(Math.random() * 9) + 0;
 
-            scWidgetEl.setAttribute('src','https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/349520772&amp;color=ff5500&amp;auto_play=true&amp;start_track='+rnd+'&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false')
+            scWidgetEl.setAttribute('src','https://w.soundcloud.com/player/?url=https://api.soundcloud.com/playlists/349520772&color=ff5500&start_track='+rnd+'&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false');
 
             var scWidget = SC.Widget(scWidgetEl);
-            //scWidget.setVolume(0.2);
 
             scWidget.bind(SC.Widget.Events.READY, function() {
                 console.log('Soundcloud player widget ready');
+                scWidget.play();
                 scWidget.setVolume(30);
             });
         }.bind(this));
