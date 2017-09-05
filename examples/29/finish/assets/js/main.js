@@ -20,14 +20,14 @@ AFRAME.registerSystem('main', {
             //list of popular MAME games on IA: https://archive.org/details/internetarcade
 
             //local ROM
-            var emulator = this.loadMAME('bublbobl');
+            //var emulator = this.loadMAME('bublbobl');
 
 
 
             //Z80 based games tend to work better
 
             //configs downloadable from https://archive.org/download/emularity_config_v1
-            //this.loadIAGame("arcade_monsterb");
+            var emulator = this.loadIAGame("arcade_flicky");
             emulator.setScale(1);
             emulator.start({ waitAfterDownloading: false });
 
