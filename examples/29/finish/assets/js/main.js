@@ -20,14 +20,30 @@ AFRAME.registerSystem('main', {
             //list of popular MAME games on IA: https://archive.org/details/internetarcade
 
             //local ROM
-            //var emulator = this.loadMAME('bublbobl');
+            //var emulator = this.loadMAME('bublbobl'); //good performance
 
 
 
             //Z80 based games tend to work better
 
             //configs downloadable from https://archive.org/download/emularity_config_v1
-            var emulator = this.loadIAGame("arcade_flicky");
+            //var emulator = this.loadIAGame("arcade_flicky");
+            //var emulator = this.loadIAGame("arcade_qbert");
+            var emulator = this.loadIAGame("arcade_marble"); //good performance
+            //var emulator = this.loadIAGame("arcade_rtype2"); //good performance
+            //var emulator = this.loadIAGame("arcade_altbeast");
+            //var emulator = this.loadIAGame("arcade_hellfire"); //good performance
+
+            //var emulator = this.loadIAGame("arcade_imgfight"); //good performance
+
+            //var emulator = this.loadIAGame("arcade_dyger"); //good performance
+            //var emulator = this.loadIAGame("arcade_rtype"); //good performance
+            //var emulator = this.loadIAGame("arcade_wb3"); //good performance
+            //var emulator = this.loadIAGame("arcade_wbml"); //good performance
+            //var emulator = this.loadIAGame("arcade_wboy"); //good performance
+
+
+
             emulator.setScale(1);
             emulator.start({ waitAfterDownloading: false });
 
@@ -59,7 +75,7 @@ AFRAME.registerSystem('main', {
                 before_emulator: function(){
                     console.log('On before emulator callback');
                 },
-                before_run: this.onBeforeRun
+                before_run: this.onBeforeRun()
             },
             new JSMAMELoader(JSMAMELoader.driver(identifier),
                 JSMAMELoader.nativeResolution(256, 256),
@@ -88,15 +104,18 @@ AFRAME.registerSystem('main', {
                 before_emulator: function(){
                     console.log('On before emulator callback');
                 },
-                before_run: this.onBeforeRun
+                before_run: function(){
+                    this.onBeforeRun(identifier)
+                }.bind(this)
             }
         );
 
     },
 
-    onBeforeRun: function(){
+    onBeforeRun: function(identifier){
         console.log('On before run callback');
         var screenEl = document.querySelector('#screen');
+        document.querySelector('#marquee').setAttribute('src','#'+identifier);
         console.log('screenEL',screenEl);
         screenEl.setAttribute('material','shader','draw'); //switch from the gif material shader to the emulator canvas shader
     },
