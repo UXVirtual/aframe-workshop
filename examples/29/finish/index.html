@@ -19,6 +19,8 @@
     <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
     <script src="https://cdn.rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
     <script src="https://unpkg.com/@gladeye/aframe-preloader-component@1.0.2/dist/aframe-preloader-component.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.11.4/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-area-light-component/dist/aframe-area-light-component.min.js"></script>
     <!--<script src="https://aframe.io/releases/0.6.1/aframe.js"></script>-->
 
     <!-- SoundCloud JS Dependencies -->
@@ -30,8 +32,8 @@
     <script type="text/javascript" src="assets/js/emularity/loader.js"></script>
 
     <!-- Custom A-Frame JS Components -->
-    <script src="assets/js/components/area-light.js"></script>
     <script src="assets/js/components/canvas-surface.js"></script>
+    <script src="assets/js/components/wsad-controls-custom.js"></script>
     <script src="assets/js/main.js"></script>
 
     <style>
@@ -70,6 +72,8 @@
         <img id="static-img" src="assets/img/static-downsized.gif" />
         <img id="arcade-1943-img" src="assets/img/1943.gif" />
     </a-assets>
+
+    <a-entity camera="userHeight: 1.6" position="0 0 -2.480" look-controls wsad-controls-custom></a-entity>
 
     <!--<a-plane id="area-light2" area-light="width:0.1; height: 0.1; intensity: 0.8" width="0.500" height="0.400" position="-0.034 1.598 -4.063" rotation="-61.000 0 0" material="shader:gif;src:#static-img; emissive: #ffffff;"></a-plane>-->
     <a-plane id="area-light2" area-light="width:0.1; height: 0.1; intensity: 0.8" width="0.500" height="0.400" position="-0.034 1.598 -4.063" rotation="-61.000 0 0" canvas-surface material="shader:gif;src:#static-img; emissive: #ffffff;"></a-plane>

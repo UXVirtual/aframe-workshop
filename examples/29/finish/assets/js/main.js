@@ -63,8 +63,8 @@ AFRAME.registerSystem('main', {
             },
             new JSMAMELoader(JSMAMELoader.driver(identifier),
                 JSMAMELoader.nativeResolution(256, 256),
-                JSMAMELoader.extraArgs(['-fs', String(this.frameSkip), '-nosleep', '-pause_brightness', '0.3', '-nosamples', '-volume', String(this.mameVolume)]), //full list of commands available here: http://docs.mamedev.org/commandline/commandline-all.html
-                JSMAMELoader.sampleRate('64000'),
+                JSMAMELoader.extraArgs(['-fs', String(this.frameSkip), '-nosleep', '-nojoy', '-pause_brightness', '0.3', '-nosamples', '-volume', String(this.mameVolume)]), //full list of commands available here: http://docs.mamedev.org/commandline/commandline-all.html
+                JSMAMELoader.sampleRate('44000'),
                 JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mame"+identifier+".js.gz"), //bios files can be downloaded from https://archive.org/download/emularity_engine_v1/
                 JSMAMELoader.mountFile(identifier+".zip",
                     JSMAMELoader.fetchFile("Game File",
