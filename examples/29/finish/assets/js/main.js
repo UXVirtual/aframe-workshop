@@ -17,40 +17,16 @@ AFRAME.registerSystem('main', {
             //list of popular MAME games on IA: https://archive.org/details/internetarcade
 
             //local ROM
-            /*var emulator = new Emulator(document.querySelector("#fullscreen"),
-                {
-                    before_emulator: function(){
-                        console.log('On before emulator callback');
-                    },
-                    before_run: this.onBeforeRun
-                },
-                new JSMAMELoader(JSMAMELoader.driver("bublbobl"),
-                    JSMAMELoader.nativeResolution(256, 256),
-                    JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mamebublbobl.js.gz"), //bios files can be downloaded from https://archive.org/download/emularity_engine_v1/
-                    JSMAMELoader.mountFile("bublbobl.zip",
-                        JSMAMELoader.fetchFile("Game File",
-                            "assets/js/emularity/emulators/jsmess/bublbobl.zip")),
-                    JSMAMELoader.mountFile("bublbobl.cfg", //config files can be downloaded from https://archive.org/download/jsmess_config_v2/
-                        JSMAMELoader.fetchFile("Config File",
-                            "assets/js/emularity/emulators/configs/bublbobl.cfg"))
-                )
-            );*/
+            var emulator = this.loadMAME('bublbobl');
+
+
 
             //Z80 based games tend to work better
 
             //configs downloadable from https://archive.org/download/emularity_config_v1
+            //this.loadIAGame("arcade_monsterb");
 
-            var emulator = new IALoader(document.querySelector("#fullscreen"),
-                "arcade_monsterb",
-                {
-                    before_emulator: function(){
-                        console.log('On before emulator callback');
-                    },
-                    before_run: this.onBeforeRun
-                }
-            );
             emulator.setScale(1);
-            emulator.setConfig
             emulator.start({ waitAfterDownloading: false });
 
             var scWidgetEl = document.querySelector('#sc-widget');
@@ -70,6 +46,46 @@ AFRAME.registerSystem('main', {
         }.bind(this));
 
 
+
+    },
+
+    loadMAME: function(identifier) {
+        console.log('Loading mame game: '+identifier);
+
+        return new Emulator(document.querySelector("#fullscreen"),
+            {
+                before_emulator: function(){
+                    console.log('On before emulator callback');
+                },
+                before_run: this.onBeforeRun
+            },
+            new JSMAMELoader(JSMAMELoader.driver(identifier),
+                JSMAMELoader.nativeResolution(256, 256),
+                JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mame"+identifier+".js.gz"), //bios files can be downloaded from https://archive.org/download/emularity_engine_v1/
+                JSMAMELoader.mountFile(identifier+".zip",
+                    JSMAMELoader.fetchFile("Game File",
+                        "assets/js/emularity/emulators/jsmess/"+identifier+".zip")),
+                JSMAMELoader.mountFile(identifier+".cfg", //config files can be downloaded from https://archive.org/download/jsmess_config_v2/
+                    JSMAMELoader.fetchFile("Config File",
+                        "assets/js/emularity/emulators/configs/"+identifier+".cfg"))
+            )
+        );
+    },
+
+    /**
+     * Load a game from the Internet Archive
+     * @param identifier String of the game identifier in the URL or listed on the page
+     */
+    loadIAGame: function(identifier) {
+        return new IALoader(document.querySelector("#fullscreen"),
+            identifier,
+            {
+                before_emulator: function(){
+                    console.log('On before emulator callback');
+                },
+                before_run: this.onBeforeRun
+            }
+        );
 
     },
 
