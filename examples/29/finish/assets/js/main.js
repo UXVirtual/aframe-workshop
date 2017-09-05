@@ -1,7 +1,7 @@
 AFRAME.registerSystem('main', {
     schema: {},  // System schema. Parses into `this.data`.
 
-    frameSkip: 5, //amount of frames to skip (higher is faster)
+    frameSkip: 0, //amount of frames to skip (higher is faster)
     mameVolume: -5, //volume adjustment in dB for arcade machine
 
     init: function () {
