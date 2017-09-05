@@ -1,6 +1,9 @@
 AFRAME.registerSystem('main', {
     schema: {},  // System schema. Parses into `this.data`.
 
+    frameSkip: 10, //amount of frames to skip (higher is faster)
+    mameVolume: -5, //volume adjustment in dB for arcade machine
+
     init: function () {
 
         var sceneEl = document.querySelector('a-scene');
@@ -25,7 +28,6 @@ AFRAME.registerSystem('main', {
 
             //configs downloadable from https://archive.org/download/emularity_config_v1
             //this.loadIAGame("arcade_monsterb");
-
             emulator.setScale(1);
             emulator.start({ waitAfterDownloading: false });
 
@@ -61,13 +63,16 @@ AFRAME.registerSystem('main', {
             },
             new JSMAMELoader(JSMAMELoader.driver(identifier),
                 JSMAMELoader.nativeResolution(256, 256),
+                JSMAMELoader.extraArgs(['-fs', String(this.frameSkip), '-nosleep', '-pause_brightness', '0.3', '-nosamples', '-volume', String(this.mameVolume)]), //full list of commands available here: http://docs.mamedev.org/commandline/commandline-all.html
+                JSMAMELoader.sampleRate('64000'),
                 JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mame"+identifier+".js.gz"), //bios files can be downloaded from https://archive.org/download/emularity_engine_v1/
                 JSMAMELoader.mountFile(identifier+".zip",
                     JSMAMELoader.fetchFile("Game File",
                         "assets/js/emularity/emulators/jsmess/"+identifier+".zip")),
                 JSMAMELoader.mountFile(identifier+".cfg", //config files can be downloaded from https://archive.org/download/jsmess_config_v2/
                     JSMAMELoader.fetchFile("Config File",
-                        "assets/js/emularity/emulators/configs/"+identifier+".cfg"))
+                        "assets/js/emularity/emulators/configs/"+identifier+".cfg")
+                )
             )
         );
     },
