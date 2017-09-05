@@ -1,7 +1,7 @@
 AFRAME.registerSystem('main', {
     schema: {},  // System schema. Parses into `this.data`.
 
-    frameSkip: 10, //amount of frames to skip (higher is faster)
+    frameSkip: 5, //amount of frames to skip (higher is faster)
     mameVolume: -5, //volume adjustment in dB for arcade machine
 
     init: function () {
@@ -96,7 +96,7 @@ AFRAME.registerSystem('main', {
 
     onBeforeRun: function(){
         console.log('On before run callback');
-        var screenEl = document.querySelector('#area-light2');
+        var screenEl = document.querySelector('#screen');
         console.log('screenEL',screenEl);
         screenEl.setAttribute('material','shader','draw'); //switch from the gif material shader to the emulator canvas shader
     },
