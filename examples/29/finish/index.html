@@ -132,12 +132,11 @@
         <a-box id="table-collider" static-body="sphereRadius:NaN" position="0.017 0.144 -0.012" rotation="-0.34377467707849396 6.18794418741289 0.6875493541569879" material="opacity: 0" geometry="height:0.09000000000000005;width:2.3899999999999997;depth:0.78"></a-box>
     </a-entity>
 
-    <a-entity id="test-token" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token2" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token3" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token4" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token5" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-
+    <a-entity id="test-token" mixin="token" position="0.9442310971683285 1.1923137777287387 -1.652685232190645" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token2" mixin="token" position="0.767 1.192 -1.893" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token3" mixin="token" position="0.8288902628227308 1.191118910112886 -1.6998713936634506" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token4" mixin="token" position="0.6920398978422299 1.1914564043956597 -2.031535811221873" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token5" mixin="token" position="0.9644002374420383 1.1938130720076723 -1.880876278893093" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
     <!--<a-entity id="floor-light1" area-light="width:0.89;height:0.1; intensity: 0.1" position="0.347 0.105 -3.494" rotation="0 90 0"></a-entity>
     <a-entity id="floor-light2" area-light="width:0.89;height:0.1; intensity: 0.1" position="-0.434 0.105 -4.382" rotation="0 -90 0"></a-entity>-->
 
@@ -149,7 +148,7 @@
     <a-plane id="floor" static-body position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#FF0000"></a-plane>
     <a-sky color="#000000"></a-sky>
 
-    <a-ring id="my-cursor" radius-inner="0.05" radius-outer="0.1" sphere-collider="objects:#table-collider,#test-token,#test-token2,#test-token3,#test-token4,#test-token5,#cube,#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button; watch: true; radius: 0.1" lerp="properties: position, rotation" super-hands static-body="shape: sphere; sphereRadius: 0.02;"></a-ring>
+    <a-ring id="my-cursor" radius-inner="0.05" radius-outer="0.1" sphere-collider="objects:#table-collider,[grabbable],#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button; watch: true; radius: 0.1" lerp="properties: position, rotation" super-hands static-body="shape: sphere; sphereRadius: 0.02;"></a-ring>
 
     <a-entity id="camera" camera="userHeight: 1.6" raycaster universal-controls="rotationControls: mouse; movementControls: touch" wsad-controls-custom crawling-cursor="target: #my-cursor"></a-entity>
 
