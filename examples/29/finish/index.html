@@ -96,8 +96,10 @@
         <img id="arcade_wbml" src="http://crossorigin.me/https://archive.org/services/img/arcade_wbml" crossorigin="anonymous" />
         <img id="arcade_wboy" src="http://crossorigin.me/https://archive.org/services/img/arcade_wboy" crossorigin="anonymous" />
 
+        <img id="dogecoin-img" src="assets/img/dogecoin.png" />
+
         <!-- note: for hovered state mixins to work the entity mixin applied to must be an entity, not a-cylinder, a-box etc -->
-        <a-mixin id="token" grabbable hoverable material="color: #ffcc33" geometry="primitive: cylinder; height:0.01;radius:0.05"></a-mixin>
+        <a-mixin id="token" grabbable hoverable material="color: #ffcc33; src: #dogecoin-img" geometry="primitive: cylinder; height:0.01;radius:0.05;"></a-mixin>
         <a-mixin id="token-hovered" material="color: #ffff00"></a-mixin>
         <a-mixin id="cube" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"
                  hoverable grabbable material="color: blue"></a-mixin>
@@ -130,12 +132,11 @@
         <a-box id="table-collider" static-body="sphereRadius:NaN" position="0.017 0.144 -0.012" rotation="-0.34377467707849396 6.18794418741289 0.6875493541569879" material="opacity: 0" geometry="height:0.09000000000000005;width:2.3899999999999997;depth:0.78"></a-box>
     </a-entity>
 
-    <a-entity id="test-token" mixin="token" position="1.389 1.187 -2.922" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token2" mixin="token" position="1.389 1.187 -2.922" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token3" mixin="token" position="1.389 1.187 -2.922" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token4" mixin="token" position="1.389 1.187 -2.922" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token5" mixin="token" position="1.389 1.187 -2.922" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-
+    <a-entity id="test-token" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token2" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token3" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token4" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token5" mixin="token" position="0.79 1.192 -1.977" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
 
     <!--<a-entity id="floor-light1" area-light="width:0.89;height:0.1; intensity: 0.1" position="0.347 0.105 -3.494" rotation="0 90 0"></a-entity>
     <a-entity id="floor-light2" area-light="width:0.89;height:0.1; intensity: 0.1" position="-0.434 0.105 -4.382" rotation="0 -90 0"></a-entity>-->
