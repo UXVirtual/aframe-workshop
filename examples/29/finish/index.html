@@ -22,18 +22,24 @@
     <script src="https://unpkg.com/@gladeye/aframe-preloader-component@1.0.2/dist/aframe-preloader-component.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.11.4/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-area-light-component/dist/aframe-area-light-component.min.js"></script>
+    <script src="https://unpkg.com/super-hands@1.1.0/dist/super-hands.min.js"></script>
+    <script src="https://unpkg.com/aframe-crawling-cursor@1.0.7/dist/aframe-crawling-cursor.js"></script>
+    <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
 
+    <!-- jQuery Dependencies -->
+    <script src="assets/js/jquery/simulate-keypress.js"></script>
 
     <!-- SoundCloud JS Dependencies -->
-    <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+    <script src="https://w.soundcloud.com/player/api.js"></script>
 
     <!-- Emularity JS Dependencies -->
-    <script type="text/javascript" src="assets/js/emularity/es6-promise.js"></script>
-    <script type="text/javascript" src="assets/js/emularity/browserfs.min.js"></script>
-    <script type="text/javascript" src="assets/js/emularity/loader.js"></script>
+    <script src="assets/js/emularity/es6-promise.js"></script>
+    <script src="assets/js/emularity/browserfs.min.js"></script>
+    <script src="assets/js/emularity/loader.js"></script>
 
     <!-- Custom A-Frame JS Components -->
     <script src="assets/js/components/canvas-surface.js"></script>
+    <script src="assets/js/components/auto-fall-respawn.js"></script>
     <script src="assets/js/components/wsad-controls-custom.js"></script>
     <script src="assets/js/main.js"></script>
 
@@ -70,13 +76,12 @@
 </head>
 <body>
 
-<a-scene main preloader="autoClose:false; clickToClose: true; closeLabelText: Start; autoInject: false; target: #preloader-modal; labelText: Loading {0}% Complete">
-<!--<a-scene main effects="bloom, fxaa" bloom="radius: 0.01" fxaa preloader="autoClose:false; clickToClose: true; closeLabelText: Start; autoInject: false; target: #preloader-modal; labelText: Loading {0}% Complete">-->
-<!--<a-scene>-->
+<a-scene physics>
+<!--<a-scene main preloader="autoClose:false; clickToClose: true; closeLabelText: Start; autoInject: false; target: #preloader-modal; labelText: Loading {0}% Complete" physics>-->
     <a-assets>
-        <a-asset-item id="model" src="assets/gltf/arcade_machine/scene.gltf"></a-asset-item>
+        <a-asset-item id="cabinet-model" src="assets/gltf/arcade_machine/scene.gltf"></a-asset-item>
+        <a-asset-item id="table-model" src="assets/gltf/beer_table/scene.gltf"></a-asset-item>
         <img id="static-img" src="assets/img/static-downsized.gif" />
-        <img id="arcade-1943-img" src="assets/img/1943.gif" />
         <img id="cover" src="http://crossorigin.me/https://archive.org/services/img/internetarcade" crossorigin="anonymous" />
         <img id="arcade_flicky" src="http://crossorigin.me/https://archive.org/services/img/arcade_flicky" crossorigin="anonymous" />
         <img id="arcade_qbert" src="http://crossorigin.me/https://archive.org/services/img/arcade_qbert" crossorigin="anonymous" />
@@ -90,26 +95,56 @@
         <img id="arcade_wb3" src="http://crossorigin.me/https://archive.org/services/img/arcade_wb3" crossorigin="anonymous" />
         <img id="arcade_wbml" src="http://crossorigin.me/https://archive.org/services/img/arcade_wbml" crossorigin="anonymous" />
         <img id="arcade_wboy" src="http://crossorigin.me/https://archive.org/services/img/arcade_wboy" crossorigin="anonymous" />
+        <a-mixin id="token-mixin" grabbable hoverable material="color:#0000FF" position="1.389 1.187 -2.922" geometry="height:0.01;radius:0.03"></a-mixin>
+
+        <a-mixin id="cube" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"
+                 hoverable grabbable></a-mixin>
+        <a-mixin id="cube-hovered" material="opacity: 0.7; transparent: true">
+        </a-mixin>
+        <a-mixin id="cube-dragover" material="wireframe: true;"></a-mixin>
 
     </a-assets>
 
-    <a-entity camera="userHeight: 1.6" position="0 0 -2.480" look-controls wsad-controls-custom></a-entity>
 
-    <a-image id="marquee" src="#cover" width="0.61" height="0.16" position="-0.039 2.033 -3.705"></a-image>
+
     <!--<a-plane id="area-light2" area-light="width:0.1; height: 0.1; intensity: 0.8" width="0.500" height="0.400" position="-0.034 1.598 -4.063" rotation="-61.000 0 0" material="shader:gif;src:#static-img; emissive: #ffffff;"></a-plane>-->
-    <a-plane id="screen" width="0.500" height="0.400" position="-0.034 1.583 -4.045" rotation="-61 0 0" canvas-surface="" material="shader:gif;src:#static-img" geometry="width:0.4"></a-plane>
+    <a-plane id="screen" width="0.500" height="0.400" position="-0.034 1.583 -4.045" rotation="-61 0 0" canvas-surface material="shader:gif;src:#static-img" geometry="width:0.4"></a-plane>
     <a-entity id="screen-light" area-light="intensity:0.2;width:0.38;height:0.4;showHelper:false" width="0.500" height="0.400" position="-0.22 1.588 -4.051" rotation="-61 0 0"></a-entity>
 
-    <a-entity gltf-model-next="#model" position="0 1.418 -3.800" rotation="0 180 0"></a-entity>
+    <a-box id="coin-door" color="#FF0000" position="-0.027 0.936 -3.493" geometry="width:0.24;height:0.35;depth:0.04">
+        <a-box id="coin-slot" color="#000000" position="-0.051 0 0.014" geometry="height:0.11;width:0.02;depth:0.02"></a-box>
+        <a-box id="coin-button" color="#ffffff" position="0.039 0.003 0.033" geometry="height:0.09;depth:0.06;width:0.09"></a-box>
+    </a-box>
+
+    <a-box id="cabinet-collider" static-body position="-0.041 1.086 -3.939" geometry="depth:0.92;height:2.17;width:0.77" material="opacity:0">
+        <a-entity id="cabinet" class="ignore-ray" gltf-model-next="#cabinet-model" rotation="0 180 0" position="0.038 0.334 0.139">
+            <a-image id="marquee" src="#arcade_marble" width="0.61" height="0.16" position="0.04 0.613 -0.097" rotation="0 180 0" material=""></a-image>
+        </a-entity>
+    </a-box>
+
+    <a-light id="spotlight1" type="spot" position="0 3.821 -1.234" rotation="-90.01166961505233 180.02333923010465 180.02333923010465" light="penumbra:0.07;intensity:0.31;angle:41.89;shadowCameraVisible:false"></a-light>
+
+    <a-entity id="table" class="ignore-ray" gltf-model-next="#table-model" position="1.391 1.01 -2.663" rotation="0 46.753 0">
+        <a-box id="table-collider" static-body="sphereRadius:NaN" position="0.017 0.144 -0.012" rotation="-0.34377467707849396 6.18794418741289 0.6875493541569879" material="opacity: 0" geometry="height:0.09000000000000005;width:2.3899999999999997;depth:0.78"></a-box>
+    </a-entity>
+
+    <a-cylinder id="test-token" mixin="token-mixin" dynamic-body></a-cylinder>
 
     <!--<a-entity id="floor-light1" area-light="width:0.89;height:0.1; intensity: 0.1" position="0.347 0.105 -3.494" rotation="0 90 0"></a-entity>
     <a-entity id="floor-light2" area-light="width:0.89;height:0.1; intensity: 0.1" position="-0.434 0.105 -4.382" rotation="0 -90 0"></a-entity>-->
 
+    <a-entity id="cube" class="cube" mixin="cube" position="1.316 1 0" material="color: blue" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.316 1 0; respawnRotation: 0 0 0"></a-entity>
+
 
     <a-light id="ambient-light" type="ambient" intensity="0.3"></a-light>
 
-    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#FF0000"></a-plane>
+    <a-plane id="floor" static-body position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#FF0000"></a-plane>
     <a-sky color="#000000"></a-sky>
+
+    <a-ring id="my-cursor" radius-inner="0.05" radius-outer="0.1" sphere-collider="objects:#table-collider,#test-token,#cube,#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button; watch: true; radius: 0.1" lerp="properties: position, rotation" super-hands static-body="shape: sphere; sphereRadius: 0.02;"></a-ring>
+
+    <a-entity id="camera" camera="userHeight: 1.6" raycaster universal-controls="rotationControls: mouse; movementControls: touch" wsad-controls-custom crawling-cursor="target: #my-cursor"></a-entity>
+
 </a-scene>
 
 <div id="preloader-modal" class="modal instructions-modal" tabindex="-1" role="dialog" style="display: none;">
@@ -174,7 +209,8 @@
     <canvas id="fullscreen" class="maximum"></canvas>
 </div>
 
-<iframe id="sc-widget" width="100%" height="450" scrolling="no" frameborder="no"></iframe>
+<!--<iframe id="sc-widget" width="100%" height="450" scrolling="no" frameborder="no"></iframe>-->
+<audio id="radio" src="https://streaming.radionomy.com/DRIVE?lang=en-US%2cen%3bq%3d0.8" autoplay crossorigin="anonymous"></audio>
 </body>
 
 </html>

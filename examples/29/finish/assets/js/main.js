@@ -10,10 +10,27 @@ AFRAME.registerSystem('main', {
 
         console.log('el: ',sceneEl);
 
+        const cursorEl = document.getElementById("my-cursor");
+
+
+        sceneEl.addEventListener('loaded',function(){
+
+            var superHands = cursorEl.components['super-hands'];
+
+            window.addEventListener('mousedown',function(e){
+                console.log('mousedown');
+                superHands.onGrabStartButton();
+            });
+
+            window.addEventListener('mouseup',function(e){
+                console.log('mouseup');
+                superHands.onGrabEndButton();
+            });
+        });
+
         sceneEl.addEventListener('renderstart',function(){
 
             console.log('Ready');
-
 
             //mess binaries can be downloaded from: https://archive.org/details/emularity_engine_jsmame
 
@@ -21,8 +38,6 @@ AFRAME.registerSystem('main', {
 
             //local ROM
             //var emulator = this.loadMAME('bublbobl'); //good performance
-
-
 
             //Z80 based games tend to work better
 
@@ -47,9 +62,18 @@ AFRAME.registerSystem('main', {
             emulator.setScale(1);
             emulator.start({ waitAfterDownloading: false });
 
-            var scWidgetEl = document.querySelector('#sc-widget');
+            this.initSCWidget();
+
+        }.bind(this));
 
 
+
+    },
+
+    initSCWidget: function(){
+        var scWidgetEl = document.querySelector('#sc-widget');
+
+        if(scWidgetEl){
             var rnd = Math.floor(Math.random() * 9) + 0;
 
             scWidgetEl.setAttribute('src','https://w.soundcloud.com/player/?url=https://api.soundcloud.com/playlists/349520772&color=ff5500&start_track='+rnd+'&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false');
@@ -61,10 +85,17 @@ AFRAME.registerSystem('main', {
                 scWidget.play();
                 scWidget.setVolume(20);
             });
-        }.bind(this));
+        }
+    },
 
-
-
+    insertCoin: function(){
+        // Bind event handler
+        /*$('body').keypress(function (e) {
+            alert(String.fromCharCode(e.which));
+            console.log(e);
+        });*/
+        // Simulate the key press
+        $('body').simulateKeyPress('5');
     },
 
     loadMAME: function(identifier) {
