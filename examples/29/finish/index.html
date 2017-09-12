@@ -22,7 +22,7 @@
     <script src="https://unpkg.com/@gladeye/aframe-preloader-component@1.0.2/dist/aframe-preloader-component.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.11.4/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-area-light-component/dist/aframe-area-light-component.min.js"></script>
-    <script src="https://unpkg.com/super-hands@1.1.0/dist/super-hands.min.js"></script>
+    <script src="https://unpkg.com/super-hands@2.0.0/dist/super-hands.min.js"></script>
     <script src="https://unpkg.com/aframe-crawling-cursor@1.0.7/dist/aframe-crawling-cursor.js"></script>
     <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
 
@@ -113,7 +113,7 @@
 
     <!--<a-plane id="area-light2" area-light="width:0.1; height: 0.1; intensity: 0.8" width="0.500" height="0.400" position="-0.034 1.598 -4.063" rotation="-61.000 0 0" material="shader:gif;src:#static-img; emissive: #ffffff;"></a-plane>-->
     <a-plane id="screen" width="0.500" height="0.400" position="-0.034 1.583 -4.045" rotation="-61 0 0" canvas-surface material="shader:gif;src:#static-img" geometry="width:0.4"></a-plane>
-    <a-entity id="screen-light" area-light="intensity:0.2;width:0.38;height:0.4;showHelper:false" width="0.500" height="0.400" position="-0.22 1.588 -4.051" rotation="-61 0 0"></a-entity>
+    <!--<a-entity id="screen-light" area-light="intensity:0.2;width:0.38;height:0.4;showHelper:false" width="0.500" height="0.400" position="-0.22 1.588 -4.051" rotation="-61 0 0"></a-entity>-->
 
     <a-box id="coin-door" color="#FF0000" position="-0.027 0.936 -3.493" geometry="width:0.24;height:0.35;depth:0.04">
         <a-box id="coin-slot" color="#000000" position="-0.051 0 0.014" geometry="height:0.11;width:0.02;depth:0.02"></a-box>
@@ -148,9 +148,11 @@
     <a-plane id="floor" static-body position="0 0 -4" rotation="-90 0 0" width="10" height="10" color="#FF0000"></a-plane>
     <a-sky color="#000000"></a-sky>
 
-    <a-ring id="my-cursor" radius-inner="0.05" radius-outer="0.1" sphere-collider="objects:#table-collider,[grabbable],#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button; watch: true; radius: 0.1" lerp="properties: position, rotation" super-hands static-body="shape: sphere; sphereRadius: 0.02;"></a-ring>
 
-    <a-entity id="camera" camera="userHeight: 1.6" raycaster universal-controls="rotationControls: mouse; movementControls: touch" wsad-controls-custom crawling-cursor="target: #my-cursor"></a-entity>
+    <a-entity progressive-controls="objects:#table-collider,[grabbable],#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button;">
+        <a-ring id="my-cursor" radius-inner="0.05" radius-outer="0.1" sphere-collider="objects:#table-collider,[grabbable],#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button; watch: true; radius: 0.1" lerp="properties: position, rotation" super-hands static-body="shape: sphere; sphereRadius: 0.02;"></a-ring>
+        <a-entity id="camera" camera="userHeight: 1.6" raycaster universal-controls="rotationControls: mouse; movementControls: touch" wsad-controls-custom crawling-cursor="target: #my-cursor"></a-entity>
+    </a-entity>
 
 </a-scene>
 

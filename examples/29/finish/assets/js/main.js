@@ -1,7 +1,7 @@
 AFRAME.registerSystem('main', {
     schema: {},  // System schema. Parses into `this.data`.
 
-    frameSkip: 5, //amount of frames to skip (higher is faster)
+    frameSkip: 0, //amount of frames to skip (higher is faster)
     mameVolume: -5, //volume adjustment in dB for arcade machine
 
     init: function () {
@@ -63,6 +63,12 @@ AFRAME.registerSystem('main', {
             emulator.start({ waitAfterDownloading: false });
 
             this.initSCWidget();
+
+            var cameraEl = document.querySelector('#camera');
+
+            console.log('Camera: ',cameraEl);
+            cameraEl.removeChild(cameraEl.children[0]);
+
 
         }.bind(this));
 
