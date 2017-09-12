@@ -150,8 +150,9 @@
 
 
     <a-entity progressive-controls="objects:#table-collider,[grabbable],#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button;">
-        <a-ring id="my-cursor" radius-inner="0.05" radius-outer="0.1" sphere-collider="objects:#table-collider,[grabbable],#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button; watch: true; radius: 0.1" lerp="properties: position, rotation" super-hands static-body="shape: sphere; sphereRadius: 0.02;"></a-ring>
-        <a-entity id="camera" camera="userHeight: 1.6" raycaster universal-controls="rotationControls: mouse; movementControls: touch" wsad-controls-custom crawling-cursor="target: #my-cursor"></a-entity>
+        <!--<a-ring id="my-cursor" radius-inner="0.05" radius-outer="0.1" sphere-collider="objects:#table-collider,[grabbable],#cabinet-collider,#floor,#coin-door,#coin-slot,#coin-button; watch: true; radius: 0.1" lerp="properties: position, rotation" super-hands static-body="shape: sphere; sphereRadius: 0.02;"></a-ring>-->
+        <!--<a-entity id="camera" camera="userHeight: 1.6" raycaster universal-controls="rotationControls: mouse; movementControls: touch" wsad-controls-custom crawling-cursor="target: #my-cursor"></a-entity>-->
+        <a-entity id="camera" camera="userHeight: 1.6" raycaster universal-controls="rotationControls: mouse; movementControls: touch" wsad-controls-custom></a-entity>
     </a-entity>
 
 </a-scene>

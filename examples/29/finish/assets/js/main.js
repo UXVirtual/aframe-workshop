@@ -64,10 +64,10 @@ AFRAME.registerSystem('main', {
 
             this.initSCWidget();
 
-            var cameraEl = document.querySelector('#camera');
+            /*var cameraEl = document.querySelector('#camera');
 
             console.log('Camera: ',cameraEl);
-            cameraEl.removeChild(cameraEl.children[0]);
+            cameraEl.removeChild(cameraEl.children[0]);*/
 
 
         }.bind(this));
