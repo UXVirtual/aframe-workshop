@@ -18,7 +18,7 @@
     <script src="https://cdn.rawgit.com/wizgrav/aframe-effects/master/dist/aframe-effects.min.js"></script>
     <script src="https://cdn.rawgit.com/mayognaise/aframe-draw-shader/master/dist/aframe-draw-shader.min.js"></script>
     <script src="https://unpkg.com/aframe-html-shader@0.2.0/dist/aframe-html-shader.min.js"></script>
-    <script src="https://cdn.rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+    <script src="https://cdn.rawgit.com/mayognaise/aframe-gif-shader/347eb4019fa483b4551cbf7b75de27389e587c4c/dist/aframe-gif-shader.min.js"></script>
     <script src="https://unpkg.com/@gladeye/aframe-preloader-component@1.0.2/dist/aframe-preloader-component.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.11.4/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-area-light-component/dist/aframe-area-light-component.min.js"></script>
@@ -82,17 +82,18 @@
         <a-asset-item id="cabinet-model" src="assets/gltf/arcade_machine/scene.gltf"></a-asset-item>
         <a-asset-item id="table-model" src="assets/gltf/beer_table/scene.gltf"></a-asset-item>
         <img id="static-img" src="assets/img/static-downsized.gif" />
-        <img id="cover" src="assets/img/marquees/internetarcade.jpeg" crossorigin="anonymous" />
-        <img id="arcade_flicky" src="assets/img/marquees/arcade_flicky.png" crossorigin="anonymous" />
-        <img id="arcade_qbert" src="assets/img/marquees/arcade_qbert.png" crossorigin="anonymous" />
+        <img id="cover" src="assets/img/marquees/internetarcade.jpg" />
+        <img id="arcade_flicky" src="assets/img/marquees/arcade_flicky.png" />
+        <img id="arcade_qbert" src="assets/img/marquees/arcade_qbert.png" />
         <img id="arcade_marble" src="assets/img/marquees/arcade_marble.png" />
-        <img id="arcade_rtype2" src="assets/img/marquees/arcade_rtype2.png" crossorigin="anonymous" />
-        <img id="arcade_altbeast" src="assets/img/marquees/arcade_altbeast.png" crossorigin="anonymous" />
-        <img id="arcade_hellfire" src="assets/img/marquees/arcade_hellfire.png" crossorigin="anonymous" />
-        <img id="arcade_dyger" src="assets/img/marquees/arcade_dyger.png" crossorigin="anonymous" />
-        <img id="arcade_rtype" src="assets/img/marquees/arcade_rtype.png" crossorigin="anonymous" />
-        <img id="arcade_wbml" src="assets/img/marquees/arcade_wbml.png" crossorigin="anonymous" />
-        <img id="arcade_wboy" src="assets/img/marquees/arcade_wboy.png" crossorigin="anonymous" />
+        <img id="arcade_rtype2" src="assets/img/marquees/arcade_rtype2.png" />
+        <img id="arcade_altbeast" src="assets/img/marquees/arcade_altbeast.png" />
+        <img id="arcade_hellfire" src="assets/img/marquees/arcade_hellfire.png" />
+        <img id="arcade_dyger" src="assets/img/marquees/arcade_dyger.png" />
+        <img id="arcade_rtype" src="assets/img/marquees/arcade_rtype.png" />
+        <img id="arcade_wbml" src="assets/img/marquees/arcade_wbml.png" />
+        <img id="arcade_wboy" src="assets/img/marquees/arcade_wboy.png" />
+        <img id="bublbobl" src="assets/img/marquees/arcade_bublbobl.png" />
 
         <img id="dogecoin-img" src="assets/img/dogecoin.png" />
 
@@ -105,8 +106,8 @@
         <a-mixin id="cube-hovered" material="color: green">
         </a-mixin>
         <a-mixin id="cube-dragover" material="wireframe: true;"></a-mixin>
-        <a-mixin id="coin-door" drag-droppable geometry=" width:0.24;height:0.35;depth:0.04"></a-mixin>
-        <a-mixin id="coin-door-dragover" material="color: green"></a-mixin>
+        <a-mixin id="coindoor" drag-droppable geometry=" width:0.24;height:0.35;depth:0.04"></a-mixin>
+        <a-mixin id="coindoor-dragover" material="color: green"></a-mixin>
 
     </a-assets>
 
@@ -116,14 +117,14 @@
     <a-plane id="screen" width="0.500" height="0.400" position="-0.034 1.583 -4.045" rotation="-61 0 0" canvas-surface material="shader:gif;src:#static-img" geometry="width:0.4"></a-plane>
     <!--<a-entity id="screen-light" area-light="intensity:0.2;width:0.38;height:0.4;showHelper:false" width="0.500" height="0.400" position="-0.22 1.588 -4.051" rotation="-61 0 0"></a-entity>-->
 
-    <a-box id="coin-door" mixin="coin-door" color="#ff0000" position="-0.027 0.936 -3.493">
+    <a-box id="coin-door" mixin="coindoor" material="color: #ff0000" position="-0.027 0.936 -3.493">
         <a-box id="coin-slot" color="#000000" position="-0.051 0 0.014" geometry="height:0.11;width:0.02;depth:0.02"></a-box>
         <a-box id="coin-button" color="#ffffff" position="0.039 0.003 0.033" geometry="height:0.09;depth:0.06;width:0.09"></a-box>
     </a-box>
 
     <a-box id="cabinet-collider" static-body position="-0.041 1.086 -3.939" geometry="depth:0.92;height:2.17;width:0.77" material="opacity:0">
         <a-entity id="cabinet" class="ignore-ray" gltf-model-next="#cabinet-model" rotation="0 180 0" position="0.038 0.334 0.139">
-            <a-image id="marquee" src="#arcade_marble" width="0.61" height="0.16" position="0.04 0.613 -0.097" rotation="0 180 0" material=""></a-image>
+            <a-image id="marquee" src="#cover" width="0.61" height="0.16" position="0.04 0.613 -0.097" rotation="0 180 0" material=""></a-image>
         </a-entity>
     </a-box>
 
@@ -133,11 +134,11 @@
         <a-box id="table-collider" static-body="sphereRadius:NaN" position="0.017 0.144 -0.012" rotation="-0.34377467707849396 6.18794418741289 0.6875493541569879" material="opacity: 0" geometry="height:0.09000000000000005;width:2.3899999999999997;depth:0.78"></a-box>
     </a-entity>
 
-    <a-entity id="test-token" mixin="token" position="0.9442310971683285 1.1923137777287387 -1.652685232190645" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token2" mixin="token" position="0.767 1.192 -1.893" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token3" mixin="token" position="0.8288902628227308 1.191118910112886 -1.6998713936634506" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token4" mixin="token" position="0.6920398978422299 1.1914564043956597 -2.031535811221873" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
-    <a-entity id="test-token5" mixin="token" position="0.9644002374420383 1.1938130720076723 -1.880876278893093" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token" class="token" mixin="token" position="0.9442310971683285 1.1923137777287387 -1.652685232190645" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token2" class="token" mixin="token" position="0.767 1.192 -1.893" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token3" class="token" mixin="token" position="0.8288902628227308 1.191118910112886 -1.6998713936634506" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token4" class="token" mixin="token" position="0.6920398978422299 1.1914564043956597 -2.031535811221873" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
+    <a-entity id="test-token5" class="token" mixin="token" position="0.9644002374420383 1.1938130720076723 -1.880876278893093" dynamic-body auto-fall-respawn="fallHeight: -10; respawnPosition: 1.389 2 -2.922; respawnRotation: 0 0 0"></a-entity>
     <!--<a-entity id="floor-light1" area-light="width:0.89;height:0.1; intensity: 0.1" position="0.347 0.105 -3.494" rotation="0 90 0"></a-entity>
     <a-entity id="floor-light2" area-light="width:0.89;height:0.1; intensity: 0.1" position="-0.434 0.105 -4.382" rotation="0 -90 0"></a-entity>-->
 
