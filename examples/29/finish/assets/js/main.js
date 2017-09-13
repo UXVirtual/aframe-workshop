@@ -57,16 +57,16 @@ AFRAME.registerSystem('main', {
             //list of popular MAME games on IA: https://archive.org/details/internetarcade
 
             //local ROM
-            var emulator = this.loadMAME('bublbobl'); //good performance
+            //var emulator = this.loadMAME('bublbobl'); //good performance
 
             //Z80 based games tend to work better
 
-            /*
+
 
             //configs downloadable from https://archive.org/download/emularity_config_v1
             //var emulator = this.loadIAGame("arcade_flicky");
-            //var emulator = this.loadIAGame("arcade_qbert");
-            var emulator = this.loadIAGame("arcade_marble"); //good performance
+            var emulator = this.loadIAGame("arcade_qbert");
+            //var emulator = this.loadIAGame("arcade_marble"); //good performance
             //var emulator = this.loadIAGame("arcade_rtype2"); //good performance
             //var emulator = this.loadIAGame("arcade_altbeast");
             //var emulator = this.loadIAGame("arcade_hellfire"); //good performance
@@ -78,7 +78,7 @@ AFRAME.registerSystem('main', {
             //var emulator = this.loadIAGame("arcade_wb3"); //good performance
             //var emulator = this.loadIAGame("arcade_wbml"); //good performance
             //var emulator = this.loadIAGame("arcade_wboy"); //good performance
-*/
+
 
 
             emulator.setScale(1);
@@ -125,9 +125,10 @@ AFRAME.registerSystem('main', {
             console.log(e);
         });*/
         // Simulate the key press
-        $('body').simulateKeyPress('5');
+        //$(window).simulateKeyPress('5');
+        $(window).trigger({type: 'keypress', which: 53, keyCode: 53});
 
-        console.log('jquery: ',$);
+        //console.log('jquery: ',$);
 
         console.log('inserted coin');
     },
@@ -148,7 +149,7 @@ AFRAME.registerSystem('main', {
                 JSMAMELoader.nativeResolution(256, 256),
                 JSMAMELoader.extraArgs(['-fs', String(this.frameSkip), '-nosleep', '-nojoy', '-pause_brightness', '0.3', '-nosamples', '-volume', String(this.mameVolume)]), //full list of commands available here: http://docs.mamedev.org/commandline/commandline-all.html
                 JSMAMELoader.sampleRate('44000'),
-                JSMAMELoader.emulatorJS("//cors.archive.org/cors/emularity_engine_v1/mame"+identifier+".js.gz"), //bios files can be downloaded from https://archive.org/download/emularity_engine_v1/
+                JSMAMELoader.emulatorJS("assets/js/emularity/emulators/jsmess/mame"+identifier+".js"), //bios files can be downloaded from https://archive.org/download/emularity_engine_v1/
                 JSMAMELoader.mountFile(identifier+".zip",
                     JSMAMELoader.fetchFile("Game File",
                         "assets/js/emularity/emulators/jsmess/"+identifier+".zip")),
