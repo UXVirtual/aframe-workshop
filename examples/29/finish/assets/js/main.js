@@ -12,20 +12,28 @@ AFRAME.registerSystem('main', {
 
         const cursorEl = document.getElementById("my-cursor");
 
+        const cameraEl = document.getElementById("camera");
+
+        cameraEl.addEventListener('ondrop',function(e){
+            console.log('On drop: ', e.relatedTarget);
+        });
 
         sceneEl.addEventListener('loaded',function(){
 
-            var superHands = cursorEl.components['super-hands'];
+            if(cursorEl){
+                var superHands = cursorEl.components['super-hands'];
 
-            window.addEventListener('mousedown',function(e){
-                console.log('mousedown');
-                superHands.onGrabStartButton();
-            });
+                window.addEventListener('mousedown',function(e){
+                    console.log('mousedown');
+                    superHands.onGrabStartButton();
+                });
 
-            window.addEventListener('mouseup',function(e){
-                console.log('mouseup');
-                superHands.onGrabEndButton();
-            });
+                window.addEventListener('mouseup',function(e){
+                    console.log('mouseup');
+                    superHands.onGrabEndButton();
+                });
+            }
+
         });
 
         sceneEl.addEventListener('renderstart',function(){

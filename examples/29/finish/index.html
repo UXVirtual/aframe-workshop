@@ -82,30 +82,31 @@
         <a-asset-item id="cabinet-model" src="assets/gltf/arcade_machine/scene.gltf"></a-asset-item>
         <a-asset-item id="table-model" src="assets/gltf/beer_table/scene.gltf"></a-asset-item>
         <img id="static-img" src="assets/img/static-downsized.gif" />
-        <img id="cover" src="http://crossorigin.me/https://archive.org/services/img/internetarcade" crossorigin="anonymous" />
-        <img id="arcade_flicky" src="http://crossorigin.me/https://archive.org/services/img/arcade_flicky" crossorigin="anonymous" />
-        <img id="arcade_qbert" src="http://crossorigin.me/https://archive.org/services/img/arcade_qbert" crossorigin="anonymous" />
-        <img id="arcade_marble" src="http://crossorigin.me/https://archive.org/services/img/arcade_marble" crossorigin="anonymous" />
-        <img id="arcade_rtype2" src="http://crossorigin.me/https://archive.org/services/img/arcade_rtype2" crossorigin="anonymous" />
-        <img id="arcade_altbeast" src="http://crossorigin.me/https://archive.org/services/img/arcade_altbeast" crossorigin="anonymous" />
-        <img id="arcade_hellfire" src="http://crossorigin.me/https://archive.org/services/img/arcade_hellfire" crossorigin="anonymous" />
-        <img id="arcade_imgfight" src="http://crossorigin.me/https://archive.org/services/img/arcade_imgfight" crossorigin="anonymous" />
-        <img id="arcade_dyger" src="http://crossorigin.me/https://archive.org/services/img/arcade_dyger" crossorigin="anonymous" />
-        <img id="arcade_rtype" src="http://crossorigin.me/https://archive.org/services/img/arcade_rtype" crossorigin="anonymous" />
-        <img id="arcade_wb3" src="http://crossorigin.me/https://archive.org/services/img/arcade_wb3" crossorigin="anonymous" />
-        <img id="arcade_wbml" src="http://crossorigin.me/https://archive.org/services/img/arcade_wbml" crossorigin="anonymous" />
-        <img id="arcade_wboy" src="http://crossorigin.me/https://archive.org/services/img/arcade_wboy" crossorigin="anonymous" />
+        <img id="cover" src="assets/img/marquees/internetarcade.jpeg" crossorigin="anonymous" />
+        <img id="arcade_flicky" src="assets/img/marquees/arcade_flicky.png" crossorigin="anonymous" />
+        <img id="arcade_qbert" src="assets/img/marquees/arcade_qbert.png" crossorigin="anonymous" />
+        <img id="arcade_marble" src="assets/img/marquees/arcade_marble.png" />
+        <img id="arcade_rtype2" src="assets/img/marquees/arcade_rtype2.png" crossorigin="anonymous" />
+        <img id="arcade_altbeast" src="assets/img/marquees/arcade_altbeast.png" crossorigin="anonymous" />
+        <img id="arcade_hellfire" src="assets/img/marquees/arcade_hellfire.png" crossorigin="anonymous" />
+        <img id="arcade_dyger" src="assets/img/marquees/arcade_dyger.png" crossorigin="anonymous" />
+        <img id="arcade_rtype" src="assets/img/marquees/arcade_rtype.png" crossorigin="anonymous" />
+        <img id="arcade_wbml" src="assets/img/marquees/arcade_wbml.png" crossorigin="anonymous" />
+        <img id="arcade_wboy" src="assets/img/marquees/arcade_wboy.png" crossorigin="anonymous" />
 
         <img id="dogecoin-img" src="assets/img/dogecoin.png" />
 
         <!-- note: for hovered state mixins to work the entity mixin applied to must be an entity, not a-cylinder, a-box etc -->
-        <a-mixin id="token" grabbable hoverable material="color: #ffcc33; src: #dogecoin-img" geometry="primitive: cylinder; height:0.01;radius:0.05;"></a-mixin>
+        <a-mixin id="token" grabbable drag-droppable hoverable material="color: #ffcc33; src: #dogecoin-img" geometry="primitive: cylinder; height:0.01;radius:0.05;"></a-mixin>
         <a-mixin id="token-hovered" material="color: #ffff00"></a-mixin>
+        <a-mixin id="token-dragover" material="color: green"></a-mixin>
         <a-mixin id="cube" geometry="primitive: box; width: 0.5; height: 0.5; depth: 0.5"
                  hoverable grabbable material="color: blue"></a-mixin>
         <a-mixin id="cube-hovered" material="color: green">
         </a-mixin>
         <a-mixin id="cube-dragover" material="wireframe: true;"></a-mixin>
+        <a-mixin id="coin-door" drag-droppable geometry=" width:0.24;height:0.35;depth:0.04"></a-mixin>
+        <a-mixin id="coin-door-dragover" material="color: green"></a-mixin>
 
     </a-assets>
 
@@ -115,7 +116,7 @@
     <a-plane id="screen" width="0.500" height="0.400" position="-0.034 1.583 -4.045" rotation="-61 0 0" canvas-surface material="shader:gif;src:#static-img" geometry="width:0.4"></a-plane>
     <!--<a-entity id="screen-light" area-light="intensity:0.2;width:0.38;height:0.4;showHelper:false" width="0.500" height="0.400" position="-0.22 1.588 -4.051" rotation="-61 0 0"></a-entity>-->
 
-    <a-box id="coin-door" color="#FF0000" position="-0.027 0.936 -3.493" geometry="width:0.24;height:0.35;depth:0.04">
+    <a-box id="coin-door" mixin="coin-door" color="#ff0000" position="-0.027 0.936 -3.493">
         <a-box id="coin-slot" color="#000000" position="-0.051 0 0.014" geometry="height:0.11;width:0.02;depth:0.02"></a-box>
         <a-box id="coin-button" color="#ffffff" position="0.039 0.003 0.033" geometry="height:0.09;depth:0.06;width:0.09"></a-box>
     </a-box>
