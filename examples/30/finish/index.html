@@ -47,7 +47,9 @@
     <a-light id="spotlight1" type="spot" position="0 3.821 -1.234" rotation="-90.01166961505233 180.02333923010465 180.02333923010465" light="penumbra:0.07;intensity:0.31;angle:41.89;shadowCameraVisible:false"></a-light>
 
     <a-box height="0.1" width="0.4" depth="0.4" id="other-box" auto-fall-respawn="fallHeight: -10; respawnPosition: 0 0 0; respawnRotation: 0 0 0" dynamic-body grabbable material="opacity:0">
-        <a-plane rotation="-90 -90 0" width="0.4" height="0.4" color="#cccccc"  material="shader: html; target: #book-content; width: 1024; height: 1024;" position="0 0.13 0"></a-plane>
+        <a-entity id="page-container" rotation="0 -90 2.790">
+            <a-plane id="page" rotation="-90 0 0" width="0.4" height="0.4" color="#cccccc"  material="shader: html; target: #book-content; width: 1024; height: 1024;" position="0 0.13 0"></a-plane>
+        </a-entity>
         <a-box height="0.1" width="0.4" depth="0.4" color="white" position="0 0.07 0"></a-box>
         <a-box height="0.05" width="0.4" depth="0.4" color="green"></a-box>
     </a-box>
