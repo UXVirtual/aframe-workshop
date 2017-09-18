@@ -8,9 +8,17 @@
     <!-- Bootstrap Bootswatch theme CSS - other themes available here: https://bootswatch.com -->
     <link rel="stylesheet" href="https://cdn.rawgit.com/thomaspark/bootswatch/gh-pages/slate/bootstrap.min.css" />
 
+    <style>
+        #book-content h1{
+            font-size: 56px;
+        }
+    </style>
+
     <!-- Bootstrap JS Dependencies -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/contentful@4.1.1/dist/contentful.min.js"></script>
 
     <!-- A-Frame JS Dependencies -->
     <script src="https://aframe.io/releases/0.6.1/aframe.js"></script>
@@ -22,6 +30,7 @@
 
     <!-- Custom A-Frame JS Components -->
     <script src="assets/js/components/auto-fall-respawn.js"></script>
+    <script src="assets/js/components/contentful.js"></script>
     <script src="assets/js/main.js"></script>
 
 </head>
@@ -48,7 +57,7 @@
 
     <a-box height="0.1" width="0.4" depth="0.4" id="other-box" auto-fall-respawn="fallHeight: -10; respawnPosition: 0 0 0; respawnRotation: 0 0 0" dynamic-body grabbable material="opacity:0">
         <a-entity id="page-container" rotation="0 -90 2.790">
-            <a-plane id="page" rotation="-90 0 0" width="0.4" height="0.4" color="#cccccc"  material="shader: html; target: #book-content; width: 1024; height: 1024;" position="0 0.13 0"></a-plane>
+            <a-plane id="page" rotation="-90 0 0" width="0.4" height="0.4" color="#cccccc" contentful="container: #book-content; spaceID: on1j314a6jvq; accessToken: 0fe175749893b3d63fb0dbeb38fc93994e98f91f31009a868dde4c84e5003d14"  material="shader: html; target: #book-content; fps: 1; width: 1024; height: 1024;" position="0 0.13 0"></a-plane>
         </a-entity>
         <a-box height="0.1" width="0.4" depth="0.4" color="white" position="0 0.07 0"></a-box>
         <a-box height="0.05" width="0.4" depth="0.4" color="green"></a-box>
@@ -74,16 +83,7 @@
 </a-scene>
 
 <div id="book-content" style="width:1024px; height:1024px; background: #fff; color: #000;  position: fixed; left: 0; top: 0; z-index: -1; overflow: hidden; padding: 2em">
-    <h1 style="font-size:56px;">Title</h1>
-    <p style="font-size:24px;">
-        Sed nec massa a diam venenatis eleifend. Quisque vitae ornare nulla, vel porta risus. Aliquam lectus justo,
-        tristique eget felis feugiat, euismod consequat ipsum. Pellentesque quam orci, placerat a mi ac, fringilla
-        finibus sem. Vestibulum dolor quam, blandit a lectus in, gravida sollicitudin felis. Phasellus eu ante quam.
-        Mauris sollicitudin, sapien vitae pulvinar blandit, odio augue auctor sem, sed tristique libero tellus ac arcu.
-        Quisque varius ultricies gravida. Morbi sodales tempor augue nec lacinia. Maecenas fringilla quis sem at maximus.
-        Duis aliquam odio in aliquam luctus. Vestibulum dictum turpis quam, a mollis ex finibus at. Vivamus vel dolor
-        leo.
-    </p>
+    <h1>Loading...</h1>
 </div>
 
 <div id="preloader-modal" class="modal instructions-modal" tabindex="-1" role="dialog" style="display: none;">
