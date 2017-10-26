@@ -29,7 +29,21 @@ AFRAME.registerComponent('contentful', {
     runBoilerplate: function() {
         this.displayContentTypes()
             .then(function(contentTypes){
-                this.displayEntries(contentTypes);
+                this.fetchBook('2oPiRg4wnSgMc8ISOWAa2Q').then(function(entry){
+                    var html;
+
+                    console.log('Book: ',entry);
+
+
+                    //html += '<h1>'+entry.fields.title+'</h1>'+entry.fields.pages.items[0].fields.body;
+                    //table.push([entry.sys.id, entry.fields[contentType.displayField] || '[empty]'])
+
+                    console.log('Inserting html: ',html);
+
+                    console.log('Container el: ',this.data.container);
+
+                    this.data.container.innerHTML = html;
+                }.bind(this));
             }.bind(this))
             .then(function(){
                 console.log('Want to go further? Feel free to check out this guide:');
@@ -97,7 +111,11 @@ AFRAME.registerComponent('contentful', {
 
                         console.log('Contenttype: ',contentType);
 
-                        html += '<h1>'+entry.fields[contentType.displayField]+'</h1>'+entry.fields['productDescription'];
+                        console.log('Fields: ',contentType);
+
+
+
+                        html += '<h1>'+entry.fields[contentType.displayField]+'</h1>'+entry.fields['body'];
                         //table.push([entry.sys.id, entry.fields[contentType.displayField] || '[empty]'])
                     });
 
@@ -128,6 +146,15 @@ AFRAME.registerComponent('contentful', {
                 content_type: contentType.sys.id
             })
             .then(function(response){ return response.items })
+            .catch(function(error){
+                console.log('\nError occurred while fetching Entries for '+contentType.name+':\n');
+                console.error(error)
+            });
+    },
+
+    fetchBook: function (bookID) {
+        return this.client.getEntries({'sys.id': bookID})
+            .then(function(response){ return response.items[0] })
             .catch(function(error){
                 console.log('\nError occurred while fetching Entries for '+contentType.name+':\n');
                 console.error(error)
