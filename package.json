@@ -12,7 +12,7 @@
     "start": "npm run serve-http",
     "serve": "concurrently --kill-others \"npm run networked-aframe\" \"npm run serve-http\"",
     "networked-aframe": "cd node_modules/networked-aframe; npm run dev",
-    "serve-http": "node node_modules/.bin/http-server ./ -p 3000 -o --gzip",
+    "serve-http": "node node_modules/.bin/http-server ./ -p 3002 -o --gzip",
     "generate-cert": "openssl req -nodes -x509 -newkey rsa:4096 -keyout localhost.key -out localhost.crt -days 365",
     "collada2gltf": "node assets/js/converters/collada2gltf.js",
     "obj2gltf": "node assets/js/converters/obj2gltf.js",
