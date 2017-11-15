@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>Example 32</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://aframe.io/releases/0.7.1/aframe.js"></script>
+    <script src="assets/js/components/pbr-skybox.js"></script>
+    <script src="https://cdn.rawgit.com/HAZARDU5/aframe-orbit-controls-component/master/dist/aframe-orbit-controls-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/DDSLoader.js"></script>
+    <script src="https://unpkg.com/aframe-cubemap-component@0.1.2/dist/aframe-cubemap-component.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <style>
+        #attribution {
+            font-family: sans-serif;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            font-size: 15px;
+            color: #fff;
+            z-index: 9999;
+        }
+
+        a{
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="attribution">Battle Damaged Sci-fi Helmet - PBR by <a href="https://sketchfab.com/theblueturtle_">The blue turtle</a></div>
+
+<a-scene main pbr-skybox="path: assets/img/environment/Bridge2/; entities: #model; setSkybox: false">
+    <a-assets>
+        <a-asset-item id="helmet-model" src="assets/gltf/damaged-helmet/DamagedHelmet.gltf"></a-asset-item>
+    </a-assets>
+    <a-entity id="model" gltf-model="#helmet-model" rotation="0 180 0"></a-entity>
+
+    <a-entity cubemap="folder: assets/img/environment/skybox/"></a-entity>
+
+    <a-camera
+      id="camera" camera mouse-cursor position="-0.116 -0.242 2.782" rotation="4.958 -2.586 0" orbit-controls="
+                autoRotate: false;
+                autoRotateSpeed:0.05;
+                target: #model;
+                enableDamping: true;
+                dampingFactor: 0.125;
+                rotateSpeed:0.05;
+                minDistance:2;
+                maxDistance:4;
+                minZoom:4;
+                maxZoom:0;
+        ">
+    </a-camera>
+</a-scene>
+
+</body>
+</html>
+
