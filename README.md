@@ -29,7 +29,9 @@ Example files for an A-Frame workshop [http://hazardu5.github.io/aframe-workshop
     ```
 
 2.  Access [http://localhost:3000](http://localhost:3000) or [http://YOUR_IP:3000](http://YOUR_IP:3000) where `YOUR_IP`
-    is the IP address of your computer on your network.
+    is the IP address of your computer on your network. If you're running Windows, check that Windows Firewall is set
+    to allow incoming connections over port 3000 over your network, or you may not be able to access the server from
+    another computer.
 
 ### Running HTTPS server
 
