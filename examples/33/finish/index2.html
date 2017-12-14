@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Example 33</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-geometry-merger-component/dist/aframe-geometry-merger-component.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <style>
+        #annotation {
+            font-family: sans-serif;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 15px;
+            color: #999;
+            z-index: 9999;
+        }
+
+        a{
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="annotation">Without Geometry Merging - 3 draw calls</div>
+
+<a-scene main stats>
+    <a-entity>
+        <a-entity geometry="primitive: box; buffer: false" position="-1 0.5 -2" material="color: #AAA"></a-entity>
+        <a-entity geometry="primitive: sphere; buffer: false" position="0 0.5 -2" material="color: #AAA"></a-entity>
+        <a-entity geometry="primitive: cylinder; buffer: false" position="1 0.5 -2" scale="0.5 0.5 05" material="color: #AAA"></a-entity>
+    </a-entity>
+</a-scene>
+
+</body>
+</html>
+
