@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Bar</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://cdn.rawgit.com/aframevr/aframe/c9817f2/dist/aframe-master.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</head>
+<body>
+
+<a-scene main>
+    <a-assets>
+        <a-asset-item id="bar-interior-obj" src="assets/obj/bar-interior/Bar.obj"></a-asset-item>
+        <a-asset-item id="bar-interior-mtl" src="assets/obj/bar-interior/Bar.mtl"></a-asset-item>
+    </a-assets>
+    <a-camera look-controls gamepad-controls position="0 1.6 0"></a-camera>
+
+    <a-entity obj-model="obj: #bar-interior-obj; mtl: #bar-interior-mtl" position="0 0 0" scale="1 1 1"></a-entity>
+
+</a-scene>
+
+</body>
+</html>
+

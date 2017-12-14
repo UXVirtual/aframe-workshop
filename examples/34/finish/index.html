@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Example 34</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://cdn.rawgit.com/aframevr/aframe/c9817f2/dist/aframe-master.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="assets/js/components/rectangular-portal.js"></script>
+    <script src="assets/js/main.js"></script>
+</head>
+<body>
+
+<a-scene main environment="preset: tron; shadow: true">
+    <a-assets>
+        <a-asset-item id="bar-exterior-obj" src="assets/obj/bar-exterior/CUPIC_BAR.obj"></a-asset-item>
+        <a-asset-item id="bar-exterior-mtl" src="assets/obj/bar-exterior/CUPIC_BAR.mtl"></a-asset-item>
+        <a-asset-item id="bar-interior-obj" src="assets/obj/bar-interior/Bar.obj"></a-asset-item>
+        <a-asset-item id="bar-interior-mtl" src="assets/obj/bar-interior/Bar.mtl"></a-asset-item>
+        <img id="bar-interior-screenshot" src="assets/img/screenshot-bar-1511425362224.jpg" />
+    </a-assets>
+    <a-camera look-controls gamepad-controls></a-camera>
+
+    <a-entity id="bar" obj-model="obj: #bar-exterior-obj; mtl: #bar-exterior-mtl" position="1.033 0.785 -0.998" rotation="0 -180 0" scale="0.020 0.020 0.020"></a-entity>
+
+    <a-link id="door" rectangular-portal="width:0.5; height:1" title="" image="#bar-interior-screenshot" visual-aspect-enabled="false" peek-mode="true" position="0 1 1.702" scale="2 2 2"></a-link>
+
+
+</a-scene>
+
+</body>
+</html>
+
