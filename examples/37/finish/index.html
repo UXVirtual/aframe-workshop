@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Example 37</title>
+
+    <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
+    <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
+
+    <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+</head>
+<body>
+
+<a-scene>
+    <a-assets>
+        <img id="sky" crossorigin="anonymous" src="https://cdn.rawgit.com/aframevr/aframe/v0.7.1/examples/primitives/models/peach-gradient.jpg">
+        <a-asset-item id="dancer" src="assets/gltf/bellydancing/bellydancing.gltf"></a-asset-item>
+    </a-assets>
+
+    <a-camera></a-camera>
+
+    <!--
+    1. Export model and animation from Mixamo
+    2. Use these settings: Format: FBX(.fbx), Skin: With Skin, Frames per Second: 60, Keyframe Reduction: none
+    3. Download the latest FBX2glTF converter from here: https://github.com/facebookincubator/FBX2glTF/releases
+    4. Run the converter with the following: FBX2glTF-windows-x64.exe -i model.fbx -o model
+    5. It will output a file called model.gltf and a buffer.bin file. Note that the conversion tool also supports mesh compression to geometries for increased performance
+    6. Set up these as per this HTML document, remembering to include aframe-extras so you can use the animation-mixer component to play the animations
+
+    -->
+
+    <a-entity animation-mixer position="0 0 -2" gltf-model="#dancer"></a-entity>
+
+    <a-plane rotation="-90 0 0"
+             color="#AAAAAA"
+             height="200"
+             width="200"
+             shadow="receive:true"></a-plane>
+
+    <a-sky src="#sky"></a-sky>
+
+    <a-entity light="type:directional;
+                       castShadow:true;
+                       color:#888;
+                       shadowMapWidth:1024;
+                       shadowMapHeight:1024;
+                       shadowCameraRight:20;
+                       shadowCameraTop:20;
+                       shadowCameraLeft:-20;
+                       shadowCameraBottom:-20"
+              position="-20 20 20"></a-entity>
+</a-scene>
+
+</body>
+</html>
+
