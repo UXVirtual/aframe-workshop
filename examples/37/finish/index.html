@@ -5,18 +5,42 @@
     <!-- Origin Trial Token, feature = WebVR (For Chrome M59+), origin = https://hazardu5.github.io, expires = 2017-06-28 -->
     <meta http-equiv="origin-trial" data-feature="WebVR (For Chrome M59+)" data-expires="2017-06-28" content="Ahx8Ww177dEDI39gZofw2EAg/ttuVUVwU+gMcmz+MsWVPhOpswY8beyZkJ683y01KLEgejjSP4aAPf1SR+L5UwcAAABUeyJvcmlnaW4iOiJodHRwczovL2hhemFyZHU1LmdpdGh1Yi5pbzo0NDMiLCJmZWF0dXJlIjoiV2ViVlIxLjEiLCJleHBpcnkiOjE0OTg3MDA2MjV9">
 
+    <!-- Bootstrap Bootswatch theme CSS - other themes available here: https://bootswatch.com -->
+    <link rel="stylesheet" href="https://cdn.rawgit.com/thomaspark/bootswatch/master/dist/slate/bootstrap.min.css" />
+
+    <!-- Bootstrap JS Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- A-Frame JS Dependencies -->
     <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.rawgit.com/matthewbryancurtis/aframe-star-system-component/db4f1030/index.js"></script>
     <script src="https://cdn.rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.rawgit.com/gladeye/aframe-preloader-component/1.0.2/dist/aframe-preloader-component.min.js"></script>
     <script src="assets/js/components/pbr-skybox.js"></script>
+    <script src="assets/js/components/advanced-texture.js"></script>
+
+    <style>
+        .modal-dialog {
+            max-width: 100%;
+        }
+
+        .modal-content {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: row;
+        }
+    </style>
 </head>
 <body>
 
 <a-scene pbr-skybox="path: assets/img/environment/Bridge2/; entities: #dancer; setSkybox: false">
     <a-assets>
         <img id="sky" crossorigin="anonymous" src="https://cdn.rawgit.com/aframevr/aframe/v0.7.1/examples/primitives/models/peach-gradient.jpg">
-        <a-asset-item id="dancer" src="assets/gltf/bellydancing2/bellydancing2.gltf"></a-asset-item>
+        <a-asset-item id="dancer" src="assets/gltf/dancer/dancer.gltf"></a-asset-item>
+        <a-asset-item id="bellydancer" src="assets/gltf/bellydancing2/bellydancing2.gltf"></a-asset-item>
     </a-assets>
 
     <a-camera></a-camera>
@@ -32,6 +56,8 @@
     -->
 
     <a-entity animation-mixer position="0 0 -2" gltf-model="#dancer"></a-entity>
+
+    <a-entity animation-mixer position="1 0 -2" gltf-model="#bellydancer"></a-entity>
 
     <a-entity position="0 0 0" environment="playArea: 1; preset: tron; shadow: true; shadowSize: 1024; flatShading: false; skyType: gradient; horizonColor: #00ccf4; lightPosition: 0 0.5 -0.2; fog: 0.6; ground: noise; groundTexture: checkerboard; groundColor: #030f22; groundColor2: #04142e; grid: 1x1; seed: 1; gridColor: #ee75eb; dressingColor: #ee75eb" environment-ground-texture="repeat: 10.1"></a-entity>
     <a-entity position="0 0 0" star-system="radius: 100; color: #ee75eb; size: 2; count: 1000; texture: assets/img/textures/plus.png"></a-entity>
