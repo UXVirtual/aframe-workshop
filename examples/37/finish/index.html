@@ -7,13 +7,16 @@
 
     <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
     <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
+    <script src="https://cdn.rawgit.com/matthewbryancurtis/aframe-star-system-component/db4f1030/index.js"></script>
+    <script src="https://cdn.rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="assets/js/components/pbr-skybox.js"></script>
 </head>
 <body>
 
-<a-scene>
+<a-scene pbr-skybox="path: assets/img/environment/Bridge2/; entities: #dancer; setSkybox: false">
     <a-assets>
         <img id="sky" crossorigin="anonymous" src="https://cdn.rawgit.com/aframevr/aframe/v0.7.1/examples/primitives/models/peach-gradient.jpg">
-        <a-asset-item id="dancer" src="assets/gltf/bellydancing/bellydancing.gltf"></a-asset-item>
+        <a-asset-item id="dancer" src="assets/gltf/bellydancing2/bellydancing2.gltf"></a-asset-item>
     </a-assets>
 
     <a-camera></a-camera>
@@ -30,24 +33,9 @@
 
     <a-entity animation-mixer position="0 0 -2" gltf-model="#dancer"></a-entity>
 
-    <a-plane rotation="-90 0 0"
-             color="#AAAAAA"
-             height="200"
-             width="200"
-             shadow="receive:true"></a-plane>
+    <a-entity position="0 0 0" environment="playArea: 1; preset: tron; shadow: true; shadowSize: 1024; flatShading: false; skyType: gradient; horizonColor: #00ccf4; lightPosition: 0 0.5 -0.2; fog: 0.6; ground: noise; groundTexture: checkerboard; groundColor: #030f22; groundColor2: #04142e; grid: 1x1; seed: 1; gridColor: #ee75eb; dressingColor: #ee75eb" environment-ground-texture="repeat: 10.1"></a-entity>
+    <a-entity position="0 0 0" star-system="radius: 100; color: #ee75eb; size: 2; count: 1000; texture: assets/img/textures/plus.png"></a-entity>
 
-    <a-sky src="#sky"></a-sky>
-
-    <a-entity light="type:directional;
-                       castShadow:true;
-                       color:#888;
-                       shadowMapWidth:1024;
-                       shadowMapHeight:1024;
-                       shadowCameraRight:20;
-                       shadowCameraTop:20;
-                       shadowCameraLeft:-20;
-                       shadowCameraBottom:-20"
-              position="-20 20 20"></a-entity>
 </a-scene>
 
 </body>
