@@ -29,9 +29,12 @@
         <img id="tv" src="assets/img/textures/sony-bravia.jpg"/>
         <img id="wood" src="assets/img/textures/gl-seamless-wood-01.jpg" />
         <img id="wall-normal" src="assets/img/textures/609-normal.jpg" />
+        <img id="wall2" src="assets/img/textures/wall13_diffuse_4.jpg" />
+        <img id="wall2-normal" src="assets/img/textures/wall13_normal.jpg" />
+        <img id="wall2-specular" src="assets/img/textures/wall13_specular.jpg" />
 
         <a-mixin id="leg" material="sphericalEnvMap: #envmap; roughness: 0; metalness: 1; color: #cccccc"></a-mixin>
-        <a-mixin id="wall" material="roughness: 1; metalness: 0; color: #ffffff; normalMap: #wall-normal; normalTextureRepeat: 8 8; side: double; repeat: 8 8"></a-mixin>
+        <a-mixin id="wall" material="src: #wall2; normalMap: #wall2-normal; roughnessMap: #wall2-specular; metalness: 0.5"></a-mixin>
     </a-assets>
 
     <a-entity position="0 0.1 0">
