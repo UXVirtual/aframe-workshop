@@ -10,8 +10,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run serve-http",
-    "serve": "concurrently --kill-others \"npm run networked-aframe\" \"npm run serve-http\"",
-    "networked-aframe": "cd node_modules/networked-aframe; npm run dev",
     "serve-http": "node node_modules/.bin/http-server ./ -p 3000 -o --gzip",
     "generate-cert": "openssl req -nodes -x509 -newkey rsa:4096 -keyout localhost.key -out localhost.crt -days 365",
     "collada2gltf": "node assets/js/converters/collada2gltf.js",
@@ -33,12 +31,10 @@
   "homepage": "https://github.com/HAZARDU5/aframe-workshop#readme",
   "devDependencies": {
     "collada2gltf": "0.0.0",
-    "concurrently": "^3.4.0",
-    "http-server": "^0.10.0",
+    "http-server": "^0.11.1",
     "imagemin": "^5.2.2",
-    "imagemin-mozjpeg": "^6.0.0",
-    "imagemin-pngquant": "^5.0.0",
-    "networked-aframe": "^0.2.0",
+    "imagemin-mozjpeg": "^7.0.0",
+    "imagemin-pngquant": "^6.0.0",
     "obj2gltf": "^1.1.1"
   },
   "dependencies": {}
